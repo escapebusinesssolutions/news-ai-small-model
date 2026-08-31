@@ -11,8 +11,8 @@
 | Extract proven components | DONE |
 | Repository structure | DONE |
 | Topic queue | DONE |
-| Generate | NEXT |
-| Affiliate links | TODO |
+| Generate | DONE — implementation complete; live provider test pending credentials |
+| Affiliate links | NEXT |
 | WordPress publish | TODO |
 | Cross-linking | TODO |
 | End-to-end pipeline | TODO |
@@ -27,10 +27,12 @@
 GitHub is the implementation source of truth. Notion holds the strategy and architecture.
 
 ## Current step
-STEP 3 — topic queue complete.
+STEP 4 — Generate implementation complete.
 
-## Topic queue
-30 initial buyer-intent topics covering keyboards, webcams, monitors, USB-C hubs/docks, headphones, microphones, office furniture, storage, networking, printers, speakers, lighting, cable management, and power.
+## Generate stage
+`generate.py` now loads the topic queue, calls the reused AI provider, requests structured buyer-intent article JSON, validates the response, creates a slug when needed, and returns the article record.
+
+The first live generation run requires an AI credential in the environment. No credentials are stored in the repository.
 
 ## Next action
-Implement the first real Generate stage using the extracted AI provider.
+Build affiliate-link insertion.
