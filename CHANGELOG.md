@@ -14,3 +14,5 @@
 
 ## Release policy
 Releases mark meaningful working milestones, not every commit.
+
+- STEP 8: connected Generate ? affiliate links ? cross-link ? WordPress pipeline; added pipeline tests and manual/scheduled workflow wiring.
