@@ -79,10 +79,27 @@ def _find_catalogue_product(products: list[dict[str, Any]], recommendation: dict
 
 
 def _insert_product_link(body: str, product_name: str, affiliate_url: str) -> str:
-    """Link the first plain-text product mention, or append a recommendation line."""
+    """Ensure the first product mention is one valid Markdown link.
+
+    If the model already linked the product, replace that URL with the authoritative
+    catalogue URL instead of creating nested Markdown links. This also repairs the
+    common malformed form ``[Name]([https://...](https://...))``.
+    """
     marker = f"[{product_name}]({affiliate_url})"
     if marker in body:
         return body
+
+    # Repair an existing Markdown link whose visible text is the exact product name.
+    link_pattern = re.compile(r"\[([^\]]+)\]\((https?://[^)]+)\)")
+    for match in link_pattern.finditer(body):
+        if match.group(1).strip().casefold() == product_name.casefold():
+            return body[:match.start()] + marker + body[match.end():]
+
+    # Repair the nested Markdown form sometimes emitted by the model.
+    nested_pattern = re.compile(r"\[([^\]]+)\]\(\[(https?://[^\]]+)\]\((https?://[^)]+)\)\)")
+    for match in nested_pattern.finditer(body):
+        if match.group(1).strip().casefold() == product_name.casefold():
+            return body[:match.start()] + marker + body[match.end():]
 
     linked_pattern = re.compile(r"\[[^\]]*\]\([^)]*\)")
     linked_spans = [m.span() for m in linked_pattern.finditer(body)]
