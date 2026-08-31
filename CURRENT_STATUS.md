@@ -11,10 +11,10 @@
 | Extract proven components | DONE |
 | Repository structure | DONE |
 | Topic queue | DONE |
-| Generate | DONE — implementation complete; live provider test pending credentials |
-| Affiliate links | NEXT |
-| WordPress publish | TODO |
-| Cross-linking | TODO |
+| Generate | DONE — live provider test pending credentials |
+| Affiliate links | DONE — catalogue adapter ready |
+| WordPress publish | DONE — publisher wired; live site connection pending credentials/site |
+| Cross-linking | NEXT |
 | End-to-end pipeline | TODO |
 | Testing | TODO |
 | GitHub Actions | SCAFFOLD READY |
@@ -27,12 +27,21 @@
 GitHub is the implementation source of truth. Notion holds the strategy and architecture.
 
 ## Current step
-STEP 4 — Generate implementation complete.
+STEP 6 — WordPress publishing implementation complete.
 
-## Generate stage
-`generate.py` now loads the topic queue, calls the reused AI provider, requests structured buyer-intent article JSON, validates the response, creates a slug when needed, and returns the article record.
+## WordPress publishing
+`publish.py` now converts the generated article into WordPress-ready HTML and calls the proven `reused/wordpress_publisher.py` module. The publisher defaults to safe draft mode and only publishes when `WORDPRESS_PUBLISH_ENABLED=true` and a valid access token is supplied.
 
-The first live generation run requires an AI credential in the environment. No credentials are stored in the repository.
+Required runtime settings:
+- `WORDPRESS_SITE_ID`
+- `WORDPRESS_ACCESS_TOKEN`
+- `WORDPRESS_PUBLISH_ENABLED`
+- optional `WORDPRESS_DEFAULT_STATUS`
+
+No WordPress credentials are stored in the repository.
+
+## Live connection status
+The code is ready for a real WordPress.com site, but a live publish test has not been performed because the new WordPress site/address and access token have not yet been supplied. The first live test should remain a draft until verified.
 
 ## Next action
-Build affiliate-link insertion.
+Build lightweight cross-linking.
