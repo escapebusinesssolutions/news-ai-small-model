@@ -36,5 +36,28 @@ def test_inserts_matching_catalogue_link(tmp_path, monkeypatch):
         "products": [{"name": "Example Keyboard", "why_it_is_relevant": "Test", "buying_note": "Test"}],
     }
     result = insert_affiliate_links(article)
+    assert result["products"][0]["affiliate_link_type"] == "product"
     assert "tag=techsignal-20" in result["products"][0]["affiliate_url"]
     assert "techsignal-20" in result["body_markdown"]
+    assert result["affiliate_search_links"] == 0
+
+
+def test_rejects_product_outside_catalogue(tmp_path, monkeypatch):
+    catalogue = tmp_path / "products.json"
+    catalogue.write_text(
+        '{"marketplace":"amazon.co.uk","tracking_id":"techsignal-20",'
+        '"products":[{"name":"Example Keyboard","url":"https://www.amazon.co.uk/dp/B000IB9QXI"}]}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr("insert_links.PRODUCTS_FILE", catalogue)
+    article = {
+        "title": "Example",
+        "body_markdown": "A short guide.",
+        "products": [{"name": "Unapproved Product", "why_it_is_relevant": "Test", "buying_note": "Test"}],
+    }
+    try:
+        insert_affiliate_links(article)
+    except ValueError as exc:
+        assert "outside the approved catalogue" in str(exc)
+        return
+    raise AssertionError("Uncatalogued product must be rejected")
