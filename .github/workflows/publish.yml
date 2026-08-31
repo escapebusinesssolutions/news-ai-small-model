@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       topic_index:
-        description: "Topic number from topics.json (0-29)"
+        description: "Topic number from topics.json (0-14)"
         required: false
         default: "0"
       publish:
-        description: "Actually create the WordPress post (otherwise dry-run)"
+        description: "Run the WordPress publishing path (status is controlled by WORDPRESS_DEFAULT_STATUS secret)"
         required: false
         default: "false"
   schedule:
@@ -35,18 +35,18 @@ jobs:
         env:
           AI_PROVIDER: openrouter
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          WORDPRESS_SITE_ID: 257062637
+          WORDPRESS_SITE_ID: ${{ secrets.WORDPRESS_SITE_ID }}
           WORDPRESS_ACCESS_TOKEN: ${{ secrets.WORDPRESS_ACCESS_TOKEN }}
           WORDPRESS_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
           WORDPRESS_APP_PASSWORD: ${{ secrets.WORDPRESS_APP_PASSWORD }}
           WORDPRESS_CLIENT_ID: ${{ secrets.WORDPRESS_CLIENT_ID }}
           WORDPRESS_CLIENT_SECRET: ${{ secrets.WORDPRESS_CLIENT_SECRET }}
           WORDPRESS_PUBLISH_ENABLED: ${{ github.event_name == 'schedule' || inputs.publish == 'true' }}
-          WORDPRESS_DEFAULT_STATUS: draft
+          WORDPRESS_DEFAULT_STATUS: ${{ secrets.WORDPRESS_DEFAULT_STATUS || 'draft' }}
         run: |
           if [ "${{ github.event_name }}" = "schedule" ]; then
             DAY_OF_YEAR=$(date -u +%j)
-            TOPIC_INDEX=$((10#$DAY_OF_YEAR % 30))
+            TOPIC_INDEX=$((10#$DAY_OF_YEAR % 15))
             echo "Scheduled run: topic index ${TOPIC_INDEX}"
             python pipeline.py --topic-index "$TOPIC_INDEX" --publish --output validation-report.json
           else
