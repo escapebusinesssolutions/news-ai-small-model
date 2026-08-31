@@ -1,0 +1,34 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, block-1-catalogue-authority]
+    paths:
+      - '**.py'
+      - 'products.json'
+      - 'requirements.txt'
+      - '.github/workflows/test.yml'
+  pull_request:
+    paths:
+      - '**.py'
+      - 'products.json'
+      - 'requirements.txt'
+      - '.github/workflows/test.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest
+      - name: Run Block 1 affiliate-link tests
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_affiliate_links.py
