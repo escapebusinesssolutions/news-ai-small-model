@@ -116,7 +116,31 @@ Do not claim personal testing. Do not invent current prices; use the supplied pr
 Return only the JSON object. Do not add markdown fences, commentary, or explanation.
 """
     raw = generate_text(SYSTEM_PROMPT, prompt)
-    article = _parse_json(raw)
+    try:
+        article = _parse_json(raw)
+    except ValueError as first_error:
+        # Free routed models can occasionally return a structurally incomplete JSON object.
+        # Retry once with an explicit repair request before failing the pipeline.
+        repair_prompt = f"""Repair this generated article into the required JSON schema.
+
+Original topic: {name}
+
+Allowed product brief:
+{json.dumps(product_brief, ensure_ascii=False, indent=2)}
+
+Original model output:
+{raw}
+
+Return ONLY valid JSON with title, slug, meta_description, body_markdown, and products.
+The products array must be non-empty and may contain ONLY products from the allowed product brief.
+For each selected product preserve the exact name, asin_or_id, price_range, and key_points from the brief.
+Do not invent products, facts, prices, tests, awards, availability, or personal experience.
+"""
+        try:
+            repaired = generate_text(SYSTEM_PROMPT, repair_prompt)
+            article = _parse_json(repaired)
+        except ValueError as repair_error:
+            raise ValueError(f"AI generation failed validation; initial error: {first_error}; repair error: {repair_error}") from repair_error
     article["source_topic"] = name
     article["category"] = topic.get("category", "general")
     article["product_brief"] = product_brief
