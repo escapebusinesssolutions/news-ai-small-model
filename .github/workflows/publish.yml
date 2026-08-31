@@ -48,7 +48,14 @@ jobs:
             DAY_OF_YEAR=$(date -u +%j)
             TOPIC_INDEX=$((10#$DAY_OF_YEAR % 30))
             echo "Scheduled run: topic index ${TOPIC_INDEX}"
-            python pipeline.py --topic-index "$TOPIC_INDEX" --publish
+            python pipeline.py --topic-index "$TOPIC_INDEX" --publish --output validation-report.json
           else
-            python pipeline.py --topic-index "${{ inputs.topic_index || '0' }}" ${{ inputs.publish == 'true' && '--publish' || '' }}
+            python pipeline.py --topic-index "${{ inputs.topic_index || '0' }}" ${{ inputs.publish == 'true' && '--publish' || '' }} --output validation-report.json
           fi
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: small-model-validation-report-${{ github.run_id }}
+          path: validation-report.json
+          if-no-files-found: error
