@@ -9,14 +9,14 @@
 |---|---|
 | Scope frozen | DONE |
 | Extract proven components | DONE |
-| Repository structure | NEXT |
-| Generate | TODO |
+| Repository structure | DONE |
+| Generate | NEXT |
 | Affiliate links | TODO |
 | WordPress publish | TODO |
 | Cross-linking | TODO |
 | End-to-end pipeline | TODO |
 | Testing | TODO |
-| GitHub Actions | TODO |
+| GitHub Actions | SCAFFOLD READY |
 | Unattended run | TODO |
 
 ## Current release
@@ -26,7 +26,7 @@
 GitHub is the implementation source of truth. Notion holds the strategy and architecture.
 
 ## Current issue
-#1 — STEP 2: Build Small Model structure
+STEP 2 — repository structure is complete.
 
 ## Next action
-Create the minimal runtime files and connect the first Generate stage.
+Implement the first real Generate stage using the extracted AI provider.
