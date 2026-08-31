@@ -56,9 +56,7 @@ def _openrouter_call(system: str, prompt: str, model: str, key: str,
     post = post or requests.post
     headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json",
                "HTTP-Referer": "https://escapebusinesssolutions.com", "X-Title": "News AI Small Model"}
-    models = [model] if model == DEFAULT_OPENROUTER_MODEL else [model]
-    if model == DEFAULT_OPENROUTER_MODEL:
-        models.extend(OPENROUTER_FREE_FALLBACK_MODELS)
+    models = [model] if model != DEFAULT_OPENROUTER_MODEL else [DEFAULT_OPENROUTER_MODEL, *OPENROUTER_FREE_FALLBACK_MODELS]
     failures = []
     for candidate in models:
         payload = {
@@ -75,13 +73,15 @@ def _openrouter_call(system: str, prompt: str, model: str, key: str,
             failures.append(f"{candidate}: network {type(exc).__name__}: {exc}")
             continue
         if response.status_code == 200:
-            data = response.json()
-            choices = data.get("choices", [])
-            if choices and isinstance(choices[0], dict):
-                content = choices[0].get("message", {}).get("content")
+            try:
+                data = response.json()
+                choices = data.get("choices", [])
+                content = choices[0].get("message", {}).get("content") if choices and isinstance(choices[0], dict) else None
                 if isinstance(content, str) and content.strip():
                     return content.strip()
-            failures.append(f"{candidate}: no text")
+                failures.append(f"{candidate}: no usable text")
+            except (ValueError, TypeError, KeyError, IndexError) as exc:
+                failures.append(f"{candidate}: malformed response {type(exc).__name__}: {exc}")
             continue
         failures.append(f"{candidate}: HTTP {response.status_code} {response.text[:300]}")
         if response.status_code not in (400, 404, 408, 409, 429, 500, 502, 503, 504):
