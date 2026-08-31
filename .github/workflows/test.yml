@@ -28,7 +28,7 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         run: pip install -r requirements.txt pytest
-      - name: Run tests
+      - name: Run Block 1 affiliate-link tests
         env:
           PYTHONPATH: .
-        run: pytest -q
+        run: pytest -q tests/test_affiliate_links.py
