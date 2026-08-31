@@ -33,12 +33,23 @@ def _slug(value: str) -> str:
 
 def _parse_json(text: str) -> dict[str, Any]:
     cleaned = text.strip()
+    if not cleaned:
+        raise ValueError("AI returned an empty response")
     if cleaned.startswith("```"):
         cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", cleaned, flags=re.I | re.S).strip()
     try:
         result = json.loads(cleaned)
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"AI returned invalid JSON: {exc}") from exc
+    except json.JSONDecodeError:
+        # Some free models still wrap otherwise-valid JSON in a short preamble.
+        # Extract the outermost JSON object without accepting arbitrary prose as content.
+        start = cleaned.find("{")
+        end = cleaned.rfind("}")
+        if start < 0 or end <= start:
+            raise ValueError("AI returned invalid JSON: no JSON object found")
+        try:
+            result = json.loads(cleaned[start:end + 1])
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"AI returned invalid JSON: {exc}") from exc
     if not isinstance(result, dict):
         raise ValueError("AI response must be a JSON object")
     required = ("title", "body_markdown", "products")
@@ -64,6 +75,7 @@ Category: {topic.get('category', 'general')}
 
 Prioritise practical buying advice and clear recommendations. Do not claim personal testing.
 If exact current product facts are not supplied, describe selection criteria and avoid unsupported specifics.
+Return only the JSON object. Do not add markdown fences, commentary, or explanation.
 """
     raw = generate_text(SYSTEM_PROMPT, prompt)
     article = _parse_json(raw)
