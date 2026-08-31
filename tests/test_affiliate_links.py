@@ -1,5 +1,7 @@
 from insert_links import build_affiliate_url, insert_affiliate_links, load_catalogue
 
+# Block 1: the catalogue is the only allowed commercial inventory.
+
 
 def test_build_amazon_uk_affiliate_url():
     source = "https://www.amazon.co.uk/dp/B000IB9QXI/ref=nosim"
