@@ -12,13 +12,18 @@ TOPICS_FILE = Path(__file__).with_name("topics.json")
 PRODUCTS_FILE = Path(__file__).with_name("products.json")
 
 SYSTEM_PROMPT = """You are the editorial writer for a practical technology buying-guide website.
+Write for intelligent human readers who need a useful answer, not for search engines or affiliate clicks.
+Sound natural, direct, specific, and conversational. Avoid generic AI filler, exaggerated certainty, repetitive phrasing, and marketing language.
 Write original buyer-intent decision-support content, not a generic listicle.
 Use the supplied product brief as the only product-fact source. Do not invent prices, specifications, tests, awards, availability, quotes, or personal experience.
 Never rewrite or paraphrase a competitor article. Do not claim you tested products.
+Separate facts from judgement: explain what the supplied information supports, then give a practical opinion about fit and trade-offs.
+Do not make unsupported claims such as "best for everyone", "only option", "clear winner", "punches above its price", or similar absolute claims unless the supplied brief explicitly establishes them.
 For buyer-guide topics, use a clear "best X under Y" or similarly specific decision-support structure when the topic supports it. For comparison topics, use an explicit "X vs Y" decision structure.
+Product names may be mentioned normally, but do not create Markdown links yourself; affiliate links are inserted and normalized by a separate validation stage.
 Return ONLY valid JSON with these keys: title, slug, meta_description, body_markdown, products.
 Each selected product must use a name from the supplied product brief and preserve its exact asin_or_id, price_range, and key_points. It may additionally contain why_it_is_relevant and buying_note.
-body_markdown must contain a concise introduction, useful recommendation/comparison sections, and a short conclusion.
+body_markdown must contain a concise introduction, useful recommendation/comparison sections, practical trade-offs, and a short conclusion.
 """
 
 
@@ -101,11 +106,13 @@ def generate_article(topic: dict[str, Any] | str) -> dict[str, Any]:
     if not name:
         raise ValueError("Topic is empty")
     product_brief = build_product_brief(topic)
-    prompt = f"""Create one original buyer-intent article for this topic:
+    prompt = f"""Create one original buyer-intent article for this topic.
 
 Topic: {name}
 Intent: {topic.get('intent', 'buyer_guide')}
 Category: {topic.get('category', 'general')}
+
+Write for a real reader. Give them a clear answer, explain meaningful trade-offs, and state a defensible recommendation. Do not write for SEO and do not pad the article to reach a word count.
 
 Product brief (the only permitted source of product facts):
 {json.dumps(product_brief, ensure_ascii=False, indent=2)}
@@ -113,15 +120,15 @@ Product brief (the only permitted source of product facts):
 Use only products from this brief. Keep product names, asin_or_id, price_range, and key_points exactly as supplied.
 Prioritise practical buying advice, trade-offs, fit-for-use, and clear recommendations.
 Do not claim personal testing. Do not invent current prices; use the supplied price ranges only when useful.
+Do not make unsupported absolute claims. If the brief does not support a comparison or claim, qualify it or leave it out.
+Do not create Markdown links; mention product names as plain text and let the affiliate-link stage handle links.
 Return only the JSON object. Do not add markdown fences, commentary, or explanation.
 """
     raw = generate_text(SYSTEM_PROMPT, prompt)
     try:
         article = _parse_json(raw)
     except ValueError as first_error:
-        # Free routed models can occasionally return a structurally incomplete JSON object.
-        # Retry once with an explicit repair request before failing the pipeline.
-        repair_prompt = f"""Repair this generated article into the required JSON schema.
+        repair_prompt = f"""Repair this generated article into the required JSON schema while preserving the editorial rules.
 
 Original topic: {name}
 
@@ -134,7 +141,8 @@ Original model output:
 Return ONLY valid JSON with title, slug, meta_description, body_markdown, and products.
 The products array must be non-empty and may contain ONLY products from the allowed product brief.
 For each selected product preserve the exact name, asin_or_id, price_range, and key_points from the brief.
-Do not invent products, facts, prices, tests, awards, availability, or personal experience.
+Remove any Markdown links from product mentions. Do not invent products, facts, prices, tests, awards, availability, quotes, or personal experience.
+Make the writing direct and useful to a real reader; avoid generic AI filler and unsupported absolute claims.
 """
         try:
             repaired = generate_text(SYSTEM_PROMPT, repair_prompt)
