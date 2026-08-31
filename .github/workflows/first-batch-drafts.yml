@@ -1,10 +1,10 @@
-﻿name: First Batch Drafts
+name: First Batch Publish
 
 on:
   workflow_dispatch:
 
 jobs:
-  draft:
+  publish:
     strategy:
       fail-fast: false
       matrix:
@@ -20,7 +20,7 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Generate and publish draft
+      - name: Generate and publish
         env:
           AI_PROVIDER: openrouter
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
@@ -31,7 +31,7 @@ jobs:
           WORDPRESS_CLIENT_ID: ${{ secrets.WORDPRESS_CLIENT_ID }}
           WORDPRESS_CLIENT_SECRET: ${{ secrets.WORDPRESS_CLIENT_SECRET }}
           WORDPRESS_PUBLISH_ENABLED: 'true'
-          WORDPRESS_DEFAULT_STATUS: draft
+          WORDPRESS_DEFAULT_STATUS: publish
         run: python pipeline.py --topic-index "${{ matrix.topic_index }}" --publish --output validation-report-${{ matrix.topic_index }}.json
       - name: Upload validation report
         if: always()
