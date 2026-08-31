@@ -14,17 +14,25 @@ from generate import generate_article, load_topics
 from insert_links import insert_affiliate_links
 from publish import publish_article
 
-SITE_ID = os.getenv("WORDPRESS_SITE_ID", "257062637")
-WP_POSTS_URL = f"https://public-api.wordpress.com/rest/v1.1/sites/{SITE_ID}/posts/"
+SITE_URL = os.getenv("WORDPRESS_SITE_URL", "https://techsignal.wasmer.app").rstrip("/")
+WP_POSTS_URL = f"{SITE_URL}/wp-json/wp/v2/posts"
 VALIDATION_PATH = Path("validation-report.json")
 
 
 def load_existing_articles(limit: int = 100) -> list[dict[str, Any]]:
-    """Read public WordPress posts for lightweight internal-link discovery."""
-    response = requests.get(WP_POSTS_URL, params={"number": limit}, timeout=30)
+    """Read WordPress posts for lightweight internal-link discovery."""
+    response = requests.get(WP_POSTS_URL, params={"per_page": min(limit, 100), "_fields": "title,link,slug"}, timeout=30)
     response.raise_for_status()
-    posts = response.json().get("posts", [])
-    return [{"title": p.get("title", ""), "url": p.get("URL", ""), "slug": p.get("slug", "")} for p in posts if p.get("title") and p.get("URL")]
+    posts = response.json()
+    return [
+        {
+            "title": str(p.get("title", {}).get("rendered", "")),
+            "url": p.get("link", ""),
+            "slug": p.get("slug", ""),
+        }
+        for p in posts
+        if p.get("title", {}).get("rendered") and p.get("link")
+    ]
 
 
 def build_validation_report(article: dict[str, Any], topic: dict[str, Any]) -> dict[str, Any]:
