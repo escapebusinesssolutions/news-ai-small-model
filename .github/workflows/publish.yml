@@ -1,7 +1,16 @@
-name: Small Model Publish
+﻿name: Small Model Publish
 
 on:
   workflow_dispatch:
+    inputs:
+      topic_index:
+        description: "Topic number from topics.json"
+        required: false
+        default: "0"
+      publish:
+        description: "Actually create the WordPress post (otherwise dry-run)"
+        required: false
+        default: "false"
   schedule:
     - cron: '17 6 * * 1,3,5'
 
@@ -17,5 +26,12 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run pipeline
-        run: python -c "print('Small Model pipeline scaffold: implementation follows in Steps 3-10')"
+      - name: Run complete pipeline
+        env:
+          AI_PROVIDER: openrouter
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          WORDPRESS_SITE_ID: ${{ secrets.WORDPRESS_SITE_ID }}
+          WORDPRESS_ACCESS_TOKEN: ${{ secrets.WORDPRESS_ACCESS_TOKEN }}
+          WORDPRESS_PUBLISH_ENABLED: ${{ inputs.publish == 'true' && 'true' || 'false' }}
+          WORDPRESS_DEFAULT_STATUS: draft
+        run: python pipeline.py --topic-index "${{ inputs.topic_index || '0' }}" ${{ inputs.publish == 'true' && '--publish' || '' }}
