@@ -30,4 +30,11 @@ jobs:
           WORDPRESS_CLIENT_SECRET: ${{ secrets.WORDPRESS_CLIENT_SECRET }}
           WORDPRESS_PUBLISH_ENABLED: 'true'
           WORDPRESS_DEFAULT_STATUS: draft
-        run: python pipeline.py --topic-index "13" --publish
+        run: python pipeline.py --topic-index "13" --publish --output validation-report.json
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalogue-validation-${{ github.run_id }}
+          path: validation-report.json
+          if-no-files-found: error
