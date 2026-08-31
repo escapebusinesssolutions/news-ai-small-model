@@ -55,16 +55,20 @@ def _openrouter_call(system: str, prompt: str, model: str, key: str,
                      post: Callable | None = None) -> str:
     post = post or requests.post
     headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json",
-               "HTTP-Referer": "https://escapebusinesssolutions.com", "X-Title": "News AI Automation"}
+               "HTTP-Referer": "https://escapebusinesssolutions.com", "X-Title": "News AI Small Model"}
     models = [model] if model == DEFAULT_OPENROUTER_MODEL else [model]
     if model == DEFAULT_OPENROUTER_MODEL:
         models.extend(OPENROUTER_FREE_FALLBACK_MODELS)
     failures = []
     for candidate in models:
-        payload = {"model": candidate, "messages": [
-            {"role": "system", "content": system},
-            {"role": "user", "content": prompt},
-        ]}
+        payload = {
+            "model": candidate,
+            "messages": [
+                {"role": "system", "content": system},
+                {"role": "user", "content": prompt},
+            ],
+            "response_format": {"type": "json_object"},
+        }
         try:
             response = post(OPENROUTER_URL, headers=headers, json=payload, timeout=120)
         except requests.RequestException as exc:
@@ -80,7 +84,7 @@ def _openrouter_call(system: str, prompt: str, model: str, key: str,
             failures.append(f"{candidate}: no text")
             continue
         failures.append(f"{candidate}: HTTP {response.status_code} {response.text[:300]}")
-        if response.status_code not in (404, 408, 409, 429, 500, 502, 503, 504):
+        if response.status_code not in (400, 404, 408, 409, 429, 500, 502, 503, 504):
             break
     detail = "; ".join(failures)
     raise ProviderError(f"OpenRouter free generation unavailable: {detail}")
@@ -101,8 +105,6 @@ def generate_text(system: str, prompt: str) -> str:
         hf_token = _env("HF_TOKEN")
         return _hf_call(system, prompt, model, hf_token)
     except ProviderError as hf_error:
-        # Auto mode falls back when HF credentials are absent, quota is exhausted,
-        # rate/server errors occur, or HF returns an unusable empty response.
         message = str(hf_error)
         retryable = any(f"HF HTTP {code}" in message for code in (402, 410, 429, 500, 502, 503, 504)) or "model_no_longer_supported" in message
         unusable = "HF response contained no text" in message
