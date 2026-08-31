@@ -1,4 +1,6 @@
-name: Catalogue Article Test`r`n# Amazon UK Associates: echsignalnews-21
+﻿name: Catalogue Article Test
+
+# Amazon UK Associates: echsignalnews-21
 
 on:
   push:
