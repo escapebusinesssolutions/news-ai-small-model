@@ -97,7 +97,14 @@ def main() -> None:
         raise SystemExit("topics.json is empty")
     if args.topic_index < 0 or args.topic_index >= len(topics):
         raise SystemExit(f"topic index must be 0..{len(topics) - 1}")
-    result = run_pipeline(topics[args.topic_index], publish=args.publish)
+    try:
+        result = run_pipeline(topics[args.topic_index], publish=args.publish)
+    except Exception as exc:
+        error_report = {"schema_version": "1.0", "stage": "pipeline_error", "topic": topics[args.topic_index], "success": False, "error": {"type": type(exc).__name__, "message": str(exc)}}
+        target = args.output or VALIDATION_PATH
+        write_validation_report(error_report, target)
+        print(json.dumps(error_report, indent=2, ensure_ascii=False))
+        raise
     rendered = json.dumps(result, indent=2, ensure_ascii=False)
     if args.output:
         args.output.write_text(rendered + "\n", encoding="utf-8")
