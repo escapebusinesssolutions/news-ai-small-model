@@ -1,0 +1,26 @@
+name: Validate Amazon Catalogue
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'products.json'
+      - 'validate_catalogue.py'
+      - '.github/workflows/validate-catalogue.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install requests
+        run: pip install 'requests>=2.31,<3'
+      - name: Validate every Amazon UK affiliate URL
+        run: python validate_catalogue.py
