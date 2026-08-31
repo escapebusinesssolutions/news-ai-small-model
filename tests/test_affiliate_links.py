@@ -53,6 +53,42 @@ def test_inserts_exact_catalogue_link_by_name(tmp_path, monkeypatch):
     assert result["affiliate_search_links"] == 0
 
 
+def test_repairs_existing_product_markdown_link(tmp_path, monkeypatch):
+    catalogue = tmp_path / "products.json"
+    catalogue.write_text(
+        '{"marketplace":"amazon.co.uk","tracking_id":"echsignalnews-21",'
+        '"products":[{"name":"Example Keyboard","asin_or_id":"B000IB9QXI","url":"https://www.amazon.co.uk/dp/B000IB9QXI"}]}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr("insert_links.PRODUCTS_FILE", catalogue)
+    article = {
+        "title": "Example",
+        "body_markdown": "Try [Example Keyboard](https://www.amazon.co.uk/dp/OLDPRODUCT).",
+        "products": [{"name": "Example Keyboard"}],
+    }
+    result = insert_affiliate_links(article)
+    assert result["body_markdown"] == "Try [Example Keyboard](https://www.amazon.co.uk/dp/B000IB9QXI?tag=echsignalnews-21)."
+    assert result["body_markdown"].count("[Example Keyboard]") == 1
+
+
+def test_repairs_nested_product_markdown_link(tmp_path, monkeypatch):
+    catalogue = tmp_path / "products.json"
+    catalogue.write_text(
+        '{"marketplace":"amazon.co.uk","tracking_id":"echsignalnews-21",'
+        '"products":[{"name":"Example Keyboard","asin_or_id":"B000IB9QXI","url":"https://www.amazon.co.uk/dp/B000IB9QXI"}]}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr("insert_links.PRODUCTS_FILE", catalogue)
+    article = {
+        "title": "Example",
+        "body_markdown": "Try [Example Keyboard]([https://www.amazon.co.uk/dp/OLDPRODUCT](https://www.amazon.co.uk/dp/OLDPRODUCT)).",
+        "products": [{"name": "Example Keyboard"}],
+    }
+    result = insert_affiliate_links(article)
+    assert result["body_markdown"] == "Try [Example Keyboard](https://www.amazon.co.uk/dp/B000IB9QXI?tag=echsignalnews-21)."
+    assert "][" not in result["body_markdown"]
+
+
 def test_resolves_by_exact_catalogue_id(tmp_path, monkeypatch):
     catalogue = tmp_path / "products.json"
     catalogue.write_text(
