@@ -8,7 +8,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Any
-from urllib.parse import parse_qs, urlencode, quote_plus, urlparse, urlunparse
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 PRODUCTS_FILE = Path(__file__).with_name("products.json")
 
@@ -34,43 +34,41 @@ def build_affiliate_url(url: str, tracking_id: str) -> str:
     return urlunparse(parsed._replace(query=urlencode(query, doseq=True), fragment=""))
 
 
-def build_search_affiliate_url(name: str, tracking_id: str) -> str:
-    """Build a tagged Amazon UK search-results link when no catalogue item is mapped."""
-    if not name.strip():
-        raise ValueError("Product search name is empty")
-    return f"https://www.amazon.co.uk/s?k={quote_plus(name.strip())}&tag={quote_plus(tracking_id)}"
-
-
 def _matches(product: dict[str, Any], name: str) -> bool:
-    candidate = str(product.get("name", "")).casefold()
-    target = name.casefold()
-    return candidate == target or candidate in target or target in candidate
+    candidate = str(product.get("name", "")).casefold().strip()
+    target = name.casefold().strip()
+    return bool(candidate and target) and (candidate == target or candidate in target or target in candidate)
 
 
 def insert_affiliate_links(article: dict[str, Any]) -> dict[str, Any]:
-    """Add approved Amazon links to product recommendations in an article."""
+    """Add affiliate links only for products explicitly present in products.json.
+
+    The catalogue is the authoritative commercial inventory. A recommendation that
+    cannot be mapped to a catalogue product is rejected rather than converted into
+    an unrestricted Amazon search link.
+    """
     catalogue = load_catalogue()
     products = catalogue["products"]
     linked_products: list[dict[str, Any]] = []
     body = str(article.get("body_markdown", ""))
     exact_matches = 0
-    search_links = 0
+    unmatched: list[str] = []
 
     for recommendation in article.get("products", []):
         name = str(recommendation.get("name", "")).strip()
         match = next((p for p in products if _matches(p, name)), None)
-        if match:
-            affiliate_url = build_affiliate_url(match["url"], catalogue["tracking_id"])
-            exact_matches += 1
-            link_type = "product"
-        else:
-            affiliate_url = build_search_affiliate_url(name, catalogue["tracking_id"])
-            search_links += 1
-            link_type = "search"
-        linked_products.append({**recommendation, "affiliate_url": affiliate_url, "affiliate_link_type": link_type})
-        marker = f"[{name}]({affiliate_url})"
-        if name and name not in body:
+        if not match:
+            unmatched.append(name or "unnamed product")
+            continue
+        affiliate_url = build_affiliate_url(match["url"], catalogue["tracking_id"])
+        exact_matches += 1
+        linked_products.append({**recommendation, "name": match["name"], "asin_or_id": match.get("asin_or_id"), "affiliate_url": affiliate_url, "affiliate_link_type": "product"})
+        marker = f"[{match['name']}]({affiliate_url})"
+        if match["name"] not in body:
             body += f"\n\n**Recommended product:** {marker}"
+
+    if unmatched:
+        raise ValueError("Article recommends products outside the approved catalogue: " + "; ".join(unmatched))
 
     result = dict(article)
     result["body_markdown"] = body
@@ -78,7 +76,8 @@ def insert_affiliate_links(article: dict[str, Any]) -> dict[str, Any]:
     result["affiliate_marketplace"] = catalogue["marketplace"]
     result["affiliate_tracking_id"] = catalogue["tracking_id"]
     result["affiliate_exact_matches"] = exact_matches
-    result["affiliate_search_links"] = search_links
+    result["affiliate_search_links"] = 0
+    result["affiliate_unmatched_products"] = []
     return result
 
 
