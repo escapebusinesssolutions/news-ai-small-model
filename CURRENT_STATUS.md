@@ -11,11 +11,11 @@
 | Extract proven components | DONE |
 | Repository structure | DONE |
 | Topic queue | DONE |
-| Generate | DONE — live provider test pending credentials |
+| Generate | DONE — implementation complete; live provider test pending credentials |
 | Affiliate links | DONE — catalogue adapter ready |
-| WordPress publish | DONE — publisher wired; live site connection pending credentials/site |
-| Cross-linking | NEXT |
-| End-to-end pipeline | TODO |
+| WordPress publish | DONE — publisher wired; live site test pending workflow execution |
+| Cross-linking | DONE — lightweight topic/category matching |
+| End-to-end pipeline | NEXT |
 | Testing | TODO |
 | GitHub Actions | SCAFFOLD READY |
 | Unattended run | TODO |
@@ -27,21 +27,10 @@
 GitHub is the implementation source of truth. Notion holds the strategy and architecture.
 
 ## Current step
-STEP 6 — WordPress publishing implementation complete.
+STEP 7 — Lightweight cross-linking complete.
 
-## WordPress publishing
-`publish.py` now converts the generated article into WordPress-ready HTML and calls the proven `reused/wordpress_publisher.py` module. The publisher defaults to safe draft mode and only publishes when `WORDPRESS_PUBLISH_ENABLED=true` and a valid access token is supplied.
-
-Required runtime settings:
-- `WORDPRESS_SITE_ID`
-- `WORDPRESS_ACCESS_TOKEN`
-- `WORDPRESS_PUBLISH_ENABLED`
-- optional `WORDPRESS_DEFAULT_STATUS`
-
-No WordPress credentials are stored in the repository.
-
-## Live connection status
-The code is ready for a real WordPress.com site, but a live publish test has not been performed because the new WordPress site/address and access token have not yet been supplied. The first live test should remain a draft until verified.
+## Cross-linking
+`cross_link.py` ranks existing article records using simple title/topic word overlap plus category matching. It adds up to three unique internal links, skips the current article, and does nothing when there is no suitable match. It uses no additional AI call or database.
 
 ## Next action
-Build lightweight cross-linking.
+Build the end-to-end pipeline connecting topic selection → generation → affiliate links → cross-linking → WordPress publication.
