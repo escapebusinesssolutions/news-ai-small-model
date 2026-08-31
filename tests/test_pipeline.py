@@ -9,10 +9,10 @@ def _article():
         "products": [{
             "name": "Keyboard A",
             "asin_or_id": "A1",
-            "affiliate_url": "https://www.amazon.co.uk/dp/A1?tag=techsignal-20",
+            "affiliate_url": "https://www.amazon.co.uk/dp/A1?tag=echsignalnews-21",
             "affiliate_link_type": "catalogue",
         }],
-        "affiliate_tracking_id": "techsignal-20",
+        "affiliate_tracking_id": "echsignalnews-21",
         "affiliate_marketplace": "amazon.co.uk",
         "affiliate_exact_matches": 1,
         "affiliate_search_links": 0,
@@ -71,7 +71,7 @@ def test_validation_report_records_exact_affiliate_links():
     assert report["affiliate"]["products_selected"] == 1
     assert report["affiliate"]["exact_catalogue_matches"] == 1
     assert report["affiliate"]["search_links"] == 0
-    assert report["affiliate"]["links"][0]["affiliate_url"] == "https://www.amazon.co.uk/dp/A1?tag=techsignal-20"
+    assert report["affiliate"]["links"][0]["affiliate_url"] == "https://www.amazon.co.uk/dp/A1?tag=echsignalnews-21"
 
 
 def test_pipeline_can_use_existing_articles_without_network(monkeypatch):

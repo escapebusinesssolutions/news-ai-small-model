@@ -7,7 +7,7 @@ from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 import requests
 
-TRACKING_ID = "techsignal-20"
+TRACKING_ID = "echsignalnews-21"
 TIMEOUT = 20
 
 

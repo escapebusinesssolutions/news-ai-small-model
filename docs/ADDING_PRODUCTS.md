@@ -14,7 +14,7 @@ Edit `products.json` and add an entry:
 {
   "name": "Example Product",
   "category": "keyboards",
-  "url": "https://www.amazon.co.uk/dp/EXAMPLE/ref=nosim?tag=techsignal-20",
+  "url": "https://www.amazon.co.uk/dp/EXAMPLE/ref=nosim?tag=echsignalnews-21",
   "asin": "EXAMPLE"
 }
 ```
@@ -24,7 +24,7 @@ The catalogue root must remain:
 ```json
 {
   "marketplace": "amazon.co.uk",
-  "tracking_id": "techsignal-20",
+  "tracking_id": "echsignalnews-21",
   "products": []
 }
 ```
@@ -32,7 +32,7 @@ The catalogue root must remain:
 ## 3. Rules
 
 - Use Amazon.co.uk product URLs only.
-- Use the configured tracking ID `techsignal-20`.
+- Use the configured tracking ID `echsignalnews-21`.
 - Use links to the specific product detail page.
 - Do not put Amazon API credentials in this file.
 - Do not add prices, ratings, images, or other Amazon product data manually unless the applicable Associates rules permit the use.

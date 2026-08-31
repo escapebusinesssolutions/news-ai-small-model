@@ -44,6 +44,6 @@ Do not add a product merely because it is a high-volume Amazon seller. Add it wh
 
 ## Affiliate handling
 
-The catalogue is intentionally separate from the affiliate implementation. `insert_links.py` adds the `techsignal-20` tracking tag. This keeps the Amazon-specific layer replaceable when Creators API is introduced.
+The catalogue is intentionally separate from the affiliate implementation. `insert_links.py` adds the `echsignalnews-21` tracking tag. This keeps the Amazon-specific layer replaceable when Creators API is introduced.
 
 The current implementation can fall back to a tagged Amazon UK search link when a generated recommendation has no exact catalogue match. Exact catalogue matches are preferred.

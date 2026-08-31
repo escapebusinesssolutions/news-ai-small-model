@@ -22,7 +22,7 @@ The GitHub Actions test completed successfully. The generated article was submit
 | AI generation | PASS | Article generation step completed successfully |
 | Product catalogue loaded | PASS | `products.json` contains curated Amazon UK products |
 | Relevant microphone products available | PASS | Samson Q2U and RØDE NT-USB Mini are in catalogue |
-| Affiliate configuration | PASS | Marketplace `amazon.co.uk`; tracking ID `techsignal-20` |
+| Affiliate configuration | PASS | Marketplace `amazon.co.uk`; tracking ID `echsignalnews-21` |
 | Affiliate processing | PASS | Article passed through affiliate insertion stage |
 | WordPress authentication | PASS | Existing username + application-password route worked |
 | WordPress draft creation | PASS | Post ID `9`, status `draft` |
@@ -54,7 +54,7 @@ The authoritative publisher workflow should emit a machine-readable validation r
 
 - products selected;
 - exact outbound URLs inserted;
-- confirmation that each Amazon URL contains `techsignal-20`;
+- confirmation that each Amazon URL contains `echsignalnews-21`;
 - internal links inserted;
 - WordPress post ID and status.
 

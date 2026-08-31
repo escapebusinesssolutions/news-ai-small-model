@@ -1,4 +1,4 @@
-﻿"""Run the complete Small Model content pipeline."""
+"""Run the complete Small Model content pipeline."""
 from __future__ import annotations
 
 import argparse
@@ -46,7 +46,7 @@ def build_validation_report(article: dict[str, Any], topic: dict[str, Any]) -> d
         links.append({"product": name, "asin_or_id": product.get("asin_or_id"), "affiliate_url": url, "affiliate_link_type": product.get("affiliate_link_type"), "checks": checks})
     if marketplace != "amazon.co.uk":
         failures.append("unsupported marketplace")
-    if tracking_id != "techsignal-20":
+    if tracking_id != "echsignalnews-21":
         failures.append("unexpected tracking ID")
     return {
         "schema_version": "1.0",
