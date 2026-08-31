@@ -1,7 +1,7 @@
 {
   "marketplace": "amazon.co.uk",
-  "tracking_id": "techsignal-20",
-  "catalogue_version": "1.1",
+  "tracking_id": "echsignalnews-21",
+  "catalogue_version": "1.2",
   "selection_rules": {
     "niche": "tech & workspace gear",
     "preferred_price_band": "£30-£300",
