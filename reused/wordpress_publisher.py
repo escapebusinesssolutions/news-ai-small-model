@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import hashlib
 import os
@@ -21,7 +21,7 @@ class WordPressConfig:
     @classmethod
     def from_env(cls) -> "WordPressConfig":
         return cls(
-            site_id=os.getenv("WORDPRESS_SITE_ID", "51900195"),
+            site_id=os.getenv("WORDPRESS_SITE_ID", "257062637"),
             access_token=os.getenv("WORDPRESS_ACCESS_TOKEN", ""),
             publish_enabled=os.getenv("WORDPRESS_PUBLISH_ENABLED", "false").lower() == "true",
             post_status=os.getenv("WORDPRESS_DEFAULT_STATUS", "draft"),
@@ -137,3 +137,4 @@ def stable_slug(title: str, event_id: str) -> str:
     base = "-".join(title.lower().split())[:75]
     suffix = hashlib.sha256(event_id.encode("utf-8")).hexdigest()[:8]
     return f"{base}-{suffix}".strip("-")
+

@@ -14,7 +14,7 @@ from generate import generate_article, load_topics
 from insert_links import insert_affiliate_links
 from publish import publish_article
 
-SITE_ID = os.getenv("WORDPRESS_SITE_ID", "51900195")
+SITE_ID = os.getenv("WORDPRESS_SITE_ID", "257062637")
 WP_POSTS_URL = f"https://public-api.wordpress.com/rest/v1.1/sites/{SITE_ID}/posts/"
 
 
@@ -67,3 +67,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

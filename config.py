@@ -1,4 +1,4 @@
-"""Small Model runtime configuration.
+﻿"""Small Model runtime configuration.
 
 Secrets belong in environment variables / GitHub Actions secrets, never in source control.
 """
@@ -13,3 +13,4 @@ WORDPRESS_TIMEOUT_SECONDS = os.getenv("WORDPRESS_TIMEOUT_SECONDS", "30")
 
 AI_PROVIDER = os.getenv("AI_PROVIDER", "")
 AI_API_KEY = os.getenv("AI_API_KEY", "")
+
