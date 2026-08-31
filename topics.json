@@ -1,3 +1,154 @@
 {
-  "topics": []
+  "topics": [
+    {
+      "topic": "best mechanical keyboards under $100",
+      "intent": "buyer_guide",
+      "category": "keyboards"
+    },
+    {
+      "topic": "best wireless keyboards for work",
+      "intent": "buyer_guide",
+      "category": "keyboards"
+    },
+    {
+      "topic": "mechanical keyboard vs membrane keyboard for office work",
+      "intent": "comparison",
+      "category": "keyboards"
+    },
+    {
+      "topic": "best webcams under $100 for working from home",
+      "intent": "buyer_guide",
+      "category": "webcams"
+    },
+    {
+      "topic": "best webcams for Zoom and Teams meetings",
+      "intent": "buyer_guide",
+      "category": "webcams"
+    },
+    {
+      "topic": "best monitors under $300 for home office work",
+      "intent": "buyer_guide",
+      "category": "monitors"
+    },
+    {
+      "topic": "best 27 inch monitors for productivity",
+      "intent": "buyer_guide",
+      "category": "monitors"
+    },
+    {
+      "topic": "1080p vs 1440p monitor for work",
+      "intent": "comparison",
+      "category": "monitors"
+    },
+    {
+      "topic": "best USB-C hubs under $75",
+      "intent": "buyer_guide",
+      "category": "usb-c-hubs"
+    },
+    {
+      "topic": "best USB-C docking stations for laptops",
+      "intent": "buyer_guide",
+      "category": "docking-stations"
+    },
+    {
+      "topic": "USB-C hub vs docking station for home office",
+      "intent": "comparison",
+      "category": "docking-stations"
+    },
+    {
+      "topic": "best noise cancelling headphones for working from home",
+      "intent": "buyer_guide",
+      "category": "headphones"
+    },
+    {
+      "topic": "best wireless headphones for office calls",
+      "intent": "buyer_guide",
+      "category": "headphones"
+    },
+    {
+      "topic": "best USB microphones under $100",
+      "intent": "buyer_guide",
+      "category": "microphones"
+    },
+    {
+      "topic": "best budget microphones for video calls",
+      "intent": "buyer_guide",
+      "category": "microphones"
+    },
+    {
+      "topic": "best office chairs under $300",
+      "intent": "buyer_guide",
+      "category": "office-chairs"
+    },
+    {
+      "topic": "best ergonomic office chairs for long hours",
+      "intent": "buyer_guide",
+      "category": "office-chairs"
+    },
+    {
+      "topic": "best standing desks under $400",
+      "intent": "buyer_guide",
+      "category": "desks"
+    },
+    {
+      "topic": "best desk accessories for a home office",
+      "intent": "buyer_guide",
+      "category": "desk-accessories"
+    },
+    {
+      "topic": "best laptop stands for working from home",
+      "intent": "buyer_guide",
+      "category": "laptop-stands"
+    },
+    {
+      "topic": "best monitor arms under $100",
+      "intent": "buyer_guide",
+      "category": "monitor-arms"
+    },
+    {
+      "topic": "best external SSDs under $150",
+      "intent": "buyer_guide",
+      "category": "storage"
+    },
+    {
+      "topic": "best portable SSDs for laptop users",
+      "intent": "buyer_guide",
+      "category": "storage"
+    },
+    {
+      "topic": "best Wi-Fi routers for home office use",
+      "intent": "buyer_guide",
+      "category": "networking"
+    },
+    {
+      "topic": "best compact printers for home offices",
+      "intent": "buyer_guide",
+      "category": "printers"
+    },
+    {
+      "topic": "best budget laser printers for home office",
+      "intent": "buyer_guide",
+      "category": "printers"
+    },
+    {
+      "topic": "best computer speakers under $100",
+      "intent": "buyer_guide",
+      "category": "speakers"
+    },
+    {
+      "topic": "best desk lamps for computer work",
+      "intent": "buyer_guide",
+      "category": "desk-lamps"
+    },
+    {
+      "topic": "best cable management kits for a desk",
+      "intent": "buyer_guide",
+      "category": "cable-management"
+    },
+    {
+      "topic": "best power strips with USB-C for home office",
+      "intent": "buyer_guide",
+      "category": "power"
+    }
+  ]
 }
