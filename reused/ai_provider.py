@@ -78,7 +78,13 @@ def _openrouter_call(system: str, prompt: str, model: str, key: str,
                 choices = data.get("choices", [])
                 content = choices[0].get("message", {}).get("content") if choices and isinstance(choices[0], dict) else None
                 if isinstance(content, str) and content.strip():
-                    return content.strip()
+                    cleaned = content.strip()
+                    # Some free routed models occasionally ignore JSON mode and return prose.
+                    # Do not accept that response as successful generation; try the next fallback.
+                    if "{" in cleaned and "}" in cleaned:
+                        return cleaned
+                    failures.append(f"{candidate}: non-JSON response")
+                    continue
                 failures.append(f"{candidate}: no usable text")
             except (ValueError, TypeError, KeyError, IndexError) as exc:
                 failures.append(f"{candidate}: malformed response {type(exc).__name__}: {exc}")
