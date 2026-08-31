@@ -84,7 +84,6 @@ def _insert_product_link(body: str, product_name: str, affiliate_url: str) -> st
     if marker in body:
         return body
 
-    # Do not nest a link if the product is already linked to another URL.
     linked_pattern = re.compile(r"\[[^\]]*\]\([^)]*\)")
     linked_spans = [m.span() for m in linked_pattern.finditer(body)]
     for match in re.finditer(re.escape(product_name), body, flags=re.IGNORECASE):
@@ -143,7 +142,7 @@ def insert_affiliate_links(article: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-def validate_amazon_url(url: str, tracking_id: str = "techsignal-20") -> bool:
+def validate_amazon_url(url: str, tracking_id: str = "echsignalnews-21") -> bool:
     """Validate that a URL is an Amazon UK product URL with the expected tag."""
     affiliate_url = build_affiliate_url(url, tracking_id)
     parsed = urlparse(affiliate_url)
