@@ -11,7 +11,7 @@ Build the smallest useful autonomous affiliate-content machine and test whether 
 - [x] STEP 4 — Build GENERATE
 - [x] STEP 5 — Build affiliate link insertion
 - [x] STEP 6 — Build WordPress publishing
-- [ ] STEP 7 — Build lightweight cross-linking
+- [x] STEP 7 — Build lightweight cross-linking
 - [ ] STEP 8 — Connect end-to-end pipeline
 - [ ] STEP 9 — Test locally and against WordPress
 - [ ] STEP 10 — Add GitHub Actions automation
