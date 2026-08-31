@@ -35,9 +35,9 @@ jobs:
         env:
           AI_PROVIDER: openrouter
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          WORDPRESS_SITE_URL: ${{ secrets.WORDPRESS_SITE_URL }}
-          WORDPRESS_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
-          WORDPRESS_APP_PASSWORD: ${{ secrets.WORDPRESS_APP_PASSWORD }}
+          WORDPRESS_SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+          WORDPRESS_USERNAME: ${{ secrets.TECHSIGNAL_USERNAME }}
+          WORDPRESS_APP_PASSWORD: ${{ secrets.TECHSIGNAL_APP_PASSWORD }}
           WORDPRESS_PUBLISH_ENABLED: ${{ github.event_name == 'schedule' || inputs.publish == 'true' }}
           WORDPRESS_DEFAULT_STATUS: ${{ secrets.WORDPRESS_DEFAULT_STATUS || 'draft' }}
         run: |
