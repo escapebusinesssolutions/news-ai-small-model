@@ -1,7 +1,7 @@
 {
   "marketplace": "amazon.co.uk",
   "tracking_id": "techsignal-20",
-  "catalogue_version": "1.0",
+  "catalogue_version": "1.1",
   "selection_rules": {
     "niche": "tech & workspace gear",
     "preferred_price_band": "£30-£300",
@@ -31,7 +31,7 @@
     {
       "name": "Logitech C920 HD Pro Webcam",
       "asin_or_id": "B006A2Q81M",
-      "url": "https://www.amazon.co.uk/dp/B006A2Q81M",
+      "url": "https://www.amazon.co.uk/Logitech-C920-Webcam-30fps-Autofokus/dp/B006A2Q81M",
       "category": "webcams",
       "price_range": "£50-£100",
       "use_cases": ["video calls", "home office", "streaming"],
@@ -39,8 +39,8 @@
     },
     {
       "name": "RØDE NT-USB Mini",
-      "asin_or_id": "B084P3ZK2X",
-      "url": "https://www.amazon.co.uk/dp/B084P3ZK2X",
+      "asin_or_id": "B084P1CXFD",
+      "url": "https://www.amazon.co.uk/R%C3%98DE-Studio-quality-Microphone-Podcasting-Production/dp/B084P1CXFD",
       "category": "audio",
       "price_range": "£80-£150",
       "use_cases": ["podcasting", "streaming", "voice recording"],
@@ -49,25 +49,25 @@
     {
       "name": "Beyerdynamic DT 770 PRO",
       "asin_or_id": "B0006NL5SM",
-      "url": "https://www.amazon.co.uk/dp/B0006NL5SM",
+      "url": "https://www.amazon.co.uk/beyerdynamic-770-PRO-Studio-Headphones/dp/B0006NL5SM",
       "category": "audio",
       "price_range": "£100-£180",
       "use_cases": ["music", "podcast monitoring", "desk listening"],
-      "key_points": ["closed-back studio headphone design", "multiple impedance variants exist", "widely used for monitoring"]
+      "key_points": ["closed-back studio headphone design", "250 Ohm variant represented by this ASIN", "widely used for monitoring"]
     },
     {
       "name": "Elgato Stream Deck MK.2",
       "asin_or_id": "B09738CV2G",
-      "url": "https://www.amazon.co.uk/dp/B09738CV2G",
+      "url": "https://www.amazon.co.uk/Elgato-Controller-15-macro-keys-trigger-software-like-OBS/dp/B09738CV2G",
       "category": "workspace",
       "price_range": "£100-£180",
       "use_cases": ["creator workflow", "streaming", "productivity shortcuts"],
-      "key_points": ["programmable physical keys", "desktop workflow control", "useful for repetitive actions"]
+      "key_points": ["15 programmable LCD keys", "desktop workflow control", "useful for repetitive actions"]
     },
     {
       "name": "Samsung T7 Portable SSD 2TB",
       "asin_or_id": "B0874XWW23",
-      "url": "https://www.amazon.co.uk/dp/B0874XWW23",
+      "url": "https://www.amazon.co.uk/Samsung-Portable-External-Solid-MU-PC2T0T/dp/B0874XWW23",
       "category": "storage",
       "price_range": "£100-£220",
       "use_cases": ["backup", "portable work files", "media storage"],
@@ -76,7 +76,7 @@
     {
       "name": "Shure MV7",
       "asin_or_id": "B08G7RG9ML",
-      "url": "https://www.amazon.co.uk/dp/B08G7RG9ML",
+      "url": "https://www.amazon.co.uk/Shure-MV7-Microphone-Podcasting-Voice-Isolating/dp/B08G7RG9ML",
       "category": "audio",
       "price_range": "£180-£300",
       "use_cases": ["podcasting", "voice recording", "streaming"],
