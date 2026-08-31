@@ -1,8 +1,9 @@
-﻿name: Catalogue Article Test
+name: Catalogue Article Test
 
 # Amazon UK Associates: echsignalnews-21
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - '.github/workflows/catalogue-article-test.yml'
