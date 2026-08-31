@@ -17,7 +17,7 @@ Use the supplied product brief as the only product-fact source. Do not invent pr
 Never rewrite or paraphrase a competitor article. Do not claim you tested products.
 For buyer-guide topics, use a clear "best X under Y" or similarly specific decision-support structure when the topic supports it. For comparison topics, use an explicit "X vs Y" decision structure.
 Return ONLY valid JSON with these keys: title, slug, meta_description, body_markdown, products.
-products must be a JSON array. Each selected product must use a name from the supplied product brief and contain why_it_is_relevant and buying_note.
+Each selected product must use a name from the supplied product brief and preserve its exact asin_or_id, price_range, and key_points. It may additionally contain why_it_is_relevant and buying_note.
 body_markdown must contain a concise introduction, useful recommendation/comparison sections, and a short conclusion.
 """
 
@@ -87,6 +87,8 @@ def _parse_json(text: str) -> dict[str, Any]:
     missing = [key for key in required if not result.get(key)]
     if missing:
         raise ValueError(f"AI response missing required fields: {', '.join(missing)}")
+    if not isinstance(result["products"], list) or not result["products"]:
+        raise ValueError("AI response products must be a non-empty array")
     result.setdefault("slug", _slug(str(result["title"])))
     result.setdefault("meta_description", "")
     return result
@@ -108,7 +110,7 @@ Category: {topic.get('category', 'general')}
 Product brief (the only permitted source of product facts):
 {json.dumps(product_brief, ensure_ascii=False, indent=2)}
 
-Use only products from this brief. Keep product names exactly as supplied.
+Use only products from this brief. Keep product names, asin_or_id, price_range, and key_points exactly as supplied.
 Prioritise practical buying advice, trade-offs, fit-for-use, and clear recommendations.
 Do not claim personal testing. Do not invent current prices; use the supplied price ranges only when useful.
 Return only the JSON object. Do not add markdown fences, commentary, or explanation.
