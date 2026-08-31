@@ -6,15 +6,16 @@ Build the smallest useful autonomous affiliate-content machine and test whether 
 ## Build sequence
 - [x] STEP 0 — Scope frozen
 - [x] STEP 1 — Extract proven components
-- [ ] STEP 2 — Build repository structure
-- [ ] STEP 3 — Build GENERATE
-- [ ] STEP 4 — Build affiliate link insertion
-- [ ] STEP 5 — Build WordPress publishing
-- [ ] STEP 6 — Build lightweight cross-linking
-- [ ] STEP 7 — Connect end-to-end pipeline
-- [ ] STEP 8 — Test locally and against WordPress
-- [ ] STEP 9 — Add GitHub Actions automation
-- [ ] STEP 10 — Run unattended production test
+- [x] STEP 2 — Build repository structure
+- [x] STEP 3 — Build topic queue
+- [ ] STEP 4 — Build GENERATE
+- [ ] STEP 5 — Build affiliate link insertion
+- [ ] STEP 6 — Build WordPress publishing
+- [ ] STEP 7 — Build lightweight cross-linking
+- [ ] STEP 8 — Connect end-to-end pipeline
+- [ ] STEP 9 — Test locally and against WordPress
+- [ ] STEP 10 — Add GitHub Actions automation
+- [ ] STEP 11 — Run unattended production test
 
 ## Release targets
 - v0.1.0 — First working machine
