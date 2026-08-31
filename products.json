@@ -1,5 +1,86 @@
 {
   "marketplace": "amazon.co.uk",
   "tracking_id": "techsignal-20",
-  "products": []
+  "catalogue_version": "1.0",
+  "selection_rules": {
+    "niche": "tech & workspace gear",
+    "preferred_price_band": "£30-£300",
+    "intent": "buyer-intent decision support",
+    "avoid_current_prices": true,
+    "avoid_competitor_copy": true
+  },
+  "products": [
+    {
+      "name": "Samson Q2U",
+      "asin_or_id": "B001R747SG",
+      "url": "https://www.amazon.co.uk/Samson-SAQ2U-Microphone-Recording-Pack/dp/B001R747SG",
+      "category": "audio",
+      "price_range": "£30-£100",
+      "use_cases": ["podcasting", "voice calls", "voice recording"],
+      "key_points": ["USB/XLR dynamic microphone", "strong entry-level recording choice", "works for direct computer recording"]
+    },
+    {
+      "name": "Anker 737 Power Bank (PowerCore 24K)",
+      "asin_or_id": "B09VPHVT2Z",
+      "url": "https://www.amazon.co.uk/Anker-Portable-Charger-PowerCore-Compatible-Black/dp/B09VPHVT2Z",
+      "category": "power",
+      "price_range": "£100-£200",
+      "use_cases": ["mobile work", "laptop charging", "travel"],
+      "key_points": ["24,000mAh capacity", "up to 140W output", "three-port design", "built-in power display"]
+    },
+    {
+      "name": "Logitech C920 HD Pro Webcam",
+      "asin_or_id": "B006A2Q81M",
+      "url": "https://www.amazon.co.uk/dp/B006A2Q81M",
+      "category": "webcams",
+      "price_range": "£50-£100",
+      "use_cases": ["video calls", "home office", "streaming"],
+      "key_points": ["1080p webcam", "built for desktop video calls", "long-established workspace option"]
+    },
+    {
+      "name": "RØDE NT-USB Mini",
+      "asin_or_id": "B084P3ZK2X",
+      "url": "https://www.amazon.co.uk/dp/B084P3ZK2X",
+      "category": "audio",
+      "price_range": "£80-£150",
+      "use_cases": ["podcasting", "streaming", "voice recording"],
+      "key_points": ["USB condenser microphone", "compact desktop form", "designed for direct computer recording"]
+    },
+    {
+      "name": "Beyerdynamic DT 770 PRO",
+      "asin_or_id": "B0006NL5SM",
+      "url": "https://www.amazon.co.uk/dp/B0006NL5SM",
+      "category": "audio",
+      "price_range": "£100-£180",
+      "use_cases": ["music", "podcast monitoring", "desk listening"],
+      "key_points": ["closed-back studio headphone design", "multiple impedance variants exist", "widely used for monitoring"]
+    },
+    {
+      "name": "Elgato Stream Deck MK.2",
+      "asin_or_id": "B09738CV2G",
+      "url": "https://www.amazon.co.uk/dp/B09738CV2G",
+      "category": "workspace",
+      "price_range": "£100-£180",
+      "use_cases": ["creator workflow", "streaming", "productivity shortcuts"],
+      "key_points": ["programmable physical keys", "desktop workflow control", "useful for repetitive actions"]
+    },
+    {
+      "name": "Samsung T7 Portable SSD 2TB",
+      "asin_or_id": "B0874XWW23",
+      "url": "https://www.amazon.co.uk/dp/B0874XWW23",
+      "category": "storage",
+      "price_range": "£100-£220",
+      "use_cases": ["backup", "portable work files", "media storage"],
+      "key_points": ["portable external SSD", "USB-C connectivity", "2TB capacity variant"]
+    },
+    {
+      "name": "Shure MV7",
+      "asin_or_id": "B08G7RG9ML",
+      "url": "https://www.amazon.co.uk/dp/B08G7RG9ML",
+      "category": "audio",
+      "price_range": "£180-£300",
+      "use_cases": ["podcasting", "voice recording", "streaming"],
+      "key_points": ["USB/XLR microphone", "dynamic microphone design", "upgrade path beyond entry-level USB microphones"]
+    }
+  ]
 }
