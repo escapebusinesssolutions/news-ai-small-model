@@ -8,8 +8,8 @@ Build the smallest useful autonomous affiliate-content machine and test whether 
 - [x] STEP 1 — Extract proven components
 - [x] STEP 2 — Build repository structure
 - [x] STEP 3 — Build topic queue
-- [ ] STEP 4 — Build GENERATE
-- [ ] STEP 5 — Build affiliate link insertion
+- [x] STEP 4 — Build GENERATE
+- [x] STEP 5 — Build affiliate link insertion
 - [ ] STEP 6 — Build WordPress publishing
 - [ ] STEP 7 — Build lightweight cross-linking
 - [ ] STEP 8 — Connect end-to-end pipeline
