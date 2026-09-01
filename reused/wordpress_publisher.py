@@ -82,9 +82,27 @@ class WordPressPublisher:
             return requests.request(method, url, headers={"Authorization": f"Bearer {self.config.access_token}"}, data=payload, timeout=self.config.timeout_seconds)
         return requests.request(method, url, auth=(self.config.username, self.config.application_password), json=payload, timeout=self.config.timeout_seconds)
 
+    def _category_id(self, category: str) -> int | None:
+        slug = str(category).strip().lower()
+        if not slug:
+            return None
+        response = requests.get(f"{self._api_base}/categories", params={"slug": slug, "per_page": 1}, auth=(self.config.username, self.config.application_password), timeout=self.config.timeout_seconds)
+        response.raise_for_status()
+        existing = response.json()
+        if existing:
+            return int(existing[0]["id"])
+        response = requests.post(f"{self._api_base}/categories", auth=(self.config.username, self.config.application_password), json={"name": slug.title(), "slug": slug}, timeout=self.config.timeout_seconds)
+        response.raise_for_status()
+        return int(response.json()["id"])
+
     def create_post(self, *, title: str, content: str, slug: str, metadata: dict[str, Any] | None = None) -> dict[str, Any]:
         status = self.config.post_status if self.config.publish_enabled else "draft"
         payload: dict[str, Any] = {"title": title, "content": content, "status": status, "slug": slug}
+        category = (metadata or {}).get("category")
+        if category and self.config.publish_enabled:
+            category_id = self._category_id(str(category))
+            if category_id is not None:
+                payload["categories"] = [category_id]
         if not self.config.publish_enabled:
             return {"status": "DRY_RUN", "publish_enabled": False, "payload": payload, "endpoint": f"{self._api_base}/posts"}
 
