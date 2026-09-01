@@ -1,0 +1,41 @@
+name: TechSignal WordPress Cleanup
+
+on:
+  workflow_dispatch:
+    inputs:
+      post_ids:
+        description: "Comma-separated WordPress post IDs to move to trash"
+        required: false
+        default: ""
+      page_ids:
+        description: "Comma-separated WordPress page IDs to move to trash"
+        required: false
+        default: ""
+
+jobs:
+  cleanup:
+    if: ${{ inputs.post_ids != '' || inputs.page_ids != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Move unwanted WordPress content to trash
+        env:
+          SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+          USERNAME: ${{ secrets.TECHSIGNAL_USERNAME }}
+          APP_PASSWORD: ${{ secrets.TECHSIGNAL_APP_PASSWORD }}
+          POST_IDS: ${{ inputs.post_ids }}
+          PAGE_IDS: ${{ inputs.page_ids }}
+        run: |
+          set -euo pipefail
+          base="${SITE_URL%/}"
+          auth=("$USERNAME:$APP_PASSWORD")
+          for id in $(echo "$POST_IDS" | tr ',' ' '); do
+            [ -z "$id" ] && continue
+            curl -fsS -u "${auth[0]}" -X DELETE "$base/wp-json/wp/v2/posts/$id?force=false" >/dev/null
+            echo "Moved post $id to trash"
+          done
+          for id in $(echo "$PAGE_IDS" | tr ',' ' '); do
+            [ -z "$id" ] && continue
+            curl -fsS -u "${auth[0]}" -X DELETE "$base/wp-json/wp/v2/pages/$id?force=false" >/dev/null
+            echo "Moved page $id to trash"
+          done
