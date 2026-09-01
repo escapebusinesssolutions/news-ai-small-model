@@ -11,6 +11,7 @@ def _words(value):
 def select_related(article, existing_articles, limit=MAX_LINKS):
     article_words = _words(str(article.get("title", "")) + " " + str(article.get("source_topic", "")))
     category = str(article.get("category", "")).strip().lower()
+    product_names = [str(p.get("name", "")).strip().casefold() for p in article.get("products", []) if isinstance(p, dict)]
     candidates = []
     for item in existing_articles:
         if str(item.get("slug", "")).strip() == str(article.get("slug", "")).strip():
@@ -18,6 +19,10 @@ def select_related(article, existing_articles, limit=MAX_LINKS):
         title = str(item.get("title", "")).strip()
         url = str(item.get("url", "")).strip()
         if not title or not url:
+            continue
+        # Do not create a related-article link to an older duplicate of the same
+        # primary product; it can create circular or stale recommendation paths.
+        if any(name and name in title.casefold() for name in product_names):
             continue
         score = len(article_words & _words(title))
         if category and category == str(item.get("category", "")).strip().lower():
