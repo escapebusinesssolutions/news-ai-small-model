@@ -1,4 +1,4 @@
-"""Publish a generated Small Model article through the proven WordPress publisher."""
+"""Publish generated Small Model articles through the WordPress publisher."""
 from __future__ import annotations
 
 import html
@@ -8,51 +8,77 @@ from typing import Any
 from reused.wordpress_publisher import WordPressPublisher
 
 
+def _inline_markdown(text: str) -> str:
+    text = html.escape(text, quote=False)
+    text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
+    text = re.sub(r"\[([^\]]+)\]\((https?://[^\s)]+)\)", r'<a href="\2">\1</a>', text)
+    return text
+
+
 def markdown_to_html(markdown: str) -> str:
-    """Convert the small, predictable Markdown produced by Generate into HTML."""
+    """Convert the predictable article Markdown into clean WordPress HTML."""
     lines = markdown.strip().splitlines()
     output: list[str] = []
     paragraph: list[str] = []
+    in_list = False
+    in_table = False
 
     def flush() -> None:
         if paragraph:
             text = " ".join(part.strip() for part in paragraph)
-            text = html.escape(text)
-            text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
-            text = re.sub(r"\[(.+?)\]\((https?://[^\s)]+)\)", r'<a href="\2">\1</a>', text)
-            output.append(f"<p>{text}</p>")
+            output.append(f"<p>{_inline_markdown(text)}</p>")
             paragraph.clear()
+
+    def close_list() -> None:
+        nonlocal in_list
+        if in_list:
+            output.append("</ul>")
+            in_list = False
+
+    def close_table() -> None:
+        nonlocal in_table
+        if in_table:
+            output.append("</tbody></table>")
+            in_table = False
 
     for line in lines:
         stripped = line.strip()
         if not stripped:
             flush()
             continue
+        if stripped.startswith("|") and stripped.endswith("|"):
+            flush()
+            close_list()
+            cells = [cell.strip() for cell in stripped.strip("|").split("|")]
+            if all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells):
+                continue
+            if not in_table:
+                output.append("<table><thead><tr>" + "".join(f"<th>{_inline_markdown(c)}</th>" for c in cells) + "</tr></thead><tbody>")
+                in_table = True
+            else:
+                output.append("<tr>" + "".join(f"<td>{_inline_markdown(c)}</td>" for c in cells) + "</tr>")
+            continue
+        if in_table:
+            close_table()
         if stripped.startswith("### "):
-            flush()
-            output.append(f"<h3>{html.escape(stripped[4:])}</h3>")
+            flush(); close_list(); output.append(f"<h3>{_inline_markdown(stripped[4:])}</h3>")
         elif stripped.startswith("## "):
-            flush()
-            output.append(f"<h2>{html.escape(stripped[3:])}</h2>")
+            flush(); close_list(); output.append(f"<h2>{_inline_markdown(stripped[3:])}</h2>")
         elif stripped.startswith("# "):
-            flush()
-            output.append(f"<h2>{html.escape(stripped[2:])}</h2>")
+            flush(); close_list(); output.append(f"<h2>{_inline_markdown(stripped[2:])}</h2>")
         elif stripped.startswith("- "):
             flush()
-            if not output or not output[-1].startswith("<ul>"):
+            if not in_list:
                 output.append("<ul>")
-            item = html.escape(stripped[2:])
-            item = re.sub(r"\[(.+?)\]\((https?://[^\s)]+)\)", r'<a href="\2">\1</a>', item)
-            output.append(f"<li>{item}</li>")
+                in_list = True
+            output.append(f"<li>{_inline_markdown(stripped[2:])}</li>")
         else:
-            if output and output[-1] == "</ul>":
-                output.append(f"<p>{html.escape(stripped)}</p>")
-            else:
-                paragraph.append(stripped)
+            close_list()
+            paragraph.append(stripped)
 
     flush()
-    if output and output[-1].startswith("<li>"):
-        output.append("</ul>")
+    close_list()
+    close_table()
     return "\n".join(output)
 
 
