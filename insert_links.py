@@ -16,7 +16,6 @@ PRODUCTS_FILE = Path(__file__).with_name("products.json")
 
 
 def _amazon_asin(url: str) -> str | None:
-    """Extract an Amazon product ID from a standard /dp/<ASIN> URL."""
     match = re.search(r"/dp/([A-Za-z0-9]{10})(?:[/?]|$)", urlparse(url.strip()).path)
     return match.group(1) if match else None
 
@@ -31,28 +30,20 @@ def load_catalogue() -> dict[str, Any]:
     products = data.get("products")
     if not isinstance(products, list) or not products:
         raise ValueError("products.json must contain a non-empty products array")
-
     seen_ids: set[str] = set()
     for product in products:
         name = str(product.get("name", "")).strip()
         asin = str(product.get("asin_or_id", "")).strip()
         url = str(product.get("url", "")).strip()
-        if not name or not asin or not url:
-            raise ValueError("Every catalogue product must contain name, asin_or_id and url")
-        if asin in seen_ids:
-            raise ValueError(f"Duplicate catalogue product ID: {asin}")
+        if not name or not asin or not url or asin in seen_ids or _amazon_asin(url) != asin:
+            raise ValueError(f"Invalid catalogue product: {name or asin or 'unnamed'}")
         seen_ids.add(asin)
-        if _amazon_asin(url) != asin:
-            raise ValueError(f"Catalogue URL does not match asin_or_id for product: {name}")
-        parsed = urlparse(url)
-        if parsed.netloc.lower() not in {"amazon.co.uk", "www.amazon.co.uk"}:
+        if urlparse(url).netloc.lower() not in {"amazon.co.uk", "www.amazon.co.uk"}:
             raise ValueError(f"Catalogue product URL is not Amazon UK: {name}")
-
     return data
 
 
 def build_affiliate_url(url: str, tracking_id: str) -> str:
-    """Return an Amazon UK URL carrying the configured Associates tracking ID."""
     parsed = urlparse(url.strip())
     if parsed.netloc.lower() not in {"amazon.co.uk", "www.amazon.co.uk"}:
         raise ValueError("Only Amazon.co.uk product URLs are accepted")
@@ -62,15 +53,9 @@ def build_affiliate_url(url: str, tracking_id: str) -> str:
 
 
 def _find_catalogue_product(products: list[dict[str, Any]], recommendation: dict[str, Any]) -> dict[str, Any] | None:
-    """Resolve a recommendation to one exact catalogue record.
-
-    Product ID is preferred because names can be ambiguous. Name-only matching is
-    allowed only when it is an exact, case-insensitive catalogue-name match.
-    """
     requested_id = str(recommendation.get("asin_or_id", "")).strip()
     if requested_id:
         return next((p for p in products if str(p.get("asin_or_id", "")).strip() == requested_id), None)
-
     requested_name = str(recommendation.get("name", "")).strip().casefold()
     if not requested_name:
         return None
@@ -78,33 +63,32 @@ def _find_catalogue_product(products: list[dict[str, Any]], recommendation: dict
     return matches[0] if len(matches) == 1 else None
 
 
-def _insert_product_link(body: str, product_name: str, affiliate_url: str) -> str:
-    """Ensure the first product mention is one valid Markdown link.
+def _line_is_heading(body: str, position: int) -> bool:
+    line_start = body.rfind("\n", 0, position) + 1
+    return body[line_start:].startswith("#")
 
-    If the model already linked the product, replace that URL with the authoritative
-    catalogue URL instead of creating nested Markdown links. This also repairs the
-    common malformed form ``[Name]([https://...](https://...))``.
-    """
+
+def _insert_product_link(body: str, product_name: str, affiliate_url: str) -> str:
+    """Ensure the first body mention is one valid Markdown affiliate link."""
     marker = f"[{product_name}]({affiliate_url})"
     if marker in body:
         return body
 
-    # Repair an existing Markdown link whose visible text is the exact product name.
-    link_pattern = re.compile(r"\[([^\]]+)\]\((https?://[^)]+)\)")
-    for match in link_pattern.finditer(body):
-        if match.group(1).strip().casefold() == product_name.casefold():
-            return body[:match.start()] + marker + body[match.end():]
-
-    # Repair the nested Markdown form sometimes emitted by the model.
     nested_pattern = re.compile(r"\[([^\]]+)\]\(\[(https?://[^\]]+)\]\((https?://[^)]+)\)\)")
     for match in nested_pattern.finditer(body):
-        if match.group(1).strip().casefold() == product_name.casefold():
+        if match.group(1).strip().casefold() == product_name.casefold() and not _line_is_heading(body, match.start()):
             return body[:match.start()] + marker + body[match.end():]
 
-    linked_pattern = re.compile(r"\[[^\]]*\]\([^)]*\)")
-    linked_spans = [m.span() for m in linked_pattern.finditer(body)]
+    link_pattern = re.compile(r"\[([^\]]+)\]\((https?://[^)]+)\)")
+    for match in link_pattern.finditer(body):
+        if match.group(1).strip().casefold() == product_name.casefold() and not _line_is_heading(body, match.start()):
+            return body[:match.start()] + marker + body[match.end():]
+
+    linked_spans = [m.span() for m in link_pattern.finditer(body)]
     for match in re.finditer(re.escape(product_name), body, flags=re.IGNORECASE):
         start, end = match.span()
+        if _line_is_heading(body, start):
+            continue
         if not any(span_start <= start < span_end for span_start, span_end in linked_spans):
             return body[:start] + marker + body[end:]
 
@@ -112,13 +96,11 @@ def _insert_product_link(body: str, product_name: str, affiliate_url: str) -> st
 
 
 def insert_affiliate_links(article: dict[str, Any]) -> dict[str, Any]:
-    """Insert affiliate links only for products explicitly present in products.json."""
     catalogue = load_catalogue()
     products = catalogue["products"]
     linked_products: list[dict[str, Any]] = []
     body = str(article.get("body_markdown", ""))
     unmatched: list[str] = []
-
     recommendations = article.get("products", [])
     if not isinstance(recommendations, list) or not recommendations:
         raise ValueError("Article must contain at least one product recommendation")
@@ -132,22 +114,12 @@ def insert_affiliate_links(article: dict[str, Any]) -> dict[str, Any]:
         if not match:
             unmatched.append(name or str(recommendation.get("asin_or_id", "")).strip() or "unnamed product")
             continue
-
         affiliate_url = build_affiliate_url(match["url"], catalogue["tracking_id"])
         body = _insert_product_link(body, match["name"], affiliate_url)
-        linked_products.append(
-            {
-                **recommendation,
-                "name": match["name"],
-                "asin_or_id": match["asin_or_id"],
-                "affiliate_url": affiliate_url,
-                "affiliate_link_type": "product",
-            }
-        )
+        linked_products.append({**recommendation, "name": match["name"], "asin_or_id": match["asin_or_id"], "affiliate_url": affiliate_url, "affiliate_link_type": "product"})
 
     if unmatched:
         raise ValueError("Article recommends products outside the approved catalogue: " + "; ".join(unmatched))
-
     result = dict(article)
     result["body_markdown"] = body
     result["products"] = linked_products
@@ -160,7 +132,6 @@ def insert_affiliate_links(article: dict[str, Any]) -> dict[str, Any]:
 
 
 def validate_amazon_url(url: str, tracking_id: str = "echsignalnews-21") -> bool:
-    """Validate that a URL is an Amazon UK product URL with the expected tag."""
     affiliate_url = build_affiliate_url(url, tracking_id)
     parsed = urlparse(affiliate_url)
     return bool(_amazon_asin(affiliate_url) and parse_qs(parsed.query).get("tag") == [tracking_id])
