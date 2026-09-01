@@ -16,7 +16,7 @@ def _inline_markdown(text: str) -> str:
 
 
 def markdown_to_html(markdown: str) -> str:
-    """Convert the predictable article Markdown into clean WordPress HTML."""
+    """Convert predictable article Markdown into clean WordPress HTML."""
     lines = markdown.strip().splitlines()
     output: list[str] = []
     paragraph: list[str] = []
@@ -47,8 +47,7 @@ def markdown_to_html(markdown: str) -> str:
             flush()
             continue
         if stripped.startswith("|") and stripped.endswith("|"):
-            flush()
-            close_list()
+            flush(); close_list()
             cells = [cell.strip() for cell in stripped.strip("|").split("|")]
             if all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells):
                 continue
@@ -66,19 +65,18 @@ def markdown_to_html(markdown: str) -> str:
             flush(); close_list(); output.append(f"<h2>{_inline_markdown(stripped[3:])}</h2>")
         elif stripped.startswith("# "):
             flush(); close_list(); output.append(f"<h2>{_inline_markdown(stripped[2:])}</h2>")
-        elif stripped.startswith("- "):
+        elif re.match(r"^[-*+]\s+", stripped):
             flush()
             if not in_list:
                 output.append("<ul>")
                 in_list = True
-            output.append(f"<li>{_inline_markdown(stripped[2:])}</li>")
+            item = re.sub(r"^[-*+]\s+", "", stripped, count=1)
+            output.append(f"<li>{_inline_markdown(item)}</li>")
         else:
             close_list()
             paragraph.append(stripped)
 
-    flush()
-    close_list()
-    close_table()
+    flush(); close_list(); close_table()
     return "\n".join(output)
 
 
@@ -92,7 +90,6 @@ def publish_article(article: dict[str, Any], publisher: WordPressPublisher | Non
         raise ValueError("Article body is required")
     if not slug:
         slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
-
     html_body = body if "<p>" in body or "<h2>" in body else markdown_to_html(body)
     wp = publisher or WordPressPublisher()
     result = wp.create_post(title=title, content=html_body, slug=slug)
