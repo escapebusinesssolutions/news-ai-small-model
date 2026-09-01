@@ -1,0 +1,40 @@
+name: TechSignal Audience Health
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 7 * * *'
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check public site
+        env:
+          SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+        run: |
+          set -euo pipefail
+          base="${SITE_URL%/}"
+          for path in / /robots.txt /wp-sitemap.xml /feed/; do
+            code=$(curl -L -sS -o /tmp/response -w '%{http_code}' --max-time 30 "$base$path")
+            echo "$path -> HTTP $code"
+            test "$code" = "200"
+          done
+          grep -qi 'Sitemap:' /tmp/response || true
+
+      - name: Check WordPress REST endpoint
+        env:
+          SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+        run: |
+          set -euo pipefail
+          base="${SITE_URL%/}"
+          code=$(curl -L -sS -o /tmp/wp.json -w '%{http_code}' --max-time 30 "$base/wp-json/wp/v2/posts?per_page=1&_fields=id,slug,status")
+          echo "/wp-json/wp/v2/posts -> HTTP $code"
+          test "$code" = "200"
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/wp.json', encoding='utf-8'))
+          assert isinstance(data, list)
+          print(f'Public posts endpoint returned {len(data)} record(s)')
+          PY
