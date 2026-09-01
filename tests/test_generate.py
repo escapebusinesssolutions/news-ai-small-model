@@ -35,5 +35,6 @@ def test_generate_prompt_contains_product_brief_and_decision_format(monkeypatch)
 
     assert "Product brief" in captured["prompt"]
     assert "Samson Q2U" in captured["prompt"]
-    assert "best X under Y" in captured["system"]
+    assert "complete and exclusive source of product facts" in captured["system"]
+    assert "Do not create Markdown links or Markdown tables" in captured["system"]
     assert result["product_brief"]
