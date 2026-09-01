@@ -92,7 +92,7 @@ def publish_article(article: dict[str, Any], publisher: WordPressPublisher | Non
         slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
     html_body = body if "<p>" in body or "<h2>" in body else markdown_to_html(body)
     wp = publisher or WordPressPublisher()
-    result = wp.create_post(title=title, content=html_body, slug=slug)
+    result = wp.create_post(title=title, content=html_body, slug=slug, metadata={"category": article.get("category", "")})
     return {**result, "title": title, "slug": slug}
 
 
