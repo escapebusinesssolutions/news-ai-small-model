@@ -8,9 +8,13 @@ on:
         required: false
         default: "0"
       publish:
-        description: "Run the WordPress publishing path (status is controlled by WORDPRESS_DEFAULT_STATUS secret)"
+        description: "Run the WordPress publishing path"
         required: false
         default: "false"
+      cleanup_post_ids:
+        description: "Optional comma-separated WordPress post IDs to move to trash before publishing"
+        required: false
+        default: ""
   schedule:
     - cron: '17 6 * * *'
 
@@ -31,6 +35,25 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Clean up superseded posts
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.cleanup_post_ids != '' }}
+        env:
+          WORDPRESS_SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+          WORDPRESS_USERNAME: ${{ secrets.TECHSIGNAL_USERNAME }}
+          WORDPRESS_APP_PASSWORD: ${{ secrets.TECHSIGNAL_APP_PASSWORD }}
+          CLEANUP_POST_IDS: ${{ inputs.cleanup_post_ids }}
+        run: |
+          python - <<'PY'
+          import os
+          import requests
+          site = os.environ["WORDPRESS_SITE_URL"].rstrip("/")
+          auth = (os.environ["WORDPRESS_USERNAME"], os.environ["WORDPRESS_APP_PASSWORD"])
+          ids = [x.strip() for x in os.environ["CLEANUP_POST_IDS"].split(",") if x.strip()]
+          for post_id in ids:
+              response = requests.delete(f"{site}/wp-json/wp/v2/posts/{post_id}", params={"force": "false"}, auth=auth, timeout=30)
+              response.raise_for_status()
+              print(f"Moved WordPress post {post_id} to trash")
+          PY
       - name: Run complete pipeline
         env:
           AI_PROVIDER: openrouter
