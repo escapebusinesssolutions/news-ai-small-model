@@ -20,10 +20,9 @@ You may make clearly framed editorial judgements about fit and trade-offs, but d
 Never claim you tested products or have personal experience. Never invent a competing product merely because the topic wording implies one exists.
 Do not make unsupported absolute claims such as "best for everyone", "only option", "clear winner", or "punches above its price".
 If the catalogue does not contain enough products for a literal comparison or alternatives request, say so plainly and turn the article into a useful guide to the available product rather than inventing alternatives.
-Do not create Markdown links; affiliate links are inserted by a separate stage.
+Do not create Markdown links or Markdown tables; affiliate links are inserted by a separate stage.
 Return ONLY valid JSON with keys: title, slug, meta_description, body_markdown, products.
 Each selected product must use a name from the supplied brief and preserve its exact asin_or_id, price_range, and key_points.
-Do not use Markdown tables. Use headings, paragraphs, and bullet lists only.
 """
 
 
@@ -49,8 +48,7 @@ def build_product_brief(topic: dict[str, Any]) -> list[dict[str, Any]]:
     catalogue = load_product_catalogue()
     candidates = []
     for product in catalogue["products"]:
-        product_category = str(product.get("category", "")).lower()
-        if product_category == category:
+        if str(product.get("category", "")).lower() == category:
             candidates.append({
                 "name": product.get("name"),
                 "asin_or_id": product.get("asin_or_id"),
@@ -80,10 +78,7 @@ def _parse_json(text: str) -> dict[str, Any]:
         end = cleaned.rfind("}")
         if start < 0 or end <= start:
             raise ValueError("AI returned invalid JSON: no JSON object found")
-        try:
-            result = json.loads(cleaned[start:end + 1])
-        except json.JSONDecodeError as exc:
-            raise ValueError(f"AI returned invalid JSON: {exc}") from exc
+        result = json.loads(cleaned[start:end + 1])
     if not isinstance(result, dict):
         raise ValueError("AI response must be a JSON object")
     required = ("title", "body_markdown", "products")
@@ -96,6 +91,48 @@ def _parse_json(text: str) -> dict[str, Any]:
     return result
 
 
+def _single_product_article(topic: dict[str, Any], product: dict[str, Any]) -> dict[str, Any]:
+    """Build a factual article without model-generated product claims."""
+    name = str(product["name"])
+    use_cases = product.get("use_cases", [])
+    points = product.get("key_points", [])
+    use_case_text = ", ".join(str(x) for x in use_cases)
+    body = [
+        f"# {name}",
+        "",
+        f"The current TechSignal catalogue contains one directly relevant product for this topic: {name}. That makes the decision straightforward: the question is whether its documented characteristics and intended use cases match what you need.",
+        "",
+        "## What the catalogue says",
+        "",
+    ]
+    body.extend(f"- {point}" for point in points)
+    body.extend([
+        "",
+        "## Where it fits",
+        "",
+        f"The catalogue lists this product for {use_case_text}. Those are the use cases TechSignal can substantiate from its current product data.",
+        "",
+        "## Price range",
+        "",
+        f"The catalogue records a price range of {product['price_range']}. This is a reference range, not a live price, so check the retailer listing before buying.",
+        "",
+        "## Recommendation",
+        "",
+        f"Choose the {name} if the listed features and use cases match your requirements. The current catalogue does not provide enough directly relevant products to make a meaningful product-to-product comparison, so this guide does not invent alternatives or claim a comparative winner.",
+        "",
+        "## Bottom line",
+        "",
+        f"The {name} is the directly relevant option currently covered by TechSignal for this topic. The sensible buying decision is therefore based on fit: compare the documented features, intended use cases, and recorded price range with your own requirements before purchasing.",
+    ])
+    return {
+        "title": f"{name} for Productivity Workflows",
+        "slug": _slug(str(topic.get("topic", name))),
+        "meta_description": f"A factual TechSignal buying guide to the {name}, based on the current curated product catalogue.",
+        "body_markdown": "\n".join(body),
+        "products": [{"name": name, "asin_or_id": product["asin_or_id"], "price_range": product["price_range"], "key_points": points}],
+    }
+
+
 def generate_article(topic: dict[str, Any] | str) -> dict[str, Any]:
     if isinstance(topic, str):
         topic = {"topic": topic, "intent": "buyer_guide", "category": "general"}
@@ -103,7 +140,10 @@ def generate_article(topic: dict[str, Any] | str) -> dict[str, Any]:
     if not name:
         raise ValueError("Topic is empty")
     product_brief = build_product_brief(topic)
-    prompt = f"""Create one original buyer-intent article for this topic.
+    if len(product_brief) == 1:
+        article = _single_product_article(topic, product_brief[0])
+    else:
+        prompt = f"""Create one original buyer-intent article for this topic.
 
 Topic: {name}
 Intent: {topic.get('intent', 'buyer_guide')}
@@ -116,16 +156,16 @@ Product brief:
 
 Use only products from this brief. Preserve each selected product's exact name, asin_or_id, price_range, and key_points.
 Use the supplied use_cases only as context for fit. Do not add technical specifications or product features that are not explicitly listed.
-For comparison/alternatives topics, do not invent missing competitors. If only one relevant product exists, explicitly state that the current catalogue contains one directly relevant option and explain who it suits and what trade-off that creates.
+For comparison/alternatives topics, do not invent missing competitors. If the brief does not contain a requested competitor, say that the catalogue does not cover it.
 Do not create Markdown links or Markdown tables.
 Write a concise introduction, useful sections, practical trade-offs, a clear recommendation, and a short conclusion.
 Return only the JSON object.
 """
-    raw = generate_text(SYSTEM_PROMPT, prompt)
-    try:
-        article = _parse_json(raw)
-    except ValueError as first_error:
-        repair_prompt = f"""Repair this article into valid JSON while obeying the source-bound editorial rules.
+        raw = generate_text(SYSTEM_PROMPT, prompt)
+        try:
+            article = _parse_json(raw)
+        except ValueError as first_error:
+            repair_prompt = f"""Repair this article into valid JSON while obeying the source-bound editorial rules.
 
 Topic: {name}
 Allowed product brief:
@@ -138,14 +178,13 @@ Products may ONLY come from the allowed brief and must preserve exact name, asin
 Remove invented product facts, specifications, features, prices, availability, tests, awards, competitor products, Markdown links, and Markdown tables.
 Do not claim personal testing. Do not invent missing alternatives.
 """
-        try:
-            article = _parse_json(generate_text(SYSTEM_PROMPT, repair_prompt))
-        except ValueError as repair_error:
-            raise ValueError(f"AI generation failed validation; initial error: {first_error}; repair error: {repair_error}") from repair_error
+            try:
+                article = _parse_json(generate_text(SYSTEM_PROMPT, repair_prompt))
+            except ValueError as repair_error:
+                raise ValueError(f"AI generation failed validation; initial error: {first_error}; repair error: {repair_error}") from repair_error
     article["source_topic"] = name
     article["category"] = topic.get("category", "general")
     article["product_brief"] = product_brief
-    # The queue topic, not model wording, is the stable publication identity.
     article["slug"] = _slug(name)
     return article
 
