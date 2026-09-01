@@ -52,7 +52,9 @@ def build_product_brief(topic: dict[str, Any]) -> list[dict[str, Any]]:
     for product in catalogue["products"]:
         product_category = str(product.get("category", "")).lower()
         use_cases = " ".join(str(value) for value in product.get("use_cases", [])).lower()
-        if product_category == category or category in use_cases or any(token in use_cases for token in query.split() if len(token) > 3):
+        # Category is the authoritative relevance boundary. Generic topic-word
+        # matching can pull unrelated products into an article.
+        if product_category == category:
             candidates.append({
                 "name": product.get("name"),
                 "asin_or_id": product.get("asin_or_id"),

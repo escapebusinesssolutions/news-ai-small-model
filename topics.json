@@ -14,6 +14,6 @@
     {"topic": "Samsung T7 vs buying a larger external SSD for work", "intent": "comparison", "category": "storage"},
     {"topic": "best high-capacity power bank for laptop work", "intent": "buyer_guide", "category": "power"},
     {"topic": "Anker 737 Power Bank for laptop travel and mobile work", "intent": "buyer_guide", "category": "power"},
-    {"topic": "best Stream Deck alternatives for productivity workflows", "intent": "buyer_guide", "category": "workspace"}
+    {"topic": "Elgato Stream Deck MK.2 for productivity workflows", "intent": "buyer_guide", "category": "workspace"}
   ]
 }
