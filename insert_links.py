@@ -35,8 +35,11 @@ def load_catalogue() -> dict[str, Any]:
         name = str(product.get("name", "")).strip()
         asin = str(product.get("asin_or_id", "")).strip()
         url = str(product.get("url", "")).strip()
-        if not name or not asin or not url or asin in seen_ids or _amazon_asin(url) != asin:
+        if not name or not asin or not url or asin in seen_ids:
             raise ValueError(f"Invalid catalogue product: {name or asin or 'unnamed'}")
+        parsed_asin = _amazon_asin(url)
+        if parsed_asin != asin:
+            raise ValueError(f"Catalogue product URL does not match asin_or_id: {name}")
         seen_ids.add(asin)
         if urlparse(url).netloc.lower() not in {"amazon.co.uk", "www.amazon.co.uk"}:
             raise ValueError(f"Catalogue product URL is not Amazon UK: {name}")
