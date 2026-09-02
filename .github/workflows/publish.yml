@@ -17,10 +17,24 @@ on:
         default: ""
   schedule:
     - cron: '17 6 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/publish-trigger.json'
 
 concurrency:
   group: small-model-publish
   cancel-in-progress: false
+
+env:
+  AI_PROVIDER: openrouter
+  OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+  WORDPRESS_SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+  WORDPRESS_USERNAME: ${{ secrets.TECHSIGNAL_USERNAME }}
+  WORDPRESS_APP_PASSWORD: ${{ secrets.TECHSIGNAL_APP_PASSWORD }}
+  WORDPRESS_PUBLISH_ENABLED: ${{ github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true' }}
+  WORDPRESS_DEFAULT_STATUS: ${{ (github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true') && 'publish' || (secrets.WORDPRESS_DEFAULT_STATUS || 'draft') }}
 
 jobs:
   publish:
@@ -38,9 +52,6 @@ jobs:
       - name: Clean up superseded posts
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.cleanup_post_ids != '' }}
         env:
-          WORDPRESS_SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
-          WORDPRESS_USERNAME: ${{ secrets.TECHSIGNAL_USERNAME }}
-          WORDPRESS_APP_PASSWORD: ${{ secrets.TECHSIGNAL_APP_PASSWORD }}
           CLEANUP_POST_IDS: ${{ inputs.cleanup_post_ids }}
         run: |
           python - <<'PY'
@@ -54,23 +65,28 @@ jobs:
               response.raise_for_status()
               print(f"Moved WordPress post {post_id} to trash")
           PY
-      - name: Run complete pipeline
-        env:
-          AI_PROVIDER: openrouter
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          WORDPRESS_SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
-          WORDPRESS_USERNAME: ${{ secrets.TECHSIGNAL_USERNAME }}
-          WORDPRESS_APP_PASSWORD: ${{ secrets.TECHSIGNAL_APP_PASSWORD }}
-          WORDPRESS_PUBLISH_ENABLED: ${{ github.event_name == 'schedule' || inputs.publish == 'true' }}
-          WORDPRESS_DEFAULT_STATUS: ${{ (github.event_name == 'schedule' || inputs.publish == 'true') && 'publish' || (secrets.WORDPRESS_DEFAULT_STATUS || 'draft') }}
+      - name: Resolve publish trigger
+        id: trigger
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ]; then
+          if [ "${{ github.event_name }}" = "push" ]; then
+            TOPIC_INDEX=$(python -c 'import json; print(json.load(open(".github/publish-trigger.json", encoding="utf-8"))["topic_index"])')
+            python -c 'import json; d=json.load(open(".github/publish-trigger.json", encoding="utf-8")); assert isinstance(d["topic_index"], int) and 0 <= d["topic_index"] < 20'
+            echo "topic_index=${TOPIC_INDEX}" >> "$GITHUB_OUTPUT"
+            echo "Repository publish trigger: topic index ${TOPIC_INDEX}"
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
             DAY_OF_YEAR=$(date -u +%j)
-            TOPIC_INDEX=$((10#$DAY_OF_YEAR % 15))
+            TOPIC_INDEX=$((10#$DAY_OF_YEAR % 20))
+            echo "topic_index=${TOPIC_INDEX}" >> "$GITHUB_OUTPUT"
             echo "Scheduled run: topic index ${TOPIC_INDEX}"
-            python pipeline.py --topic-index "$TOPIC_INDEX" --publish --output validation-report.json
           else
-            python pipeline.py --topic-index "${{ inputs.topic_index || '0' }}" ${{ inputs.publish == 'true' && '--publish' || '' }} --output validation-report.json
+            echo "topic_index=${{ inputs.topic_index || '0' }}" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Run complete pipeline
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.publish }}" = "true" ]; then
+            python pipeline.py --topic-index "${{ steps.trigger.outputs.topic_index }}" --publish --output validation-report.json
+          else
+            python pipeline.py --topic-index "${{ steps.trigger.outputs.topic_index }}" --output validation-report.json
           fi
       - name: Upload validation report
         if: always()
