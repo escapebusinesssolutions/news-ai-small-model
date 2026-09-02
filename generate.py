@@ -202,6 +202,13 @@ FIRST DRAFT:
     return _parse_json(generate_text(SYSTEM_PROMPT, prompt))
 
 
+def _slug(value: str) -> str:
+    """Create a predictable WordPress-safe slug without depending on another module."""
+    slug = value.lower().strip()
+    slug = re.sub(r"[^a-z0-9]+", "-", slug).strip("-")
+    return slug[:100].strip("-") or "techsignal-article"
+
+
 def generate_article(topic: dict[str, Any] | str) -> dict[str, Any]:
     if isinstance(topic, str):
         topic = {"topic": topic, "intent": "buyer_guide", "category": "general"}
