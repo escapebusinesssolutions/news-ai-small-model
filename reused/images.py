@@ -28,6 +28,21 @@ def _license_allowed(metadata: dict[str, Any]) -> bool:
     return any(name == allowed or name.startswith(allowed + " ") for allowed in ALLOWED_LICENSES)
 
 
+def _license_url(license_name: str) -> str:
+    name = _normalise_license(license_name)
+    if name == "cc0" or name.startswith("cc0 "):
+        return "https://creativecommons.org/publicdomain/zero/1.0/"
+    if name.startswith("cc by-sa"):
+        match = re.search(r"(\d+(?:\.\d+)?)", name)
+        version = match.group(1) if match else "4.0"
+        return f"https://creativecommons.org/licenses/by-sa/{version}/"
+    if name.startswith("cc by"):
+        match = re.search(r"(\d+(?:\.\d+)?)", name)
+        version = match.group(1) if match else "4.0"
+        return f"https://creativecommons.org/licenses/by/{version}/"
+    return ""
+
+
 def _clean_query(value: str) -> str:
     value = re.sub(r"[^\w\s+\-]", " ", value, flags=re.UNICODE)
     return re.sub(r"\s+", " ", value).strip()[:180]
@@ -58,12 +73,14 @@ def find_commons_image(search_query: str, timeout_seconds: int = 20) -> dict[str
         url = str(info.get("thumburl") or info.get("url") or "").strip()
         if not url.startswith("https://"):
             continue
+        license_name = _metadata_value(metadata, "LicenseShortName")
         title = str(page.get("title", "")).removeprefix("File:")
         return {
             "url": url,
             "source_page": "https://commons.wikimedia.org/wiki/" + quote(str(page.get("title", "")), safe=""),
             "source": "Wikimedia Commons",
-            "license": _metadata_value(metadata, "LicenseShortName"),
+            "license": license_name,
+            "license_url": _license_url(license_name),
             "artist": re.sub(r"<[^>]+>", "", _metadata_value(metadata, "Artist")).strip(),
             "title": title,
             "mime": mime,
@@ -99,18 +116,27 @@ def images_to_html(images: list[dict[str, Any]]) -> str:
     for image in images:
         src = html.escape(str(image["url"]), quote=True)
         alt = html.escape(str(image.get("alt_text", "")), quote=True)
-        attribution = f"Source: {image['source']} — {image['license']}"
+        source_page = html.escape(str(image.get("source_page", "")), quote=True)
+        license_name = html.escape(str(image.get("license", "")), quote=False)
+        license_url = html.escape(str(image.get("license_url", "")), quote=True)
+        attribution = f"Source: {image['source']}"
         if image.get("title"):
             attribution += f" — {image['title']}"
         if image.get("artist"):
             attribution += f" — {image['artist']}"
-        attribution += f" — {image['source_page']}"
+        attribution_html = html.escape(attribution, quote=False)
+        if license_url:
+            attribution_html += f' — License: <a href="{license_url}" rel="license noopener" target="_blank">{license_name}</a>'
+        else:
+            attribution_html += f" — License: {license_name}"
+        if source_page:
+            attribution_html += f' — <a href="{source_page}" rel="noopener" target="_blank">source</a>'
         caption = str(image.get("caption", "")).strip()
-        caption_text = f"{caption} ({attribution})" if caption else attribution
+        caption_html = html.escape(caption, quote=False) + " (" + attribution_html + ")" if caption else attribution_html
         figures.append(
             '<figure class="techsignal-external-image">'
             f'<img src="{src}" alt="{alt}" loading="lazy" decoding="async" />'
-            f"<figcaption>{html.escape(caption_text, quote=False)}</figcaption>"
+            f"<figcaption>{caption_html}</figcaption>"
             "</figure>"
         )
     return "\n".join(figures)
