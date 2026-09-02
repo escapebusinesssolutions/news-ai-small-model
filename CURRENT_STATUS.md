@@ -1,59 +1,54 @@
 # Current Status
 
 **Project:** NEWS AI SMALL MODEL  
-**Date:** 2026-08-31  
-**Current phase:** Phase 01 — Build / Validation
+**Date:** 2026-09-02  
+**Current phase:** Stage 3 — Build Audience / Stage 4 — Monetization preparation
 
 ## Dashboard
-| Step | Status |
+| Area | Status |
 |---|---|
 | Scope frozen | DONE |
-| Extract proven components | DONE |
 | Repository structure | DONE |
-| Topic queue | DONE — aligned to curated catalogue |
-| Generate | DONE — catalogue-informed product brief and decision-support prompt |
-| Affiliate links | DONE — catalogue is authoritative; exact links validated |
-| WordPress publish | CODE DONE — live site test pending external credentials/site |
-| Cross-linking | DONE — lightweight topic/category matching |
-| End-to-end pipeline | DONE — Generate → affiliate links → cross-link → validation → WordPress |
-| Testing | DONE — full GitHub Actions suite green |
-| GitHub Actions | DONE — daily scheduled workflow plus manual dispatch |
-| Unattended run | READY — intentionally held at draft until first 10–15 articles are spot-checked |
-| Commercial measurement | READY — Search Console, Amazon Associates and Pinterest measurement plan documented |
+| Topic queue | DONE — 15 buyer-intent topics |
+| Generate | DONE — catalogue-informed, source-bound content |
+| Affiliate links | DONE — exact Amazon UK catalogue links |
+| WordPress publish | DONE — live production path verified |
+| Cross-linking | DONE |
+| End-to-end pipeline | DONE |
+| Tests | DONE — latest passing suite verified |
+| Audience health | DONE — automated site/REST health check passing |
+| Audience acquisition | IN PROGRESS — search-engine ownership steps remain external |
+| Monetization instrumentation | READY — affiliate metadata and validation already recorded |
+| Monetization measurement plan | DONE — see `MONETIZATION.md` |
+| Revenue proof | NOT YET PROVEN — requires real traffic and Amazon reporting data |
 
-## Current release
-**Pre-v0.1.0** — code complete for the validation loop; external account/site setup remains.
+## Current business position
+**BUILD → PROVE CONTENT → BUILD AUDIENCE → MONETIZE → SCALE**
 
-## Source of truth
-GitHub is the implementation source of truth. Notion holds the strategy and architecture.
+Build is complete. Content production and affiliate validation are operational. The business question is now whether TechSignal can attract real buyer-intent visitors and convert that attention into affiliate revenue.
 
-## Completed build loop
-`pipeline.py` now runs:
+## Affiliate controls
+`products.json` is the commercial source of truth. The current Amazon UK tracking ID is `echsignalnews-21`. Affiliate insertion accepts only exact catalogue products and Amazon UK URLs, and publication validation records the marketplace, tracking ID, selected products, exact matches, and validation result.
 
-`topic → Generate → catalogue affiliate links → cross-link → pre-publish validation → WordPress`
+Search-based affiliate links are disabled. Catalogue mismatches block publication.
 
-The validation report records the exact products, IDs, affiliate URLs, tracking tag, link type, and validation result. Publication is blocked when affiliate validation fails.
+## Stage 4 measurement
+`MONETIZATION.md` defines the commercial measurement model:
 
-## Catalogue authority
-Stage 1 receives a product brief derived from `products.json`. Stage 2 may resolve only products present in that catalogue and may insert only the catalogue-approved Amazon URL with the configured tracking tag. Search-based affiliate links are not used.
+`visitor → affiliate click → qualifying purchase → dispatched item → commission`
 
-## Automation
-GitHub-hosted runners are used. The daily workflow selects one of the 15 catalogue-supported topics at 06:17 UTC. `WORDPRESS_DEFAULT_STATUS` controls the rollout: keep it `draft` for the first 10–15 articles, then change it to `publish` after human spot-check acceptance.
+The key metrics are traffic, affiliate clicks, click-through rate, items ordered, items dispatched, conversion, dispatched-items revenue, earnings, revenue/article, and revenue/1,000 visitors.
 
-## External blockers
-The remaining actions require accounts or credentials that cannot safely be created by repository automation:
+No revenue, conversion or traffic result is considered valid until it comes from external reporting data.
 
-- separate domain and brand
-- separate hosting/WordPress installation
-- Amazon Associates account/application
-- OpenRouter API credential
-- WordPress API credential
-- Google Search Console setup
-- Pinterest business account
-- email provider account
-- final keyword-volume/competition checks using an appropriate free keyword tool
+## External actions still required
+- Google Search Console ownership verification and sitemap submission
+- Bing Webmaster ownership verification and sitemap submission
+- Analytics account/property setup if selected
+- Amazon Associates reporting access/data for revenue proof
+- Additional Amazon tracking IDs only if later segmentation is justified
 
-These are business/setup prerequisites, not unresolved code defects.
+These are account-level actions, not code defects.
 
-## Next action
-Configure the external accounts and credentials, then run the first 10–15 articles as drafts, inspect them, and only then switch unattended WordPress status to `publish`.
+## Next business milestone
+Get search discovery operating, publish the controlled content set, collect real visitor and affiliate-click data, then use Amazon reporting to determine whether any topic cluster produces measurable revenue.
