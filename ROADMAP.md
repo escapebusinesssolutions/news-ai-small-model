@@ -9,6 +9,7 @@ Build the smallest useful autonomous affiliate-content machine and test whether 
 - [ ] STAGE 3 — BUILD AN AUDIENCE
 - [ ] STAGE 4 — MONETIZE
 - [ ] STAGE 5 — SCALE
+- [ ] STAGE 6 — OPTIMIZE
 
 ## Build sequence
 - [x] STEP 0 — Scope frozen
@@ -34,6 +35,27 @@ Build the smallest useful autonomous affiliate-content machine and test whether 
 ## Stage 5 operating rule
 Scale winning intent, not article count. Increase output in bounded increments and only expand into new clusters when existing evidence justifies it.
 
+## Stage 6 optimization gates
+- Enough traffic and affiliate data exists to distinguish signal from noise.
+- At least one meaningful funnel bottleneck can be identified.
+- Commercially relevant winners can be separated from traffic-only winners.
+- Optimization changes can be measured against a defined baseline.
+- Quality, factual grounding, and affiliate validation remain intact.
+
+## Stage 6 operating rule
+Optimize the commercial system before increasing complexity. Fix the largest measurable bottleneck first, make small attributable changes, and keep authoritative commercial reporting as the source of truth.
+
+## Stage 6 work plan
+1. Diagnose the funnel: demand → traffic → affiliate click → purchase → earnings.
+2. Identify winning articles, products, topic clusters, and traffic sources.
+3. Improve existing winners before producing large numbers of new pages.
+4. Run bounded content, structure, internal-link, and commercial-placement experiments.
+5. Measure economic impact, not vanity metrics alone.
+6. Stop changes that reduce usefulness, factual quality, or commercial efficiency.
+7. Feed proven winners back into Stage 5 scaling decisions.
+
+See `OPTIMIZATION.md` for the Stage 6 operating plan.
+
 ## Release targets
 - v0.1.0 — First working machine: code complete
 - v0.2.0 — Automated GitHub Actions execution: ready
@@ -44,4 +66,4 @@ Scale winning intent, not article count. Increase output in bounded increments a
 Build only what is required to prove the commercial loop. Do not recreate the large news system.
 
 ## Current gate
-Stage 3 remains the immediate operating gate: establish real discovery and traffic. Stage 4 measurement is prepared. Stage 5 scaling is designed but must not be activated merely because the pipeline can publish more pages.
+Stage 3 remains the immediate operating gate: establish real discovery and traffic. Stage 4 measurement is prepared. Stage 5 scaling is designed but must not be activated merely because the pipeline can publish more pages. Stage 6 is now defined but cannot be meaningfully activated until sufficient external performance data exists.
