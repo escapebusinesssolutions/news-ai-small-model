@@ -10,6 +10,10 @@ Build the smallest useful autonomous affiliate-content machine and test whether 
 - [ ] STAGE 4 — MONETIZE
 - [ ] STAGE 5 — SCALE
 - [ ] STAGE 6 — OPTIMIZE
+- [ ] STAGE 7 — EXPAND
+- [ ] STAGE 8 — AUTOMATE
+- [ ] STAGE 9 — DEFENSIBILITY
+- [ ] STAGE 10 — BUSINESS SCALE
 
 ## Build sequence
 - [x] STEP 0 — Scope frozen
@@ -54,7 +58,37 @@ Optimize the commercial system before increasing complexity. Fix the largest mea
 6. Stop changes that reduce usefulness, factual quality, or commercial efficiency.
 7. Feed proven winners back into Stage 5 scaling decisions.
 
-See `OPTIMIZATION.md` for the Stage 6 operating plan.
+## Stage 7 expansion gates
+- A repeatable commercial winner exists.
+- The expansion serves a related buyer decision or deliberately selected new market.
+- Product/evidence and measurement are available.
+- Initial volume is bounded and success/kill criteria are defined.
+
+See `EXPANSION.md`.
+
+## Stage 8 automation gates
+- The decision is repeatable and evidence-backed.
+- Explicit production limits exist.
+- Existing validation controls cannot be bypassed.
+- Human approval remains for new markets, revenue sources, major category changes, material spend, and brand/legal decisions.
+
+See `AUTOMATION.md`.
+
+## Stage 9 defensibility gates
+- An economically valuable area is proven before moat investment.
+- Historical performance data is retained.
+- Editorial provenance and first-hand evidence remain honest.
+- First-party audience relationships are pursued where useful.
+
+See `DEFENSIBILITY.md`.
+
+## Stage 10 business-scale gates
+- Traffic and commercial conversion are repeatable.
+- Unit economics are measurable.
+- Quality remains stable as volume increases.
+- Additional resources have a credible path to incremental profit.
+
+See `BUSINESS_SCALE.md`.
 
 ## Release targets
 - v0.1.0 — First working machine: code complete
@@ -66,4 +100,4 @@ See `OPTIMIZATION.md` for the Stage 6 operating plan.
 Build only what is required to prove the commercial loop. Do not recreate the large news system.
 
 ## Current gate
-Stage 3 remains the immediate operating gate: establish real discovery and traffic. Stage 4 measurement is prepared. Stage 5 scaling is designed but must not be activated merely because the pipeline can publish more pages. Stage 6 is now defined but cannot be meaningfully activated until sufficient external performance data exists.
+Stage 3 remains the immediate operating gate: establish real discovery and traffic. Stage 4 measurement is prepared. Stages 5-10 are defined as controlled business stages, but none should be activated merely because the pipeline can produce more pages. External performance evidence must determine when each stage becomes active.
