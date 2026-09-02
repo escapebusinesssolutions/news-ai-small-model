@@ -14,6 +14,11 @@
     {"topic": "Samsung T7 vs buying a larger external SSD for work", "intent": "comparison", "category": "storage"},
     {"topic": "best high-capacity power bank for laptop work", "intent": "buyer_guide", "category": "power"},
     {"topic": "Anker 737 Power Bank for laptop travel and mobile work", "intent": "buyer_guide", "category": "power"},
-    {"topic": "Elgato Stream Deck MK.2 for productivity workflows", "intent": "buyer_guide", "category": "workspace"}
+    {"topic": "Elgato Stream Deck MK.2 for productivity workflows", "intent": "buyer_guide", "category": "workspace"},
+    {"topic": "Samson Q2U for remote work voice calls", "intent": "buyer_guide", "category": "audio"},
+    {"topic": "RØDE NT-USB Mini for a compact home recording setup", "intent": "buyer_guide", "category": "audio"},
+    {"topic": "Shure MV7 for upgrading a home podcast microphone", "intent": "buyer_guide", "category": "audio"},
+    {"topic": "Samsung T7 Portable SSD 2TB for portable work files", "intent": "buyer_guide", "category": "storage"},
+    {"topic": "Logitech C920 HD Pro Webcam for a practical home office setup", "intent": "buyer_guide", "category": "webcams"}
   ]
 }
