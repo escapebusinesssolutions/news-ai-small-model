@@ -94,11 +94,12 @@ def _parse_json(text: str) -> dict[str, Any]:
 def _single_product_article(topic: dict[str, Any], product: dict[str, Any]) -> dict[str, Any]:
     """Build a factual article without model-generated product claims."""
     name = str(product["name"])
+    topic_name = str(topic.get("topic", name))
     use_cases = product.get("use_cases", [])
     points = product.get("key_points", [])
     use_case_text = ", ".join(str(x) for x in use_cases)
     body = [
-        f"# {name}",
+        f"# {topic_name}",
         "",
         f"The current TechSignal catalogue contains one directly relevant product for this topic: {name}. That makes the decision straightforward: the question is whether its documented characteristics and intended use cases match what you need.",
         "",
@@ -125,8 +126,8 @@ def _single_product_article(topic: dict[str, Any], product: dict[str, Any]) -> d
         f"The {name} is the directly relevant option currently covered by TechSignal for this topic. The sensible buying decision is therefore based on fit: compare the documented features, intended use cases, and recorded price range with your own requirements before purchasing.",
     ])
     return {
-        "title": f"{name} for Productivity Workflows",
-        "slug": _slug(str(topic.get("topic", name))),
+        "title": topic_name,
+        "slug": _slug(topic_name),
         "meta_description": f"A factual TechSignal buying guide to the {name}, based on the current curated product catalogue.",
         "body_markdown": "\n".join(body),
         "products": [{"name": name, "asin_or_id": product["asin_or_id"], "price_range": product["price_range"], "key_points": points}],
