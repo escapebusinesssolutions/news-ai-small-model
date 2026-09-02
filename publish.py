@@ -5,6 +5,7 @@ import html
 import re
 from typing import Any
 
+from reused.images import build_article_images, images_to_html
 from reused.wordpress_publisher import WordPressPublisher
 
 
@@ -80,6 +81,33 @@ def markdown_to_html(markdown: str) -> str:
     return "\n".join(output)
 
 
+def _insert_external_images(body_html: str, images: list[dict[str, Any]]) -> str:
+    """Place the hero near the opening and context images between article sections."""
+    if not images:
+        raise ValueError("No compliant external images were found; publication is blocked")
+    hero = next((image for image in images if image.get("role") == "hero"), None)
+    if hero is None:
+        raise ValueError("No compliant hero image was found; publication is blocked")
+    context = [image for image in images if image.get("role") != "hero"]
+    hero_html = images_to_html([hero])
+    context_html = [images_to_html([image]) for image in context]
+
+    parts = re.split(r"(?=<(?:h2|h3)>)", body_html, flags=re.I)
+    if len(parts) > 1:
+        body_html = parts[0] + hero_html + "\n" + "\n".join(parts[1:])
+    else:
+        paragraphs = body_html.split("</p>", 1)
+        body_html = (paragraphs[0] + "</p>" + hero_html + paragraphs[1]) if len(paragraphs) == 2 else hero_html + body_html
+
+    if context_html:
+        sections = re.split(r"(?=<(?:h2|h3)>)", body_html, flags=re.I)
+        inserts = min(len(context_html), max(0, len(sections) - 1))
+        for index in range(inserts):
+            sections[index + 1] = sections[index + 1] + "\n" + context_html[index]
+        body_html = "".join(sections)
+    return body_html
+
+
 def publish_article(article: dict[str, Any], publisher: WordPressPublisher | None = None) -> dict[str, Any]:
     title = str(article.get("title", "")).strip()
     body = str(article.get("body_html") or article.get("body_markdown") or "").strip()
@@ -91,9 +119,24 @@ def publish_article(article: dict[str, Any], publisher: WordPressPublisher | Non
     if not slug:
         slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
     html_body = body if "<p>" in body or "<h2>" in body else markdown_to_html(body)
+
+    image_plan = article.get("image_plan", [])
+    images = build_article_images(image_plan)
+    hero_count = sum(1 for image in images if image.get("role") == "hero")
+    if hero_count != 1 or len(images) < 2:
+        raise ValueError(
+            f"External image gate failed: required 1 compliant hero + at least 1 context image; found {hero_count} hero and {len(images)} total"
+        )
+    html_body = _insert_external_images(html_body, images)
+
     wp = publisher or WordPressPublisher()
-    result = wp.create_post(title=title, content=html_body, slug=slug, metadata={"category": article.get("category", "")})
-    return {**result, "title": title, "slug": slug}
+    result = wp.create_post(
+        title=title,
+        content=html_body,
+        slug=slug,
+        metadata={"category": article.get("category", ""), "external_images": images},
+    )
+    return {**result, "title": title, "slug": slug, "external_images": images, "stored_in_wordpress_media": False}
 
 
 if __name__ == "__main__":
