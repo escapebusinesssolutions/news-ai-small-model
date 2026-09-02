@@ -61,7 +61,7 @@ def find_commons_image(search_query: str, timeout_seconds: int = 20) -> dict[str
         title = str(page.get("title", "")).removeprefix("File:")
         return {
             "url": url,
-            "source_page": "https://commons.wikimedia.org/wiki/" + quote(str(page.get("title", "")), safe="") ,
+            "source_page": "https://commons.wikimedia.org/wiki/" + quote(str(page.get("title", "")), safe=""),
             "source": "Wikimedia Commons",
             "license": _metadata_value(metadata, "LicenseShortName"),
             "artist": re.sub(r"<[^>]+>", "", _metadata_value(metadata, "Artist")).strip(),
@@ -74,13 +74,15 @@ def find_commons_image(search_query: str, timeout_seconds: int = 20) -> dict[str
 def build_article_images(image_plan: list[dict[str, Any]], timeout_seconds: int = 20) -> list[dict[str, Any]]:
     """Resolve image concepts to verified remote images; never upload image bytes to WordPress."""
     resolved: list[dict[str, Any]] = []
+    seen_urls: set[str] = set()
     for item in image_plan:
         if not isinstance(item, dict):
             continue
         query = str(item.get("search_query") or item.get("query") or item.get("concept") or "").strip()
         image = find_commons_image(query, timeout_seconds=timeout_seconds)
-        if not image:
+        if not image or image["url"] in seen_urls:
             continue
+        seen_urls.add(image["url"])
         resolved.append({
             "role": str(item.get("role", "context")).strip().lower() or "context",
             "url": image["url"],
@@ -92,12 +94,14 @@ def build_article_images(image_plan: list[dict[str, Any]], timeout_seconds: int 
 
 
 def images_to_html(images: list[dict[str, Any]]) -> str:
-    """Render externally hosted images with visible licence attribution."""
+    """Render externally hosted images with attribution; image bytes never enter WordPress Media."""
     figures: list[str] = []
     for image in images:
         src = html.escape(str(image["url"]), quote=True)
         alt = html.escape(str(image.get("alt_text", "")), quote=True)
         attribution = f"Source: {image['source']} — {image['license']}"
+        if image.get("title"):
+            attribution += f" — {image['title']}"
         if image.get("artist"):
             attribution += f" — {image['artist']}"
         attribution += f" — {image['source_page']}"
