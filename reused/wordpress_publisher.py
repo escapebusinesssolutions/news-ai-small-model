@@ -4,6 +4,7 @@ import hashlib
 import os
 from dataclasses import dataclass
 from typing import Any
+from urllib.parse import urlsplit, urlunsplit
 
 import requests
 
@@ -95,6 +96,48 @@ class WordPressPublisher:
         response.raise_for_status()
         return int(response.json()["id"])
 
+    def _public_url(self, link: str | None, post_id: int | None) -> tuple[str | None, dict[str, Any]]:
+        """Return a verified public URL, with a query-string fallback for broken rewrites."""
+        candidates: list[tuple[str, str]] = []
+        if link:
+            candidates.append(("wordpress_link", link))
+        if post_id is not None:
+            parts = urlsplit(self.config.site_url)
+            fallback = urlunsplit((parts.scheme, parts.netloc, parts.path or "/", "p=" + str(post_id), ""))
+            candidates.append(("query_permalink", fallback))
+
+        checks: list[dict[str, Any]] = []
+        for kind, url in candidates:
+            try:
+                response = requests.get(
+                    url,
+                    allow_redirects=True,
+                    timeout=self.config.timeout_seconds,
+                    headers={"User-Agent": "TechSignalPublisher/1.0"},
+                )
+                check = {"type": kind, "url": url, "status_code": response.status_code, "final_url": response.url}
+                checks.append(check)
+                if 200 <= response.status_code < 400:
+                    return response.url, {"verified": True, "selected": kind, "checks": checks}
+            except requests.RequestException as exc:
+                checks.append({"type": kind, "url": url, "error": str(exc)})
+
+        return link, {"verified": False, "selected": None, "checks": checks}
+
+    def _result(self, *, status: str, data: dict[str, Any]) -> dict[str, Any]:
+        post_id = data.get("ID") or data.get("id")
+        raw_link = data.get("URL") or data.get("link")
+        public_link, public_check = self._public_url(raw_link, int(post_id) if post_id is not None else None)
+        return {
+            "status": status,
+            "post_id": post_id,
+            "link": public_link,
+            "wordpress_link": raw_link,
+            "public_url_check": public_check,
+            "slug": data.get("slug"),
+            "status_value": data.get("status"),
+        }
+
     def create_post(self, *, title: str, content: str, slug: str, metadata: dict[str, Any] | None = None) -> dict[str, Any]:
         status = self.config.post_status if self.config.publish_enabled else "draft"
         payload: dict[str, Any] = {"title": title, "content": content, "status": status, "slug": slug}
@@ -113,16 +156,14 @@ class WordPressPublisher:
             post_id = existing[0].get("id")
             response = self._request("PUT", f"{self._api_base}/posts/{post_id}", payload)
             response.raise_for_status()
-            data = response.json()
-            return {"status": "UPDATED", "post_id": data.get("id"), "link": data.get("link"), "slug": data.get("slug"), "status_value": data.get("status")}
+            return self._result(status="UPDATED", data=response.json())
 
         if self.config.access_token:
             response = requests.post(f"{self._wpcom_base}/posts/new", headers={"Authorization": f"Bearer {self.config.access_token}"}, data=payload, timeout=self.config.timeout_seconds)
         else:
             response = requests.post(f"{self._api_base}/posts", auth=(self.config.username, self.config.application_password), json=payload, timeout=self.config.timeout_seconds)
         response.raise_for_status()
-        data = response.json()
-        return {"status": "PUBLISHED" if status == "publish" else status.upper(), "post_id": data.get("ID") or data.get("id"), "link": data.get("URL") or data.get("link"), "slug": data.get("slug"), "status_value": data.get("status")}
+        return self._result(status="PUBLISHED" if status == "publish" else status.upper(), data=response.json())
 
 
 def stable_slug(title: str, event_id: str) -> str:
