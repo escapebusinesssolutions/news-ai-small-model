@@ -25,13 +25,9 @@ jobs:
         env:
           AI_PROVIDER: openrouter
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          WORDPRESS_SITE_URL: https://techsignal.wasmer.app
-          WORDPRESS_SITE_ID: ${{ secrets.WORDPRESS_SITE_ID || '257062637' }}
-          WORDPRESS_ACCESS_TOKEN: ${{ secrets.WORDPRESS_ACCESS_TOKEN }}
-          WORDPRESS_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
-          WORDPRESS_APP_PASSWORD: ${{ secrets.WORDPRESS_APP_PASSWORD }}
-          WORDPRESS_CLIENT_ID: ${{ secrets.WORDPRESS_CLIENT_ID }}
-          WORDPRESS_CLIENT_SECRET: ${{ secrets.WORDPRESS_CLIENT_SECRET }}
+          WORDPRESS_SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+          WORDPRESS_USERNAME: ${{ secrets.TECHSIGNAL_USERNAME }}
+          WORDPRESS_APP_PASSWORD: ${{ secrets.TECHSIGNAL_APP_PASSWORD }}
           WORDPRESS_PUBLISH_ENABLED: 'true'
           WORDPRESS_DEFAULT_STATUS: publish
         run: python pipeline.py --topic-index "${{ matrix.topic_index }}" --publish --output validation-report-${{ matrix.topic_index }}.json
