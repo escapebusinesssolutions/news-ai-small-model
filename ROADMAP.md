@@ -3,6 +3,13 @@
 ## Objective
 Build the smallest useful autonomous affiliate-content machine and test whether it can produce revenue.
 
+## Business sequence
+- [x] STAGE 1 — BUILD
+- [x] STAGE 2 — PROVE THE CONTENT
+- [ ] STAGE 3 — BUILD AN AUDIENCE
+- [ ] STAGE 4 — MONETIZE
+- [ ] STAGE 5 — SCALE
+
 ## Build sequence
 - [x] STEP 0 — Scope frozen
 - [x] STEP 1 — Extract proven components
@@ -15,16 +22,26 @@ Build the smallest useful autonomous affiliate-content machine and test whether 
 - [x] STEP 8 — End-to-end pipeline: Generate → affiliate links → cross-link → validation → WordPress publisher
 - [x] STEP 9 — Automated test suite and WordPress integration path
 - [x] STEP 10 — GitHub Actions automation
-- [ ] STEP 11 — Unattended production test: blocked only by external account/site credentials and first-batch human approval
+- [ ] STEP 11 — Unattended production test / controlled production operation
+
+## Stage 5 scale gates
+- Audience signal exists.
+- Affiliate-click signal exists.
+- Revenue signal exists before aggressive scaling.
+- Winning topic cluster identified from external performance data.
+- Production quality remains stable as volume increases.
+
+## Stage 5 operating rule
+Scale winning intent, not article count. Increase output in bounded increments and only expand into new clusters when existing evidence justifies it.
 
 ## Release targets
 - v0.1.0 — First working machine: code complete
 - v0.2.0 — Automated GitHub Actions execution: ready
 - v0.3.0 — Cross-linking included: complete
-- v1.0.0 — Validation release: after first commercial batch and four-week measurement
+- v1.0.0 — Validation release: after commercial measurement period
 
 ## Operating rule
 Build only what is required to prove the commercial loop. Do not recreate the large news system.
 
 ## Current gate
-Do not switch `WORDPRESS_DEFAULT_STATUS` from `draft` to `publish` until the first 10–15 articles have been generated, published as drafts, and human spot-checked.
+Stage 3 remains the immediate operating gate: establish real discovery and traffic. Stage 4 measurement is prepared. Stage 5 scaling is designed but must not be activated merely because the pipeline can publish more pages.
