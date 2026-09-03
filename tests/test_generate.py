@@ -50,7 +50,8 @@ def test_generate_prompt_contains_product_brief_and_editorial_contract(monkeypat
     assert "Samson Q2U" in captured["prompts"][0]
     assert "Samson Q2U" in captured["prompts"][1]
     assert "complete and exclusive source of product facts" in captured["system"]
-    assert "Do not create Markdown links or Markdown tables" in captured["system"]
+    assert "Do not use Markdown tables" in captured["system"]
+    assert "Do not create Markdown links" in captured["system"]
     assert "2-4 useful image_plan entries" in captured["system"]
     assert result["editorial_engine"] == "v3-external-images"
     assert result["editorial_passes"] == 2
