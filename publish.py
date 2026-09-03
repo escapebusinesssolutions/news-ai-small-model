@@ -122,7 +122,7 @@ def publish_article(article: dict[str, Any], publisher: WordPressPublisher | Non
 
     image_plan = article.get("image_plan", [])
     category = str(article.get("category", "")).strip()
-    images = build_article_images(image_plan, category=category)
+    images = build_article_images(image_plan, category=category) if category else build_article_images(image_plan)
     hero_count = sum(1 for image in images if image.get("role") == "hero")
     if hero_count != 1 or len(images) < 2:
         raise ValueError(
