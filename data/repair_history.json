@@ -1,0 +1,20 @@
+[
+  {
+    "run_id": 33751985588,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-03T11:59:30.447069+00:00"
+  },
+  {
+    "run_id": 33751815205,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-03T11:59:30.964866+00:00"
+  },
+  {
+    "run_id": 33726132152,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-03T11:59:31.607206+00:00"
+  }
+]
