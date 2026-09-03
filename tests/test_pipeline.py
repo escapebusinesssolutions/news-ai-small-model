@@ -1,4 +1,5 @@
 from pipeline import build_validation_report, run_pipeline
+from same_day_dedup import TopicFingerprint, select_non_duplicate_topic
 
 
 def _article():
@@ -85,3 +86,16 @@ def test_pipeline_can_use_existing_articles_without_network(monkeypatch):
         publish=False,
     )
     assert result["cross_links"]
+
+
+def test_same_day_dedup_advances_to_next_topic(monkeypatch, tmp_path):
+    import same_day_dedup as dedup
+    dedup.DEDUP_LOG_PATH = tmp_path / "published_today.json"
+    dedup.record_published_fingerprint(TopicFingerprint.from_story_record({"topic": "USB microphones", "category": "audio"}))
+    topics = [
+        {"topic": "USB microphones", "category": "audio"},
+        {"topic": "portable SSD backups", "category": "storage"},
+    ]
+    selected, index = select_non_duplicate_topic(topics, 0, max_attempts=2)
+    assert index == 1
+    assert selected["topic"] == "portable SSD backups"

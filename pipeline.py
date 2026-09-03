@@ -11,6 +11,7 @@ import requests
 
 from cross_link import cross_link
 from generate import generate_article, load_topics
+from same_day_dedup import TopicFingerprint, record_published_fingerprint, select_non_duplicate_topic
 from insert_links import insert_affiliate_links
 from publish import publish_article
 
@@ -71,7 +72,7 @@ def write_validation_report(report: dict[str, Any], path: Path = VALIDATION_PATH
     path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def run_pipeline(topic: dict[str, Any], existing_articles: list[dict[str, Any]] | None = None, publish: bool = False) -> dict[str, Any]:
+def run_pipeline(topic: dict[str, Any], existing_articles: list[dict[str, Any]] | None = None, publish: bool = False, dedup: bool = False) -> dict[str, Any]:
     """Generate -> affiliate links -> cross-links -> pre-publish validation -> WordPress."""
     article = generate_article(topic)
     article = insert_affiliate_links(article)
@@ -83,6 +84,8 @@ def run_pipeline(topic: dict[str, Any], existing_articles: list[dict[str, Any]] 
         raise ValueError("Pre-publish validation failed: " + "; ".join(validation["validation"]["failures"]))
     if publish:
         article = publish_article(article)
+        if dedup:
+            record_published_fingerprint(TopicFingerprint.from_story_record({**topic, **article}))
     return {**article, "validation_report": validation}
 
 
@@ -91,16 +94,27 @@ def main() -> None:
     parser.add_argument("--topic-index", type=int, default=0)
     parser.add_argument("--publish", action="store_true")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--enable-dedup", action="store_true")
     args = parser.parse_args()
     topics = load_topics()
     if not topics:
         raise SystemExit("topics.json is empty")
     if args.topic_index < 0 or args.topic_index >= len(topics):
         raise SystemExit(f"topic index must be 0..{len(topics) - 1}")
+    selected_index = args.topic_index
+    selected_topic = topics[selected_index]
+    if args.enable_dedup:
+        selected_topic, selected_index = select_non_duplicate_topic(topics, args.topic_index)
+        if selected_topic is None:
+            report = {"schema_version": "1.0", "stage": "dedup_skip", "success": True, "published": False, "requested_topic_index": args.topic_index}
+            target = args.output or VALIDATION_PATH
+            write_validation_report(report, target)
+            print(json.dumps(report, indent=2))
+            return
     try:
-        result = run_pipeline(topics[args.topic_index], publish=args.publish)
+        result = run_pipeline(selected_topic, publish=args.publish, dedup=args.enable_dedup)
     except Exception as exc:
-        error_report = {"schema_version": "1.0", "stage": "pipeline_error", "topic": topics[args.topic_index], "success": False, "error": {"type": type(exc).__name__, "message": str(exc)}}
+        error_report = {"schema_version": "1.0", "stage": "pipeline_error", "topic": selected_topic, "success": False, "error": {"type": type(exc).__name__, "message": str(exc)}}
         target = args.output or VALIDATION_PATH
         write_validation_report(error_report, target)
         print(json.dumps(error_report, indent=2, ensure_ascii=False))

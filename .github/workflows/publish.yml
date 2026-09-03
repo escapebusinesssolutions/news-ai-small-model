@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       topic_index:
-        description: "Topic number from topics.json (0-14)"
+        description: "Topic number from topics.json (0-19)"
         required: false
         default: "0"
       publish:
@@ -17,6 +17,10 @@ on:
         default: ""
   schedule:
     - cron: '17 6 * * *'
+    - cron: '17 10 * * *'
+    - cron: '17 14 * * *'
+    - cron: '17 18 * * *'
+    - cron: '17 22 * * *'
   push:
     branches:
       - main
@@ -33,16 +37,23 @@ env:
   WORDPRESS_SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
   WORDPRESS_USERNAME: ${{ secrets.TECHSIGNAL_USERNAME }}
   WORDPRESS_APP_PASSWORD: ${{ secrets.TECHSIGNAL_APP_PASSWORD }}
+  ENABLE_MULTI_RUN_SCHEDULE: 'true'
+  ENABLE_SAME_DAY_DEDUP: 'true'
   WORDPRESS_PUBLISH_ENABLED: ${{ github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true' }}
   WORDPRESS_DEFAULT_STATUS: ${{ (github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true') && 'publish' || (secrets.WORDPRESS_DEFAULT_STATUS || 'draft') }}
+
+permissions:
+  contents: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -55,38 +66,68 @@ jobs:
           CLEANUP_POST_IDS: ${{ inputs.cleanup_post_ids }}
         run: |
           python - <<'PY'
-          import os
-          import requests
+          import os, requests
           site = os.environ["WORDPRESS_SITE_URL"].rstrip("/")
           auth = (os.environ["WORDPRESS_USERNAME"], os.environ["WORDPRESS_APP_PASSWORD"])
-          ids = [x.strip() for x in os.environ["CLEANUP_POST_IDS"].split(",") if x.strip()]
-          for post_id in ids:
-              response = requests.delete(f"{site}/wp-json/wp/v2/posts/{post_id}", params={"force": "false"}, auth=auth, timeout=30)
-              response.raise_for_status()
+          for post_id in [x.strip() for x in os.environ["CLEANUP_POST_IDS"].split(",") if x.strip()]:
+              r = requests.delete(f"{site}/wp-json/wp/v2/posts/{post_id}", params={"force":"false"}, auth=auth, timeout=30)
+              r.raise_for_status()
               print(f"Moved WordPress post {post_id} to trash")
           PY
-      - name: Resolve publish trigger
-        id: trigger
+      - name: Check multi-run feature flag
+        id: gate
+        shell: bash
         run: |
-          if [ "${{ github.event_name }}" = "push" ]; then
-            TOPIC_INDEX=$(python -c 'import json; print(json.load(open(".github/publish-trigger.json", encoding="utf-8"))["topic_index"])')
-            python -c 'import json; d=json.load(open(".github/publish-trigger.json", encoding="utf-8")); assert isinstance(d["topic_index"], int) and 0 <= d["topic_index"] < 20'
-            echo "topic_index=${TOPIC_INDEX}" >> "$GITHUB_OUTPUT"
-            echo "Repository publish trigger: topic index ${TOPIC_INDEX}"
-          elif [ "${{ github.event_name }}" = "schedule" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ env.ENABLE_MULTI_RUN_SCHEDULE }}" != "true" ] && [ "${{ github.event.schedule }}" != '17 6 * * *' ]; then
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            printf '{"schema_version":"1.0","stage":"schedule_gate","success":true,"published":false,"reason":"multi-run disabled"}
+' > validation-report.json
+          else
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Resolve scheduled topic slot
+        id: trigger
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            case "${{ github.event.schedule }}" in
+              '17 6 * * *') SLOT=0 ;;
+              '17 10 * * *') SLOT=1 ;;
+              '17 14 * * *') SLOT=2 ;;
+              '17 18 * * *') SLOT=3 ;;
+              '17 22 * * *') SLOT=4 ;;
+              *) echo "Unknown schedule slot"; exit 1 ;;
+            esac
             DAY_OF_YEAR=$(date -u +%j)
-            TOPIC_INDEX=$((10#$DAY_OF_YEAR % 20))
-            echo "topic_index=${TOPIC_INDEX}" >> "$GITHUB_OUTPUT"
-            echo "Scheduled run: topic index ${TOPIC_INDEX}"
+            TOPIC_INDEX=$(( ((10#$DAY_OF_YEAR - 1) * 5 + SLOT) % 20 ))
+            echo "topic_index=$TOPIC_INDEX" >> "$GITHUB_OUTPUT"
+            echo "Scheduled slot $SLOT -> topic index $TOPIC_INDEX"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            TOPIC_INDEX=$(python -c 'import json; print(json.load(open(".github/publish-trigger.json", encoding="utf-8"))["topic_index"])')
+            echo "topic_index=$TOPIC_INDEX" >> "$GITHUB_OUTPUT"
           else
             echo "topic_index=${{ inputs.topic_index || '0' }}" >> "$GITHUB_OUTPUT"
           fi
       - name: Run complete pipeline
+        if: steps.gate.outputs.should_run == 'true'
         run: |
           if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.publish }}" = "true" ]; then
-            python pipeline.py --topic-index "${{ steps.trigger.outputs.topic_index }}" --publish --output validation-report.json
+            python pipeline.py --topic-index "${{ steps.trigger.outputs.topic_index }}" --enable-dedup --publish --output validation-report.json
           else
             python pipeline.py --topic-index "${{ steps.trigger.outputs.topic_index }}" --output validation-report.json
+          fi
+      - name: Persist same-day dedup state
+        if: ${{ success() && steps.gate.outputs.should_run == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true') }}
+        shell: bash
+        run: |
+          if [ -f data/published_today.json ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/published_today.json
+            if ! git diff --cached --quiet; then
+              git commit -m "chore: persist daily publish dedup state"
+              git push
+            fi
           fi
       - name: Upload validation report
         if: always()
