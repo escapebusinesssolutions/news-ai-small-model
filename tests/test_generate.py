@@ -46,7 +46,7 @@ def test_generate_prompt_contains_product_brief_and_editorial_contract(monkeypat
     result = generate.generate_article({"topic": "best microphones under $100", "category": "audio", "intent": "buyer_guide"})
 
     assert captured["calls"] == 2
-    assert "Product brief" in captured["prompts"][0]
+    assert "Allowed product brief" in captured["prompts"][0]
     assert "Samson Q2U" in captured["prompts"][0]
     assert "Samson Q2U" in captured["prompts"][1]
     assert "complete and exclusive source of product facts" in captured["system"]
