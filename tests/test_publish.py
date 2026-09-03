@@ -1,3 +1,4 @@
+import publish
 from publish import markdown_to_html, publish_article
 
 
@@ -12,16 +13,22 @@ def test_markdown_to_html_converts_basic_content():
     assert "<strong>useful</strong>" in result
 
 
-def test_publish_article_uses_publisher_and_returns_result():
+def test_publish_article_uses_verified_external_images(monkeypatch):
+    monkeypatch.setattr(publish, "build_article_images", lambda plan: [
+        {"role": "hero", "url": "https://commons.wikimedia.org/example-hero.jpg", "alt_text": "Desk microphone", "caption": "A desk microphone.", "source_page": "https://commons.wikimedia.org/wiki/File:Example.jpg", "source": "Wikimedia Commons", "license": "CC BY", "license_url": "https://creativecommons.org/licenses/by/4.0/", "artist": ""},
+        {"role": "context", "url": "https://commons.wikimedia.org/example-context.jpg", "alt_text": "Person speaking into a microphone", "caption": "A voice recording setup.", "source_page": "https://commons.wikimedia.org/wiki/File:Example2.jpg", "source": "Wikimedia Commons", "license": "CC BY", "license_url": "https://creativecommons.org/licenses/by/4.0/", "artist": ""},
+    ])
     article = {
         "title": "Test Buying Guide",
         "slug": "test-buying-guide",
-        "body_markdown": "A short article.",
+        "body_markdown": "## Why it matters\n\nA useful article.",
+        "image_plan": [{"role": "hero", "search_query": "microphone desk"}, {"role": "context", "search_query": "person microphone"}],
     }
     result = publish_article(article, publisher=FakePublisher())
     assert result["status"] == "DRAFT"
     assert result["post_id"] == 123
     assert result["slug"] == "test-buying-guide"
+    assert result["stored_in_wordpress_media"] is False
 
 
 def test_publish_article_requires_title():
