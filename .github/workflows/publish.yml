@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       topic_index:
-        description: "Topic number from topics.json (0-19)"
+        description: "Topic seed index; the topic engine expands this catalogue automatically"
         required: false
         default: "0"
       publish:
@@ -98,8 +98,10 @@ jobs:
               *) echo "Unknown schedule slot"; exit 1 ;;
             esac
             DAY_OF_YEAR=$(date -u +%j)
-            TOPIC_INDEX=$(( ((10#$DAY_OF_YEAR - 1) * 5 + SLOT) % 20 ))
+            TOPIC_COUNT=$(python -c 'from generate import load_topics; print(len(load_topics()))')
+            TOPIC_INDEX=$(( ((10#$DAY_OF_YEAR - 1) * 5 + SLOT) % TOPIC_COUNT ))
             echo "topic_index=$TOPIC_INDEX" >> "$GITHUB_OUTPUT"
+            echo "Expanded topic catalogue size: $TOPIC_COUNT"
             echo "Scheduled slot $SLOT -> topic index $TOPIC_INDEX"
           elif [ "${{ github.event_name }}" = "push" ]; then
             TOPIC_INDEX=$(python -c 'import json; print(json.load(open(".github/publish-trigger.json", encoding="utf-8"))["topic_index"])')
@@ -115,16 +117,16 @@ jobs:
           else
             python pipeline.py --topic-index "${{ steps.trigger.outputs.topic_index }}" --output validation-report.json
           fi
-      - name: Persist same-day dedup state
+      - name: Persist rolling publish history
         if: ${{ success() && steps.gate.outputs.should_run == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true') }}
         shell: bash
         run: |
-          if [ -f data/published_today.json ]; then
+          if [ -f data/published_history.json ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/published_today.json
+            git add data/published_history.json
             if ! git diff --cached --quiet; then
-              git commit -m "chore: persist daily publish dedup state"
+              git commit -m "chore: persist rolling publish history"
               git push
             fi
           fi

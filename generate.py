@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from reused.ai_provider import generate_text
+from topic_engine import expand_topics
 
 TOPICS_FILE = Path(__file__).with_name("topics.json")
 PRODUCTS_FILE = Path(__file__).with_name("products.json")
@@ -71,7 +72,7 @@ def load_topics() -> list[dict[str, Any]]:
     topics = data.get("topics", [])
     if not isinstance(topics, list):
         raise ValueError("topics.json must contain a topics array")
-    return topics
+    return expand_topics(topics, data.get("products", load_product_catalogue().get("products", [])))
 
 
 def load_product_catalogue() -> dict[str, Any]:
