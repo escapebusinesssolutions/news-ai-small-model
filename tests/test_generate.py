@@ -19,7 +19,7 @@ def test_product_brief_rejects_queue_categories_without_catalogue_support():
 
 
 def test_generate_prompt_contains_product_brief_and_editorial_contract(monkeypatch):
-    captured = {"calls": 0}
+    captured = {"calls": 0, "prompts": []}
     body = " ".join(["The practical buyer question is which trade-off matters most."] * 100)
     article = {
         "title": "Best microphones under $100",
@@ -38,16 +38,17 @@ def test_generate_prompt_contains_product_brief_and_editorial_contract(monkeypat
 
     def fake_generate(system_prompt, prompt):
         captured["calls"] += 1
+        captured["prompts"].append(prompt)
         captured["system"] = system_prompt
-        captured["prompt"] = prompt
         return json.dumps(article)
 
     monkeypatch.setattr(generate, "generate_text", fake_generate)
     result = generate.generate_article({"topic": "best microphones under $100", "category": "audio", "intent": "buyer_guide"})
 
     assert captured["calls"] == 2
-    assert "Product brief" in captured["prompt"]
-    assert "Samson Q2U" in captured["prompt"]
+    assert "Product brief" in captured["prompts"][0]
+    assert "Samson Q2U" in captured["prompts"][0]
+    assert "Samson Q2U" in captured["prompts"][1]
     assert "complete and exclusive source of product facts" in captured["system"]
     assert "Do not create Markdown links or Markdown tables" in captured["system"]
     assert "2-4 useful image_plan entries" in captured["system"]
