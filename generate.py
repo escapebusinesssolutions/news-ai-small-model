@@ -31,6 +31,7 @@ STYLE RULES
 SOURCE AND FACT RULES
 The supplied product brief is the complete and exclusive source of product facts. You may not add specifications, features, software capabilities, variants, accessories, compatibility claims, prices, discounts, availability, awards, tests, reviews, rankings, or competitor comparisons that are not explicitly present in the brief.
 You may reason from documented facts. Clearly distinguish inference and editorial judgement from catalogue facts.
+The optional enrichment fields (detailed_specs, differentiators, known_limitations, who_its_for, who_should_skip) are verified editorial inputs when present. Use them to make the article specific; do not treat absent fields as permission to guess.
 Never claim you tested a product or have personal experience.
 Never invent a competing product. If the catalogue does not contain enough products for a requested comparison, say so and make the available evidence useful instead.
 
@@ -74,8 +75,8 @@ Return ONLY valid JSON with: title, slug, meta_description, body_markdown, produ
 """
 
 BANNED_OPENINGS = (
-    "in today's world", "in today’s world", "whether you're", "whether you’re",
-    "if you're looking for", "if you’re looking for", "choosing the right", "technology has become",
+    "in today's world", "in todayâ€™s world", "whether you're", "whether youâ€™re",
+    "if you're looking for", "if youâ€™re looking for", "choosing the right", "technology has become",
 )
 
 
@@ -105,6 +106,11 @@ def build_product_brief(topic: dict[str, Any]) -> list[dict[str, Any]]:
                 "name": product.get("name"), "asin_or_id": product.get("asin_or_id"),
                 "price_range": product.get("price_range"), "use_cases": product.get("use_cases", []),
                 "key_points": product.get("key_points", []),
+                "detailed_specs": product.get("detailed_specs", {}),
+                "differentiators": product.get("differentiators", []),
+                "known_limitations": product.get("known_limitations", []),
+                "who_its_for": product.get("who_its_for", []),
+                "who_should_skip": product.get("who_should_skip", []),
             })
     if not candidates:
         raise ValueError(f"No curated catalogue products match topic category: {category or 'unknown'}")
