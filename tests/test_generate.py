@@ -27,7 +27,7 @@ def test_generate_prompt_contains_product_brief_and_editorial_contract(monkeypat
         "products": [{
             "name": "Samson Q2U",
             "asin_or_id": "B001R747SG",
-            "price_range": "€30-€100",
+            "price_range": "£30-£100",
             "key_points": ["USB/XLR dynamic microphone", "strong entry-level recording choice", "works for direct computer recording"],
         }],
         "image_plan": [
