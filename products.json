@@ -1,7 +1,7 @@
 {
   "marketplace": "amazon.co.uk",
   "tracking_id": "echsignalnews-21",
-  "catalogue_version": "1.2",
+  "catalogue_version": "1.3",
   "selection_rules": {
     "niche": "tech & workspace gear",
     "preferred_price_band": "£30-£300",
@@ -16,8 +16,41 @@
       "url": "https://www.amazon.co.uk/Samson-SAQ2U-Microphone-Recording-Pack/dp/B001R747SG",
       "category": "audio",
       "price_range": "£30-£100",
-      "use_cases": ["podcasting", "voice calls", "voice recording"],
-      "key_points": ["USB/XLR dynamic microphone", "strong entry-level recording choice", "works for direct computer recording"]
+      "use_cases": [
+        "podcasting",
+        "voice calls",
+        "voice recording"
+      ],
+      "key_points": [
+        "USB/XLR dynamic microphone",
+        "strong entry-level recording choice",
+        "works for direct computer recording"
+      ],
+      "detailed_specs": {
+        "element_type": "dynamic",
+        "polar_pattern": "cardioid",
+        "frequency_response": "50Hz?15kHz",
+        "digital_output": "USB-C",
+        "analog_output": "XLR",
+        "headphone_output": "3.5mm",
+        "bit_depth": "up to 16-bit",
+        "sample_rates": "44.1kHz/48kHz"
+      },
+      "differentiators": [
+        "USB and XLR outputs in one microphone",
+        "zero-latency 3.5mm headphone monitoring",
+        "includes tripod stand, windscreen, USB cable and XLR cable"
+      ],
+      "known_limitations": [
+        "USB digital output is limited to up to 16-bit"
+      ],
+      "who_its_for": [
+        "buyers who want USB now and XLR later",
+        "podcasters and voice-call users"
+      ],
+      "who_should_skip": [
+        "buyers who need higher than 16-bit USB capture"
+      ]
     },
     {
       "name": "Anker 737 Power Bank (PowerCore 24K)",
@@ -25,8 +58,42 @@
       "url": "https://www.amazon.co.uk/Anker-Portable-Charger-PowerCore-Compatible-Black/dp/B09VPHVT2Z",
       "category": "power",
       "price_range": "£100-£200",
-      "use_cases": ["mobile work", "laptop charging", "travel"],
-      "key_points": ["24,000mAh capacity", "up to 140W output", "three-port design", "built-in power display"]
+      "use_cases": [
+        "mobile work",
+        "laptop charging",
+        "travel"
+      ],
+      "key_points": [
+        "24,000mAh capacity",
+        "up to 140W output",
+        "three-port design",
+        "built-in power display"
+      ],
+      "detailed_specs": {
+        "capacity": "24,000mAh",
+        "maximum_output": "140W",
+        "usb_c_ports": 2,
+        "usb_a_ports": 1,
+        "total_outputs": 3,
+        "weight": "630g",
+        "dimensions": "155.7 ? 54.6 ? 49.5mm"
+      },
+      "differentiators": [
+        "140W maximum output",
+        "two USB-C ports plus one USB-A port",
+        "integrated digital display"
+      ],
+      "known_limitations": [
+        "140W output depends on compatible device and cable",
+        "630g weight makes it substantial for travel"
+      ],
+      "who_its_for": [
+        "laptop users needing high-output portable charging",
+        "travellers carrying several USB devices"
+      ],
+      "who_should_skip": [
+        "buyers prioritising the lightest possible power bank"
+      ]
     },
     {
       "name": "Logitech C920 HD Pro Webcam",
@@ -34,8 +101,41 @@
       "url": "https://www.amazon.co.uk/Logitech-C920-Webcam-30fps-Autofokus/dp/B006A2Q81M",
       "category": "webcams",
       "price_range": "£50-£100",
-      "use_cases": ["video calls", "home office", "streaming"],
-      "key_points": ["1080p webcam", "built for desktop video calls", "long-established workspace option"]
+      "use_cases": [
+        "video calls",
+        "home office",
+        "streaming"
+      ],
+      "key_points": [
+        "1080p webcam",
+        "built for desktop video calls",
+        "long-established workspace option"
+      ],
+      "detailed_specs": {
+        "video": "1080p at 30fps",
+        "field_of_view": "78?",
+        "focus": "autofocus",
+        "lens": "glass",
+        "microphones": "dual stereo",
+        "connection": "USB-A plug-and-play",
+        "light_correction": "RightLight 2"
+      },
+      "differentiators": [
+        "1080p/30fps video",
+        "78? field of view with autofocus",
+        "dual microphones and automatic light correction"
+      ],
+      "known_limitations": [
+        "maximum listed video mode is 1080p at 30fps",
+        "uses USB-A rather than USB-C"
+      ],
+      "who_its_for": [
+        "desktop video-call users",
+        "home-office users wanting plug-and-play"
+      ],
+      "who_should_skip": [
+        "buyers who need 4K capture or native USB-C"
+      ]
     },
     {
       "name": "RØDE NT-USB Mini",
@@ -43,8 +143,41 @@
       "url": "https://www.amazon.co.uk/R%C3%98DE-Studio-quality-Microphone-Podcasting-Production/dp/B084P1CXFD",
       "category": "audio",
       "price_range": "£80-£150",
-      "use_cases": ["podcasting", "streaming", "voice recording"],
-      "key_points": ["USB condenser microphone", "compact desktop form", "designed for direct computer recording"]
+      "use_cases": [
+        "podcasting",
+        "streaming",
+        "voice recording"
+      ],
+      "key_points": [
+        "USB condenser microphone",
+        "compact desktop form",
+        "designed for direct computer recording"
+      ],
+      "detailed_specs": {
+        "acoustic_principle": "pressure gradient",
+        "active_electronics": "electret condenser, A/D and USB interface",
+        "polar_pattern": "cardioid",
+        "frequency_range": "20Hz?20kHz",
+        "sample_rate": "48kHz",
+        "bit_depth": "24-bit",
+        "headphone_output": "3.5mm",
+        "connection": "USB-C"
+      },
+      "differentiators": [
+        "24-bit USB audio",
+        "built-in pop filter",
+        "headphone output for zero-latency monitoring"
+      ],
+      "known_limitations": [
+        "USB-only connection; no XLR output is listed"
+      ],
+      "who_its_for": [
+        "desktop podcasters and streamers",
+        "buyers wanting compact direct-to-computer audio"
+      ],
+      "who_should_skip": [
+        "buyers who need XLR connectivity"
+      ]
     },
     {
       "name": "Beyerdynamic DT 770 PRO",
@@ -52,8 +185,40 @@
       "url": "https://www.amazon.co.uk/beyerdynamic-770-PRO-Studio-Headphones/dp/B0006NL5SM",
       "category": "audio",
       "price_range": "£100-£180",
-      "use_cases": ["music", "podcast monitoring", "desk listening"],
-      "key_points": ["closed-back studio headphone design", "250 Ohm variant represented by this ASIN", "widely used for monitoring"]
+      "use_cases": [
+        "music",
+        "podcast monitoring",
+        "desk listening"
+      ],
+      "key_points": [
+        "closed-back studio headphone design",
+        "250 Ohm variant represented by this ASIN",
+        "widely used for monitoring"
+      ],
+      "detailed_specs": {
+        "design": "closed",
+        "wearing_style": "over-ear/circumaural",
+        "impedance": "250 ohms for this ASIN",
+        "frequency_response": "5?35,000Hz",
+        "transmission": "wired",
+        "cable": "coiled, 3.5mm plug with 6.35mm adapter"
+      },
+      "differentiators": [
+        "closed-back circumaural design",
+        "250-ohm version",
+        "replaceable ear pads and rugged padded headband"
+      ],
+      "known_limitations": [
+        "250-ohm impedance is not ideal for every low-power source",
+        "fixed coiled cable"
+      ],
+      "who_its_for": [
+        "studio monitoring users with suitable amplification",
+        "buyers wanting closed-back monitoring"
+      ],
+      "who_should_skip": [
+        "buyers primarily using low-power mobile devices"
+      ]
     },
     {
       "name": "Elgato Stream Deck MK.2",
@@ -61,8 +226,40 @@
       "url": "https://www.amazon.co.uk/Elgato-Controller-15-macro-keys-trigger-software-like-OBS/dp/B09738CV2G",
       "category": "workspace",
       "price_range": "£100-£180",
-      "use_cases": ["creator workflow", "streaming", "productivity shortcuts"],
-      "key_points": ["15 programmable LCD keys", "desktop workflow control", "useful for repetitive actions"]
+      "use_cases": [
+        "creator workflow",
+        "streaming",
+        "productivity shortcuts"
+      ],
+      "key_points": [
+        "15 programmable LCD keys",
+        "desktop workflow control",
+        "useful for repetitive actions"
+      ],
+      "detailed_specs": {
+        "keys": "15 customizable LCD keys",
+        "interface": "USB 2.0",
+        "cable": "USB-C to USB-C, 150cm",
+        "dimensions": "118 ? 84 ? 25mm without stand",
+        "weight": "145g without stand / 270g with stand",
+        "software": "Stream Deck"
+      },
+      "differentiators": [
+        "15 customizable LCD keys",
+        "supports hotkeys and plugins",
+        "designed for one-tap workflow controls"
+      ],
+      "known_limitations": [
+        "15-key layout is fixed for this model",
+        "requires compatible computer and Stream Deck software"
+      ],
+      "who_its_for": [
+        "creators and office users with repetitive desktop actions",
+        "streamers and meeting-heavy users"
+      ],
+      "who_should_skip": [
+        "buyers who rarely use shortcuts or automation controls"
+      ]
     },
     {
       "name": "Samsung T7 Portable SSD 2TB",
@@ -70,8 +267,41 @@
       "url": "https://www.amazon.co.uk/Samsung-Portable-External-Solid-MU-PC2T0T/dp/B0874XWW23",
       "category": "storage",
       "price_range": "£100-£220",
-      "use_cases": ["backup", "portable work files", "media storage"],
-      "key_points": ["portable external SSD", "USB-C connectivity", "2TB capacity variant"]
+      "use_cases": [
+        "backup",
+        "portable work files",
+        "media storage"
+      ],
+      "key_points": [
+        "portable external SSD",
+        "USB-C connectivity",
+        "2TB capacity variant"
+      ],
+      "detailed_specs": {
+        "capacity": "2TB",
+        "interface": "USB 3.2 Gen.2 (10Gbps)",
+        "sequential_read": "up to 1,050MB/s",
+        "sequential_write": "up to 1,000MB/s",
+        "weight": "58g",
+        "dimensions": "85 ? 57 ? 8.0mm",
+        "encryption": "hardware AES 256-bit"
+      },
+      "differentiators": [
+        "compact 2TB portable SSD",
+        "up to 1,050MB/s sequential read",
+        "hardware AES 256-bit encryption"
+      ],
+      "known_limitations": [
+        "advertised speeds depend on host system and UASP support",
+        "actual sustained performance can vary by workload"
+      ],
+      "who_its_for": [
+        "portable backup and working-file users",
+        "buyers moving large media files"
+      ],
+      "who_should_skip": [
+        "buyers whose devices cannot use USB 3.2 Gen.2 performance"
+      ]
     },
     {
       "name": "Shure MV7",
@@ -79,8 +309,41 @@
       "url": "https://www.amazon.co.uk/Shure-MV7-Microphone-Podcasting-Voice-Isolating/dp/B08G7RG9ML",
       "category": "audio",
       "price_range": "£180-£300",
-      "use_cases": ["podcasting", "voice recording", "streaming"],
-      "key_points": ["USB/XLR microphone", "dynamic microphone design", "upgrade path beyond entry-level USB microphones"]
+      "use_cases": [
+        "podcasting",
+        "voice recording",
+        "streaming"
+      ],
+      "key_points": [
+        "USB/XLR microphone",
+        "dynamic microphone design",
+        "upgrade path beyond entry-level USB microphones"
+      ],
+      "detailed_specs": {
+        "transducer": "dynamic",
+        "polar_pattern": "cardioid",
+        "outputs": "USB and XLR",
+        "headphone_output": "3.5mm",
+        "usb_connector": "Micro-B USB",
+        "controls": "touch panel for gain, headphone volume, monitor mix and mute",
+        "software": "ShurePlus MOTIV"
+      },
+      "differentiators": [
+        "USB and XLR connectivity",
+        "Voice Isolation Technology",
+        "Auto Level Mode and direct headphone monitoring over USB"
+      ],
+      "known_limitations": [
+        "some software-controlled features require USB and MOTIV software",
+        "XLR output is passive and unaffected by software settings"
+      ],
+      "who_its_for": [
+        "podcasters and streamers wanting USB convenience plus XLR",
+        "users recording in less controlled rooms"
+      ],
+      "who_should_skip": [
+        "buyers wanting a completely software-free setup"
+      ]
     }
   ]
 }

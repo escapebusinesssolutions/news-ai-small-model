@@ -30,9 +30,9 @@ def _env(name: str) -> str:
     return value
 
 def _hf_call(system: str, prompt: str, model: str, token: str,
-             post: Callable | None = None) -> str:
+             temperature: float, post: Callable | None = None) -> str:
     post = post or requests.post
-    payload = {"model": model, "input": [
+    payload = {"model": model, "temperature": temperature, "input": [
         {"role": "system", "content": [{"type": "input_text", "text": system}]},
         {"role": "user", "content": [{"type": "input_text", "text": prompt}]},
     ]}
@@ -52,7 +52,7 @@ def _hf_call(system: str, prompt: str, model: str, token: str,
     raise ProviderError("HF response contained no text")
 
 def _openrouter_call(system: str, prompt: str, model: str, key: str,
-                     post: Callable | None = None) -> str:
+                     temperature: float, post: Callable | None = None) -> str:
     post = post or requests.post
     headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json",
                "HTTP-Referer": "https://escapebusinesssolutions.com", "X-Title": "News AI Small Model"}
@@ -61,6 +61,7 @@ def _openrouter_call(system: str, prompt: str, model: str, key: str,
     for candidate in models:
         payload = {
             "model": candidate,
+            "temperature": temperature,
             "messages": [
                 {"role": "system", "content": system},
                 {"role": "user", "content": prompt},
@@ -100,16 +101,22 @@ def generate_text(system: str, prompt: str) -> str:
     provider = os.getenv("AI_PROVIDER", "auto").strip().lower() or "auto"
     configured_model = os.getenv("AI_MODEL", "").strip()
     model = configured_model or DEFAULT_MODEL
+    try:
+        temperature = float(os.getenv("AI_TEMPERATURE", "0.8"))
+    except ValueError as exc:
+        raise ProviderError("AI_TEMPERATURE must be a number") from exc
+    if not 0 <= temperature <= 2:
+        raise ProviderError("AI_TEMPERATURE must be between 0 and 2")
     openrouter_model = os.getenv("OPENROUTER_MODEL", DEFAULT_OPENROUTER_MODEL).strip() or DEFAULT_OPENROUTER_MODEL
     if provider == "openrouter":
-        return _openrouter_call(system, prompt, configured_model or openrouter_model, _env("OPENROUTER_API_KEY"))
+        return _openrouter_call(system, prompt, configured_model or openrouter_model, _env("OPENROUTER_API_KEY"), temperature)
     if provider == "huggingface":
-        return _hf_call(system, prompt, model, _env("HF_TOKEN"))
+        return _hf_call(system, prompt, model, _env("HF_TOKEN"), temperature)
     if provider != "auto":
         raise ProviderError(f"Unsupported AI_PROVIDER: {provider}")
     try:
         hf_token = _env("HF_TOKEN")
-        return _hf_call(system, prompt, model, hf_token)
+        return _hf_call(system, prompt, model, hf_token, temperature)
     except ProviderError as hf_error:
         message = str(hf_error)
         retryable = any(f"HF HTTP {code}" in message for code in (402, 410, 429, 500, 502, 503, 504)) or "model_no_longer_supported" in message
@@ -119,4 +126,4 @@ def generate_text(system: str, prompt: str) -> str:
         key = os.getenv("OPENROUTER_API_KEY", "").strip()
         if not key:
             raise ProviderError(f"HF unavailable and OPENROUTER_API_KEY is unavailable: {message}")
-        return _openrouter_call(system, prompt, openrouter_model, key)
+        return _openrouter_call(system, prompt, openrouter_model, key, temperature)

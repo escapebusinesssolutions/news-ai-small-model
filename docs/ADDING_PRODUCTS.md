@@ -29,7 +29,23 @@ The catalogue root must remain:
 }
 ```
 
-## 3. Rules
+## 3. Optional enrichment fields (recommended)
+
+`generate.py` passes these through to the model when present, in addition to `key_points`. They give the writer concrete material for specific buyer reasoning instead of generic filler.
+
+```json
+{
+  "detailed_specs": ["exact published specifications"],
+  "differentiators": ["what separates the product from alternatives in the catalogue"],
+  "known_limitations": ["genuine buyer trade-offs"],
+  "who_its_for": ["specific buyer scenarios"],
+  "who_should_skip": ["specific buyer scenarios to avoid"]
+}
+```
+
+Only add facts verified from the manufacturer or another authoritative source. Do not guess, copy review text verbatim, or add unsupported specifications. If a fact cannot be verified, leave it out.
+
+## 4. Rules
 
 - Use Amazon.co.uk product URLs only.
 - Use the configured tracking ID `echsignalnews-21`.
@@ -39,10 +55,10 @@ The catalogue root must remain:
 
 Amazon documents the basic Amazon.co.uk product-link format as `/dp/ASIN/...?...tag=YOURASSOCIATEID` and recommends its Associates linking tools for correctly formatted links.
 
-## 4. Why this is temporary
+## 5. Why this is temporary
 
 When Creators API/PA API access becomes available, this catalogue adapter can be replaced with an Amazon API adapter. Amazon's current policy requires an account identifier/key pair plus an Associates tag for API calls.
 
-## 5. Verify a link
+## 6. Verify a link
 
 Amazon provides a Link Checker for links constructed or modified outside Associates Central. Links generated directly by Associates Central/SiteStripe are already coded by Amazon's tools.
