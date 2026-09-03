@@ -48,6 +48,14 @@ def _clean_query(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()[:180]
 
 
+def _normalise_role(value: Any) -> str:
+    """Map common model variants to the two roles used by the publisher."""
+    role = str(value or "").strip().lower()
+    if role.startswith("hero"):
+        return "hero"
+    return "context"
+
+
 def find_commons_image(search_query: str, timeout_seconds: int = 20) -> dict[str, Any] | None:
     """Find a Commons image whose licence is explicitly approved for reuse."""
     query = _clean_query(search_query)
@@ -101,12 +109,18 @@ def build_article_images(image_plan: list[dict[str, Any]], timeout_seconds: int 
             continue
         seen_urls.add(image["url"])
         resolved.append({
-            "role": str(item.get("role", "context")).strip().lower() or "context",
+            "role": _normalise_role(item.get("role", "context")),
             "url": image["url"],
             "alt_text": str(item.get("alt_text") or item.get("alt") or image["title"]).strip(),
             "caption": str(item.get("caption") or "").strip(),
             **image,
         })
+
+    # A failed hero search must not turn an otherwise usable article into a failed
+    # publication. Promote the first verified contextual image to hero instead.
+    # The editorial quality gate still requires the model to plan exactly one hero.
+    if resolved and not any(image.get("role") == "hero" for image in resolved):
+        resolved[0]["role"] = "hero"
     return resolved
 
 
