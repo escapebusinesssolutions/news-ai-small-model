@@ -1,0 +1,39 @@
+"""Create or update the TechSignal operations dashboard as a WordPress draft."""
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+import requests
+
+SITE = os.getenv("WORDPRESS_SITE_URL", os.getenv("TECHSIGNAL_URL", "https://techsignal.wasmer.app")).rstrip("/")
+USERNAME = os.getenv("WORDPRESS_USERNAME", os.getenv("TECHSIGNAL_USERNAME", ""))
+PASSWORD = os.getenv("WORDPRESS_APP_PASSWORD", os.getenv("TECHSIGNAL_APP_PASSWORD", ""))
+SLUG = "techsignal-operations-dashboard"
+TITLE = "TechSignal Operations Dashboard"
+
+
+def main() -> None:
+    if not USERNAME or not PASSWORD:
+        raise RuntimeError("WordPress username/application password not available")
+    html = Path("operations-dashboard.html").read_text(encoding="utf-8")
+    base = f"{SITE}/wp-json/wp/v2/posts"
+    auth = (USERNAME, PASSWORD)
+    lookup = requests.get(base, params={"slug": SLUG, "context": "edit"}, auth=auth, timeout=30)
+    lookup.raise_for_status()
+    payload = {"title": TITLE, "slug": SLUG, "content": html, "status": "draft"}
+    existing = lookup.json()
+    if existing:
+        post_id = existing[0]["id"]
+        response = requests.post(f"{base}/{post_id}", auth=auth, json=payload, timeout=30)
+        action = "updated"
+    else:
+        response = requests.post(base, auth=auth, json=payload, timeout=30)
+        action = "created"
+    response.raise_for_status()
+    data = response.json()
+    print({"action": action, "post_id": data.get("id"), "status": data.get("status"), "link": data.get("link"), "edit_link": f"{SITE}/wp-admin/post.php?post={data.get('id')}&action=edit"})
+
+
+if __name__ == "__main__":
+    main()

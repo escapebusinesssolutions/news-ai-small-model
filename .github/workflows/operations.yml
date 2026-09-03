@@ -1,0 +1,66 @@
+name: TechSignal Operations
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_dashboard:
+        description: "Update the WordPress operations dashboard draft"
+        required: false
+        default: "true"
+  schedule:
+    - cron: '*/15 * * * *'
+
+concurrency:
+  group: techsignal-operations
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+  issues: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  WORDPRESS_SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+  WORDPRESS_USERNAME: ${{ secrets.TECHSIGNAL_USERNAME }}
+  WORDPRESS_APP_PASSWORD: ${{ secrets.TECHSIGNAL_APP_PASSWORD }}
+
+jobs:
+  operations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Repair safe transient failures
+        run: python repair_controller.py
+      - name: Build operations dashboard
+        run: python operations_dashboard.py
+      - name: Update WordPress dashboard draft
+        if: ${{ github.event_name == 'schedule' || inputs.publish_dashboard == 'true' }}
+        run: python publish_operations_dashboard.py
+      - name: Persist repair history
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/repair_history.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: persist repair history"
+            git push
+          fi
+      - name: Upload dashboard
+        uses: actions/upload-artifact@v4
+        with:
+          name: techsignal-operations-dashboard-${{ github.run_id }}
+          path: operations-dashboard.html
+          if-no-files-found: error

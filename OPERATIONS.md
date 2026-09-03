@@ -56,3 +56,19 @@ The following cannot be completed safely from repository automation alone:
 - Final keyword-volume/competition checks where a third-party tool requires an account or interactive access.
 
 These are account/business actions, not code blockers. The repository is designed to remain usable without them until the commercial loop is ready.
+
+## Operations dashboard and auto-repair
+A separate `TechSignal Operations` workflow runs every 15 minutes and can also be started manually.
+
+The workflow:
+
+- reads recent `Small Model Publish` runs from GitHub Actions;
+- classifies failed jobs from their logs;
+- automatically retries only bounded transient failures (rate limits, timeouts, network errors, and temporary 5xx failures);
+- never auto-retries validation, duplicate, affiliate, authentication, permission, or unknown failures;
+- records every repair decision in `data/repair_history.json`;
+- generates an operational dashboard with recent runs, success rate, failures, repairs, scale state, and persistent metrics;
+- updates `TechSignal Operations Dashboard` as a WordPress **draft** when WordPress credentials are configured;
+- uploads the dashboard as a GitHub Actions artifact on every operations run.
+
+Repair is limited to two attempts per failed run with a 20-minute cooldown. Unresolved failures are recorded as escalations rather than retried indefinitely.
