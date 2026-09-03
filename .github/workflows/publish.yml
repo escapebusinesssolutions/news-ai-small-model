@@ -80,6 +80,9 @@ jobs:
               r.raise_for_status()
               print(f"Moved WordPress post {post_id} to trash")
           PY
+      - name: Apply SEO maintenance fix
+        if: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, 'seo:') }}
+        run: python seo_maintenance.py
       - name: Check multi-run feature flag
         id: gate
         shell: bash
@@ -123,9 +126,15 @@ jobs:
             echo "Expanded topic catalogue size: $TOPIC_COUNT"
             echo "Scheduled slot $SLOT -> topic index $TOPIC_INDEX; target $TARGET/day"
           elif [ "${{ github.event_name }}" = "push" ]; then
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
-            TOPIC_INDEX=$(python -c 'import json; print(json.load(open(".github/publish-trigger.json", encoding="utf-8"))["topic_index"])')
-            echo "topic_index=$TOPIC_INDEX" >> "$GITHUB_OUTPUT"
+            ACTION=$(python -c 'import json; print(json.load(open(".github/publish-trigger.json", encoding="utf-8")).get("action", "publish"))')
+            if [ "$ACTION" = "seo_fix" ]; then
+              echo "should_run=false" >> "$GITHUB_OUTPUT"
+              echo "SEO maintenance trigger detected; skipping publication"
+            else
+              echo "should_run=true" >> "$GITHUB_OUTPUT"
+              TOPIC_INDEX=$(python -c 'import json; print(json.load(open(".github/publish-trigger.json", encoding="utf-8"))["topic_index"])')
+              echo "topic_index=$TOPIC_INDEX" >> "$GITHUB_OUTPUT"
+            fi
           else
             echo "should_run=true" >> "$GITHUB_OUTPUT"
             echo "topic_index=${{ inputs.topic_index || '0' }}" >> "$GITHUB_OUTPUT"
