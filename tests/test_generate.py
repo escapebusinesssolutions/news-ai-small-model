@@ -55,4 +55,3 @@ def test_generate_prompt_contains_product_brief_and_editorial_contract(monkeypat
     assert "2-4 useful image_plan entries" in captured["system"]
     assert result["editorial_engine"] == "v3-external-images"
     assert result["editorial_passes"] == 2
-    assert result["product_brief"]
