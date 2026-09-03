@@ -121,7 +121,8 @@ def publish_article(article: dict[str, Any], publisher: WordPressPublisher | Non
     html_body = body if "<p>" in body or "<h2>" in body else markdown_to_html(body)
 
     image_plan = article.get("image_plan", [])
-    images = build_article_images(image_plan)
+    category = str(article.get("category", "")).strip()
+    images = build_article_images(image_plan, category=category)
     hero_count = sum(1 for image in images if image.get("role") == "hero")
     if hero_count != 1 or len(images) < 2:
         raise ValueError(
@@ -134,7 +135,7 @@ def publish_article(article: dict[str, Any], publisher: WordPressPublisher | Non
         title=title,
         content=html_body,
         slug=slug,
-        metadata={"category": article.get("category", ""), "external_images": images},
+        metadata={"category": category, "external_images": images},
     )
     return {**result, "title": title, "slug": slug, "external_images": images, "stored_in_wordpress_media": False}
 
