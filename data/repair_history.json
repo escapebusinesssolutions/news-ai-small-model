@@ -34,5 +34,35 @@
     "result": "escalated",
     "reason": "failure classified as blocked",
     "timestamp": "2026-09-03T16:19:34.121224+00:00"
+  },
+  {
+    "run_id": 33795593016,
+    "result": "repaired",
+    "classification": "transient",
+    "timestamp": "2026-09-03T19:21:50.866074+00:00"
+  },
+  {
+    "run_id": 33787172235,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-03T19:21:51.992584+00:00"
+  },
+  {
+    "run_id": 33770207103,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-03T19:21:53.171174+00:00"
+  },
+  {
+    "run_id": 33751985588,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-03T19:21:53.171198+00:00"
+  },
+  {
+    "run_id": 33751815205,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-03T19:21:53.171203+00:00"
   }
 ]
