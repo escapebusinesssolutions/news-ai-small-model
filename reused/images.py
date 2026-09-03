@@ -10,11 +10,24 @@ import requests
 
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
 ALLOWED_LICENSES = ("public domain", "cc0", "cc by", "cc by-sa")
-FALLBACK_CONTEXT_QUERIES = (
-    "desktop microphone recording",
-    "microphone home studio",
-    "person speaking microphone",
-)
+
+# Category-aware fallbacks. These are deliberately specific enough to prevent an
+# unrelated generic fallback (for example, microphone imagery on a power article).
+CATEGORY_FALLBACKS = {
+    "audio": ("USB microphone", "podcast microphone", "studio microphone"),
+    "webcams": ("webcam computer", "computer webcam", "video conference camera"),
+    "storage": ("portable SSD", "external hard drive", "computer storage drive"),
+    "power": ("power bank", "portable charger", "USB-C power bank"),
+    "workspace": ("computer desk workspace", "desktop productivity", "office desk"),
+}
+
+CATEGORY_TERMS = {
+    "audio": ("microphone", "mic", "podcast", "audio", "recording", "headphone", "headphones"),
+    "webcams": ("webcam", "camera", "video", "conference", "zoom", "teams"),
+    "storage": ("ssd", "storage", "drive", "hard", "disk", "backup"),
+    "power": ("power", "bank", "charger", "charging", "battery", "usb", "laptop", "portable"),
+    "workspace": ("desk", "desktop", "workspace", "computer", "productivity", "office"),
+}
 
 
 def _normalise_license(value: str) -> str:
@@ -61,8 +74,22 @@ def _normalise_role(value: Any) -> str:
     return "context"
 
 
-def find_commons_image(search_query: str, timeout_seconds: int = 20) -> dict[str, Any] | None:
-    """Find a Commons image whose licence is explicitly approved for reuse."""
+def _category_terms(category: str) -> tuple[str, ...]:
+    key = str(category or "").strip().lower()
+    return CATEGORY_TERMS.get(key, ())
+
+
+def _image_is_category_relevant(image: dict[str, Any], category: str) -> bool:
+    """Reject obviously unrelated Commons results before they reach WordPress."""
+    terms = _category_terms(category)
+    if not terms:
+        return True
+    haystack = f"{image.get('title', '')} {image.get('alt_text', '')}".lower()
+    return any(term in haystack for term in terms)
+
+
+def find_commons_image(search_query: str, timeout_seconds: int = 20, category: str = "") -> dict[str, Any] | None:
+    """Find a Commons image whose licence and, when known, category are approved."""
     query = _clean_query(search_query)
     if not query:
         return None
@@ -88,7 +115,7 @@ def find_commons_image(search_query: str, timeout_seconds: int = 20) -> dict[str
             continue
         license_name = _metadata_value(metadata, "LicenseShortName")
         title = str(page.get("title", "")).removeprefix("File:")
-        return {
+        image = {
             "url": url,
             "source_page": "https://commons.wikimedia.org/wiki/" + quote(str(page.get("title", "")), safe=""),
             "source": "Wikimedia Commons",
@@ -98,13 +125,20 @@ def find_commons_image(search_query: str, timeout_seconds: int = 20) -> dict[str
             "title": title,
             "mime": mime,
         }
+        if _image_is_category_relevant(image, category):
+            return image
     return None
 
 
-def build_article_images(image_plan: list[dict[str, Any]], timeout_seconds: int = 20) -> list[dict[str, Any]]:
-    """Resolve image concepts to verified remote images; never upload image bytes to WordPress."""
+def build_article_images(
+    image_plan: list[dict[str, Any]],
+    timeout_seconds: int = 20,
+    category: str = "",
+) -> list[dict[str, Any]]:
+    """Resolve category-relevant, licence-checked remote images; never upload bytes to WordPress."""
     resolved: list[dict[str, Any]] = []
     seen_urls: set[str] = set()
+    terms = _category_terms(category)
 
     def add_image(item: dict[str, Any], image: dict[str, Any], role: str | None = None) -> None:
         if image["url"] in seen_urls:
@@ -122,26 +156,30 @@ def build_article_images(image_plan: list[dict[str, Any]], timeout_seconds: int 
         if not isinstance(item, dict):
             continue
         query = str(item.get("search_query") or item.get("query") or item.get("concept") or "").strip()
-        image = find_commons_image(query, timeout_seconds=timeout_seconds)
+        if not query:
+            continue
+        # The model may produce a visually plausible but semantically wrong query.
+        # For known categories, force the search into the article's product domain.
+        query_lower = query.lower()
+        if terms and not any(term in query_lower for term in terms):
+            query = f"{query} {terms[0]}"
+        image = find_commons_image(query, timeout_seconds=timeout_seconds, category=category)
         if image:
             add_image(item, image)
 
-    # If one planned image failed Commons search, use a lawful generic editorial
-    # fallback so the article still has the required visual density.
-    fallback_index = 0
-    while len(resolved) < 2 and fallback_index < len(FALLBACK_CONTEXT_QUERIES):
-        query = FALLBACK_CONTEXT_QUERIES[fallback_index]
-        fallback_index += 1
-        image = find_commons_image(query, timeout_seconds=timeout_seconds)
+    # Category-specific fallbacks replace the old global microphone fallback.
+    fallback_queries = CATEGORY_FALLBACKS.get(str(category or "").strip().lower(), ())
+    for query in fallback_queries:
+        if len(resolved) >= 2:
+            break
+        image = find_commons_image(query, timeout_seconds=timeout_seconds, category=category)
         if image:
             add_image({
                 "role": "context",
-                "alt_text": "Microphone used for voice recording at a desk",
-                "caption": "Context image for a desktop voice-recording setup.",
+                "alt_text": query,
+                "caption": f"Context image related to {query.lower()}.",
             }, image, role="context")
 
-    # A failed hero search must not turn an otherwise usable article into a failed
-    # publication. Promote the first verified image to hero when necessary.
     if resolved and not any(image.get("role") == "hero" for image in resolved):
         resolved[0]["role"] = "hero"
     return resolved
