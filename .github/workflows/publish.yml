@@ -148,7 +148,7 @@ jobs:
             python pipeline.py --topic-index "${{ steps.trigger.outputs.topic_index }}" --output validation-report.json
           fi
       - name: Record run metric
-        if: always() && steps.gate.outputs.should_run == 'true' && steps.trigger.outputs.should_run != 'false'
+        if: always() && steps.gate.outputs.should_run == 'true' && steps.trigger.outputs.should_run != 'false' && !contains(github.event.head_commit.message, 'seo:')
         shell: bash
         run: |
           python - <<'PY'
@@ -163,7 +163,7 @@ jobs:
           p.write_text(json.dumps(rows[-500:], indent=2) + "\n", encoding="utf-8")
           PY
       - name: Persist rolling publish history and run metrics
-        if: ${{ always() && steps.gate.outputs.should_run == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true') }}
+        if: ${{ always() && steps.gate.outputs.should_run == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true') && !contains(github.event.head_commit.message, 'seo:') }}
         shell: bash
         run: |
           git config user.name "github-actions[bot]"

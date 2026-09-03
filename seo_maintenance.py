@@ -80,7 +80,9 @@ def main():
         "h1": "<h1 class=\"techsignal-home-h1\">" in html,
         "canonical": 'rel="canonical"' in html and "https://techsignal.wasmer.app/" in html,
     }
-    print({"site": SITE, "settings": "updated", "snippet": action, "checks": checks})
+    report = {"schema_version": "1.0", "stage": "seo_maintenance", "success": all(checks.values()), "site": SITE, "snippet": action, "checks": checks}
+    Path('validation-report.json').write_text(__import__('json').dumps(report, indent=2) + '\n', encoding='utf-8')
+    print(report)
     if not all(checks.values()):
         print(html[:5000])
         sys.exit(2)
