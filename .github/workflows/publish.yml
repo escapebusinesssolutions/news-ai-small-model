@@ -16,10 +16,16 @@ on:
         required: false
         default: ""
   schedule:
+    - cron: '47 5 * * *'
+    - cron: '17 0 * * *'
+    - cron: '17 3 * * *'
     - cron: '17 6 * * *'
-    - cron: '17 10 * * *'
+    - cron: '17 9 * * *'
+    - cron: '17 11 * * *'
     - cron: '17 14 * * *'
+    - cron: '17 16 * * *'
     - cron: '17 18 * * *'
+    - cron: '17 20 * * *'
     - cron: '17 22 * * *'
   push:
     branches:
@@ -58,7 +64,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: pip install -r requirements.txt
       - name: Clean up superseded posts
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.cleanup_post_ids != '' }}
@@ -90,45 +96,73 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "schedule" ]; then
             case "${{ github.event.schedule }}" in
-              '17 6 * * *') SLOT=0 ;;
-              '17 10 * * *') SLOT=1 ;;
-              '17 14 * * *') SLOT=2 ;;
-              '17 18 * * *') SLOT=3 ;;
-              '17 22 * * *') SLOT=4 ;;
-              *) echo "Unknown schedule slot"; exit 1 ;;
+              '17 0 * * *') SLOT=0 ;;
+              '17 3 * * *') SLOT=1 ;;
+              '17 6 * * *') SLOT=2 ;;
+              '17 9 * * *') SLOT=3 ;;
+              '17 11 * * *') SLOT=4 ;;
+              '17 14 * * *') SLOT=5 ;;
+              '17 16 * * *') SLOT=6 ;;
+              '17 18 * * *') SLOT=7 ;;
+              '17 20 * * *') SLOT=8 ;;
+              '17 22 * * *') SLOT=9 ;;
+              *) echo "Unknown publication schedule slot"; exit 1 ;;
             esac
             DAY_OF_YEAR=$(date -u +%j)
             TOPIC_COUNT=$(python -c 'from generate import load_topics; print(len(load_topics()))')
-            TOPIC_INDEX=$(( ((10#$DAY_OF_YEAR - 1) * 5 + SLOT) % TOPIC_COUNT ))
+            TARGET=$(python -c 'import json; print(json.load(open("data/scaling_state.json", encoding="utf-8")).get("recommended_target", 5))')
+            if [ "$SLOT" -ge "$TARGET" ]; then
+              echo "should_run=false" >> "$GITHUB_OUTPUT"
+              printf '%s\n' "{\"schema_version\":\"1.0\",\"stage\":\"scale_gate\",\"success\":true,\"published\":false,\"reason\":\"slot outside current target\",\"slot\":$SLOT,\"target\":$TARGET}" > validation-report.json
+              echo "Scale gate: slot $SLOT blocked; target is $TARGET/day"
+              exit 0
+            fi
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            TOPIC_INDEX=$(( ((10#$DAY_OF_YEAR - 1) * 10 + SLOT) % TOPIC_COUNT ))
             echo "topic_index=$TOPIC_INDEX" >> "$GITHUB_OUTPUT"
             echo "Expanded topic catalogue size: $TOPIC_COUNT"
-            echo "Scheduled slot $SLOT -> topic index $TOPIC_INDEX"
+            echo "Scheduled slot $SLOT -> topic index $TOPIC_INDEX; target $TARGET/day"
           elif [ "${{ github.event_name }}" = "push" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
             TOPIC_INDEX=$(python -c 'import json; print(json.load(open(".github/publish-trigger.json", encoding="utf-8"))["topic_index"])')
             echo "topic_index=$TOPIC_INDEX" >> "$GITHUB_OUTPUT"
           else
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
             echo "topic_index=${{ inputs.topic_index || '0' }}" >> "$GITHUB_OUTPUT"
           fi
       - name: Run complete pipeline
-        if: steps.gate.outputs.should_run == 'true'
+        if: steps.gate.outputs.should_run == 'true' && steps.trigger.outputs.should_run != 'false'
         run: |
           if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.publish }}" = "true" ]; then
             python pipeline.py --topic-index "${{ steps.trigger.outputs.topic_index }}" --enable-dedup --publish --output validation-report.json
           else
             python pipeline.py --topic-index "${{ steps.trigger.outputs.topic_index }}" --output validation-report.json
           fi
-      - name: Persist rolling publish history
-        if: ${{ success() && steps.gate.outputs.should_run == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true') }}
+      - name: Record run metric
+        if: always() && steps.gate.outputs.should_run == 'true' && steps.trigger.outputs.should_run != 'false'
         shell: bash
         run: |
-          if [ -f data/published_history.json ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/published_history.json
-            if ! git diff --cached --quiet; then
-              git commit -m "chore: persist rolling publish history"
-              git push
-            fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("data/run_metrics.json")
+          rows = json.loads(p.read_text(encoding="utf-8")) if p.exists() else []
+          report = json.loads(Path("validation-report.json").read_text(encoding="utf-8")) if Path("validation-report.json").exists() else {}
+          validation = report.get("validation_report", report).get("validation", {})
+          rows.append({"run_id": "${{ github.run_id }}", "timestamp": "${{ github.run_started_at }}", "validation_passed": validation.get("passed") is True, "dedup_rejected": report.get("stage") == "dedup_skip", "success": report.get("success", validation.get("passed", False))})
+          p.parent.mkdir(parents=True, exist_ok=True)
+          p.write_text(json.dumps(rows[-500:], indent=2) + "\n", encoding="utf-8")
+          PY
+      - name: Persist rolling publish history and run metrics
+        if: ${{ always() && steps.gate.outputs.should_run == 'true' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.publish == 'true') }}
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/published_history.json data/run_metrics.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: persist publishing metrics"
+            git push
           fi
       - name: Upload validation report
         if: always()
@@ -137,3 +171,37 @@ jobs:
           name: small-model-validation-report-${{ github.run_id }}
           path: validation-report.json
           if-no-files-found: error
+
+  measure:
+    if: ${{ github.event_name == 'schedule' && github.event.schedule == '47 5 * * *' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Collect metrics and update scale
+        env:
+          TECHSIGNAL_URL: ${{ secrets.TECHSIGNAL_URL }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+        run: python metrics_collector.py
+      - name: Persist scaling state
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/scaling_state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update adaptive publishing target"
+            git push
+          fi
