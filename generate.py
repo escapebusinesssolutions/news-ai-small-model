@@ -1,4 +1,4 @@
-"""Generate original, analytical buyer-intent affiliate articles from the curated catalogue."""
+﻿"""Generate original, analytical buyer-intent affiliate articles from the curated catalogue."""
 from __future__ import annotations
 
 import json
@@ -14,69 +14,55 @@ PRODUCTS_FILE = Path(__file__).with_name("products.json")
 
 SYSTEM_PROMPT = """You are the senior editorial writer for TechSignal, a professional technology buying-guide publication.
 
-Write for one specific reader: an informed buyer who is skeptical of generic affiliate content and wants help making a decision.
-The article must feel written by an editor with a point of view. It should explain what matters, why it matters, where the trade-offs are, and who should or should not buy.
+Write for one specific reader: an informed buyer skeptical of generic affiliate content who wants help making a decision. The article must have a clear TechSignal point of view.
 
-STYLE RULES
-- Open with the actual buying question, tension, or decision. Do not begin with generic statements such as "In today's world", "Whether you're...", "If you're looking for...", "Choosing the right...", or "Technology has become...".
-- Use concrete reasoning instead of filler. Explain consequences for a buyer, not just catalogue facts.
-- Vary sentence length and paragraph rhythm. Avoid repetitive "X is... X is... X is..." constructions.
-- Prefer specific, useful observations over adjectives such as "great", "amazing", "powerful", "excellent", or "perfect".
-- Give the reader a clear editorial point of view. Opinions must be explicitly framed as TechSignal's judgement, not disguised as product facts.
-- Discuss meaningful trade-offs. A recommendation should explain what the buyer gains and what they give up.
-- Do not manufacture drama, fake controversy, or certainty.
-- Do not write for search engines. Do not stuff keywords.
+CORE RULES
+- Start with the actual buying question, tension, scenario, or decision. Never open with generic AI framing such as "In today's world", "Whether you're...", "If you're looking for...", "Choosing the right...", or "Technology has become...".
+- This is a decision aid, not a product-data dump. Connect important facts to buyer consequences.
+- State a clear judgement. Avoid endless "it depends" language; explain exactly what condition changes the answer.
+- Make trade-offs explicit: what the buyer gains, what they give up, and who should care.
+- Prefer concrete observations over empty adjectives. Vary sentence rhythm and paragraph structure.
+- Do not manufacture drama, fake controversy, certainty, tests, personal experience, or search-engine filler.
 - Do not use Markdown tables. Do not create Markdown links; affiliate links are inserted separately.
 
-SOURCE AND FACT RULES
-The supplied product brief is the complete and exclusive source of product facts. You may not add specifications, features, software capabilities, variants, accessories, compatibility claims, prices, discounts, availability, awards, tests, reviews, rankings, or competitor comparisons that are not explicitly present in the brief.
-You may reason from documented facts. Clearly distinguish inference and editorial judgement from catalogue facts.
-The optional enrichment fields (detailed_specs, differentiators, known_limitations, who_its_for, who_should_skip) are verified editorial inputs when present. Use them to make the article specific; do not treat absent fields as permission to guess.
-Never claim you tested a product or have personal experience.
-Never invent a competing product. If the catalogue does not contain enough products for a requested comparison, say so and make the available evidence useful instead.
+ARTICLE TYPE
+The user prompt supplies an intent-specific editorial job, structure, and must-cover list. Follow it. Do not force every article into the same heading sequence. A comparison, scenario, buyer guide, single-product review, alternatives article, and worth-it article must visibly feel different.
 
-ARTICLE QUALITY
-The article should normally be substantial rather than concise: target roughly 1,000-1,600 words where the available evidence supports it. Do not pad an article to hit a word count.
-Use a strong structure appropriate to the intent, including practical implications, strengths, limitations, trade-offs, buyer fit, skip criteria, and a final recommendation when supported.
+FACT BOUNDARY
+The supplied product brief is the complete and exclusive source of product facts. Do not add specifications, features, compatibility, variants, accessories, prices, availability, awards, tests, reviews, rankings, or competitor claims not present in the brief. Reason from documented facts, but label inference and editorial judgement as such. Enrichment fields are verified editorial inputs; use the most relevant evidence rather than repeating every field.
+
+ANTI-REPETITION
+Do not mention every available fact. Select evidence that fits this article's decision criteria and evidence focus. Avoid repeating the same product fact in multiple sections unless it has a different practical consequence.
+
+QUALITY
+Target roughly 1,000-1,600 words where evidence supports it. A structurally complete article that contains generic category advice without product-specific reasoning is a failed article.
 
 IMAGE PLANNING
-Every article must include 2-4 useful image_plan entries, including exactly one hero. Images must add visual information or context rather than decorate empty space.
-Use product imagery only when a lawful product image source is known. Otherwise request a contextual editorial image.
-For every image_plan entry return:
-- role: "hero" or "context"
-- concept: a specific visual subject
-- search_query: a concise Wikimedia Commons search query for a lawful contextual image; do not put a product brand/model in the query unless the subject is genuinely documented there
-- alt_text: descriptive, factual accessibility text
-- caption: a short useful caption, without invented facts
-Never invent image URLs, licences, artists, or source claims. The publishing pipeline resolves and verifies the image source.
+Return 2-4 useful image_plan entries, exactly one hero. Each entry needs role, concept, search_query, alt_text and caption. Use lawful contextual Wikimedia Commons queries; never invent image URLs, licences, artists, or source claims.
 
 OUTPUT
-Return ONLY valid JSON with keys: title, slug, meta_description, body_markdown, products, image_plan.
-Each selected product must use a name from the supplied brief and preserve its exact asin_or_id, price_range, and key_points.
+Return ONLY valid JSON with keys: title, slug, meta_description, body_markdown, products, image_plan. Selected products must preserve exact asin_or_id, price_range and key_points from the supplied brief.
 """
 
-EDITOR_PROMPT = """Act as the senior editor receiving a first draft from another writer.
+EDITOR_PROMPT = """Act as the senior editor receiving a first draft. Rewrite it into publication-quality decision content.
 
-Rewrite the draft rather than merely commenting on it. Preserve only claims supported by the allowed product brief.
-
-EDITING PASS
-1. Strengthen the opening so it starts with the buyer's real decision, not a generic introduction.
-2. Remove filler, repetition, generic AI phrasing, and empty adjectives.
-3. Make the article more analytical: explain practical implications, trade-offs, and buyer scenarios from the supplied evidence.
-4. Add a clear TechSignal point of view where the evidence supports one. Label judgement as judgement.
-5. Make the recommendation conditional and specific: who should buy, who should skip, and why.
-6. For comparison intent, compare only products actually present in the brief. Do not invent missing competitors.
-7. Keep useful uncertainty. If the catalogue cannot substantiate something, say that rather than guessing.
-8. Improve sentence rhythm and paragraph flow.
-9. Keep the article substantial without padding it. Aim for roughly 1,000-1,600 words when the evidence supports it.
-10. Provide 2-4 image_plan entries including exactly one hero. Every entry needs role, concept, search_query, alt_text and caption. Search queries must target lawful contextual imagery, not invented product-image URLs.
+1. Remove generic introductions, filler, repeated points and AI boilerplate.
+2. Make each major section answer a buyer question or explain a concrete consequence.
+3. Strengthen the TechSignal judgement; do not hide behind neutrality.
+4. Make trade-offs explicit.
+5. Give useful buyer and skip conditions.
+6. Follow the supplied intent-specific job and structure; do not impose a universal template.
+7. Preserve only claims supported by the product brief.
+8. Avoid repeating the same fact unless it serves a distinct decision consequence.
+9. Keep 1,000-1,600 words when evidence supports it, without padding.
+10. Return 2-4 image_plan entries with exactly one hero and lawful contextual search queries.
 
 Return ONLY valid JSON with: title, slug, meta_description, body_markdown, products, image_plan.
 """
 
 BANNED_OPENINGS = (
-    "in today's world", "in todayâ€™s world", "whether you're", "whether youâ€™re",
-    "if you're looking for", "if youâ€™re looking for", "choosing the right", "technology has become",
+    "in today's world", "in todayÃ¢â‚¬â„¢s world", "whether you're", "whether youÃ¢â‚¬â„¢re",
+    "if you're looking for", "if youÃ¢â‚¬â„¢re looking for", "choosing the right", "technology has become",
 )
 
 
@@ -95,6 +81,58 @@ def load_product_catalogue() -> dict[str, Any]:
         raise ValueError("products.json must contain a non-empty products array")
     return data
 
+
+def _intent_key(topic: dict[str, Any]) -> str:
+    raw = str(topic.get("intent", "buyer_guide")).strip().lower()
+    if raw in {"buyer_guide", "comparison", "single_product_review", "scenario", "worth_it", "alternatives"}: return raw
+    if "compar" in raw or raw in {"vs", "versus"}: return "comparison"
+    if "scenario" in raw or "travel" in raw: return "scenario"
+    if "worth" in raw: return "worth_it"
+    if "alternative" in raw: return "alternatives"
+    if "review" in raw: return "single_product_review"
+    return "buyer_guide"
+
+INTENT_GUIDANCE = {
+    "buyer_guide": ("Help the reader choose what to buy for the stated need or budget.", "Start with the decision; identify the criteria that change the choice; test products against them; expose trade-offs; give a conditional verdict.", "decision criteria, practical consequences, buyer fit, skip conditions, verdict"),
+    "comparison": ("Help the reader choose between the supplied products.", "Set decision criteria first; compare products against each criterion; explain meaningful differences and trade-offs; finish with winner-by-buyer conclusions.", "meaningful criteria, product-specific differences, trade-offs, buyer-specific winners"),
+    "single_product_review": ("Determine whether one specific product makes sense for a particular buyer.", "Frame the use case; examine relevant strengths and limitations; explain practical consequences; give a qualified verdict.", "specific evidence, limitations, consequences, ideal buyer, reasons to skip"),
+    "scenario": ("Solve a concrete technology decision in a realistic scenario.", "Open inside the scenario; identify the constraint; test relevant capabilities against it; surface compromises; make the decision explicit.", "scenario constraints, evidence tied to constraints, compromises, recommendation"),
+    "worth_it": ("Answer whether a purchase is justified for the stated buyer.", "Define what worth-it means; weigh benefits against limitations and supported alternatives; make the value judgement explicit.", "value criteria, strongest buy reasons, strongest skip reasons, final judgement"),
+    "alternatives": ("Help the reader choose an alternative when the obvious product is not the right fit.", "Explain why the default may fail; group alternatives by need; compare relevant differences; finish with fit-based recommendations.", "default failure modes, alternative evidence, trade-offs, buyer segmentation"),
+}
+
+def _editorial_brief(topic: dict[str, Any]) -> tuple[str, str, str]:
+    return INTENT_GUIDANCE[_intent_key(topic)]
+
+def _evidence_focus(topic: dict[str, Any], products: list[dict[str, Any]]) -> list[str]:
+    pools=["detailed_specs","differentiators","known_limitations","who_its_for","who_should_skip"]
+    seed=sum(ord(c) for c in str(topic.get("topic", ""))) + len(products)*17
+    shift=seed % len(pools)
+    return pools[shift:]+pools[:shift]
+
+GENERIC_PHRASES=("in today's world","whether you're looking for","if you're looking for","choosing the right","the right choice","it is important to consider","when it comes to","there are many options","can be a great option","for many users","designed to meet","in conclusion","ultimately,")
+
+def _quality_score(article: dict[str, Any], topic: dict[str, Any], product_brief: list[dict[str, Any]]) -> dict[str, Any]:
+    body=str(article.get("body_markdown", "")); lower=body.lower(); words=re.findall(r"\b\w[\w'-]*\b",body)
+    score=100; deductions=[]
+    generic=sum(lower.count(x) for x in GENERIC_PHRASES)
+    if generic>2: score-=min(20,(generic-2)*4); deductions.append(f"generic_phrases={generic}")
+    if len(words)<700: score-=20; deductions.append("thin")
+    if len(re.findall(r"^#{2,3}\s+.+$",body,re.M))<3: score-=8; deductions.append("few_headings")
+    if not re.search(r"\b(recommend|recommendation|verdict|our take|should buy|should skip)\b",lower): score-=15; deductions.append("missing_verdict")
+    trade=sum(lower.count(x) for x in ("trade-off","tradeoff","downside","limitation","compromise","give up"))
+    if trade<2: score-=12; deductions.append("weak_tradeoffs")
+    buyers=sum(lower.count(x) for x in ("best for","ideal for","who should","who should skip","not for","skip this"))
+    if buyers<2: score-=10; deductions.append("weak_buyer_segmentation")
+    matched=0
+    for p in product_brief:
+        terms=[str(p.get("name","")),*map(str,p.get("key_points",[])),*map(str,p.get("differentiators",[])),*map(str,p.get("known_limitations",[]))]
+        matched+=sum(1 for t in terms if t and t.lower() in lower)
+    if matched<4: score-=15; deductions.append(f"low_product_specificity={matched}")
+    paras=[re.sub(r"\s+"," ",x.strip().lower()) for x in re.split(r"\n\s*\n",body) if x.strip()]
+    dup=len(paras)-len(set(paras))
+    if dup: score-=min(10,dup*5); deductions.append(f"duplicate_paragraphs={dup}")
+    return {"score":max(0,score),"generic_hits":generic,"tradeoffs":trade,"buyer_hits":buyers,"deductions":deductions}
 
 def build_product_brief(topic: dict[str, Any]) -> list[dict[str, Any]]:
     category = str(topic.get("category", "")).strip().lower()
@@ -145,41 +183,36 @@ def _parse_json(text: str) -> dict[str, Any]:
 
 
 def _validate_editorial_quality(article: dict[str, Any], product_brief: list[dict[str, Any]], topic: dict[str, Any]) -> None:
-    body = str(article.get("body_markdown", "")).strip()
-    if len(re.findall(r"\b\w+\b", body)) < 700:
-        raise ValueError("Editorial quality gate failed: article is too thin")
-    plan = article.get("image_plan", [])
-    if len(plan) < 2 or len(plan) > 4:
-        raise ValueError("Editorial quality gate failed: image plan must contain 2-4 images")
-    hero_count = sum(1 for item in plan if isinstance(item, dict) and str(item.get("role", "")).lower() == "hero")
-    if hero_count != 1:
-        raise ValueError("Editorial quality gate failed: exactly one hero image is required")
-    for item in plan:
-        if not isinstance(item, dict) or not all(str(item.get(k, "")).strip() for k in ("role", "concept", "search_query", "alt_text")):
-            raise ValueError("Editorial quality gate failed: image plan entry is incomplete")
-    if body.lstrip("# ").lower().startswith(BANNED_OPENINGS):
-        raise ValueError("Editorial quality gate failed: generic AI opening detected")
-    allowed = {str(p.get("asin_or_id")): p for p in product_brief}
-    for selected in article.get("products", []):
-        asin = str(selected.get("asin_or_id", ""))
-        if asin not in allowed:
-            raise ValueError(f"Editorial quality gate failed: product {asin or 'unknown'} is outside the supplied brief")
-        source = allowed[asin]
-        for key in ("name", "price_range", "key_points"):
-            if selected.get(key) != source.get(key):
-                raise ValueError(f"Editorial quality gate failed: product field {key} was altered for {asin}")
-    intent = str(topic.get("intent", "buyer_guide")).lower()
-    if any(token in intent for token in ("comparison", "vs", "versus", "alternatives")) and len(product_brief) < 2:
-        if re.search(r"\b(vs\.?|versus|compared with|comparison)\b", body, re.I):
-            raise ValueError("Editorial quality gate failed: unsupported product comparison")
+    body=str(article.get("body_markdown", "")).strip(); plan=article.get("image_plan", [])
+    if len(plan)<2 or len(plan)>4: raise ValueError("Editorial quality gate failed: image plan must contain 2-4 images")
+    if sum(1 for x in plan if isinstance(x,dict) and str(x.get("role","")).lower()=="hero") != 1: raise ValueError("Editorial quality gate failed: exactly one hero image is required")
+    for x in plan:
+        if not isinstance(x,dict) or not all(str(x.get(k,"")).strip() for k in ("role","concept","search_query","alt_text")): raise ValueError("Editorial quality gate failed: image plan entry is incomplete")
+    if body.lstrip("# ").lower().startswith(BANNED_OPENINGS): raise ValueError("Editorial quality gate failed: generic AI opening detected")
+    allowed={str(p.get("asin_or_id")):p for p in product_brief}
+    for selected in article.get("products",[]):
+        asin=str(selected.get("asin_or_id",""))
+        if asin not in allowed: raise ValueError(f"Editorial quality gate failed: product {asin or 'unknown'} is outside the supplied brief")
+        for key in ("name","price_range","key_points"):
+            if selected.get(key)!=allowed[asin].get(key): raise ValueError(f"Editorial quality gate failed: product field {key} was altered for {asin}")
+    if _intent_key(topic)=="comparison" and len(product_brief)<2 and re.search(r"\b(vs\.?|versus|compared with|comparison)\b",body,re.I): raise ValueError("Editorial quality gate failed: unsupported product comparison")
+    quality=_quality_score(article,topic,product_brief)
+    if quality["score"]<72: raise ValueError(f"Editorial quality gate failed: substantive score {quality['score']}/100 ({', '.join(quality['deductions'])})")
+    article["editorial_quality"]=quality
 
 
 def _generate_editorial_draft(name: str, topic: dict[str, Any], product_brief: list[dict[str, Any]]) -> dict[str, Any]:
+    job, structure, must_cover = _editorial_brief(topic)
+    focus = _evidence_focus(topic, product_brief)
     prompt = f"""Write the first full editorial draft for this TechSignal topic.
 
 Topic: {name}
 Intent: {topic.get('intent', 'buyer_guide')}
 Category: {topic.get('category', 'general')}
+Editorial job: {job}
+Editorial structure: {structure}
+Must cover: {must_cover}
+Evidence focus: {', '.join(focus)}
 
 Allowed product brief (exclusive factual source):
 {json.dumps(product_brief, ensure_ascii=False, indent=2)}
@@ -191,11 +224,17 @@ Return only the JSON object.
 
 
 def _edit_draft(name: str, topic: dict[str, Any], product_brief: list[dict[str, Any]], draft: dict[str, Any]) -> dict[str, Any]:
+    job, structure, must_cover = _editorial_brief(topic)
+    focus = _evidence_focus(topic, product_brief)
     prompt = f"""Edit this TechSignal article to publication quality.
 
 Topic: {name}
 Intent: {topic.get('intent', 'buyer_guide')}
 Category: {topic.get('category', 'general')}
+Editorial job: {job}
+Editorial structure: {structure}
+Must cover: {must_cover}
+Evidence focus: {', '.join(focus)}
 
 Allowed product brief (exclusive factual source):
 {json.dumps(product_brief, ensure_ascii=False, indent=2)}
@@ -241,7 +280,23 @@ Preserve substantive editorial analysis, but remove unsupported claims and inven
             article = _parse_json(generate_text(SYSTEM_PROMPT, repair_prompt))
         except ValueError as repair_error:
             raise ValueError(f"Editorial generation failed validation; edit error: {edit_error}; repair error: {repair_error}") from repair_error
-    _validate_editorial_quality(article, product_brief, topic)
+    try:
+        _validate_editorial_quality(article, product_brief, topic)
+    except ValueError as quality_error:
+        repair_prompt = f"""Rewrite this TechSignal article to fix the substantive editorial failure below.
+Topic: {name}
+Intent: {topic.get('intent', 'buyer_guide')}
+Editorial job: {_editorial_brief(topic)[0]}
+Editorial structure: {_editorial_brief(topic)[1]}
+Evidence focus: {', '.join(_evidence_focus(topic, product_brief))}
+Quality failure: {quality_error}
+Allowed product brief (exclusive factual source):
+{json.dumps(product_brief, ensure_ascii=False, indent=2)}
+Current article:
+{json.dumps(article, ensure_ascii=False, indent=2)}
+Rewrite for concrete product-specific reasoning, explicit trade-offs, buyer/skip guidance and a clear verdict. Remove generic boilerplate. Do not invent facts. Return only the required JSON object."""
+        article=_parse_json(generate_text(SYSTEM_PROMPT, repair_prompt))
+        _validate_editorial_quality(article, product_brief, topic)
     article["slug"] = _slug(str(article.get("slug") or article["title"]))
     article["editorial_engine"] = "v3-external-images"
     article["editorial_passes"] = 2
