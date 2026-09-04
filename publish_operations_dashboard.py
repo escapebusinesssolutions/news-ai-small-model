@@ -19,12 +19,28 @@ def main() -> None:
     html = Path("operations-dashboard.html").read_text(encoding="utf-8")
     base = f"{SITE}/wp-json/wp/v2/posts"
     auth = (USERNAME, PASSWORD)
-    lookup = requests.get(base, params={"slug": SLUG, "context": "edit"}, auth=auth, timeout=30)
+    lookup = requests.get(
+        base,
+        params={"slug": SLUG, "status": "draft,publish,future,pending,private", "context": "edit", "per_page": 100},
+        auth=auth,
+        timeout=30,
+    )
     lookup.raise_for_status()
     payload = {"title": TITLE, "slug": SLUG, "content": html, "status": "draft"}
     existing = lookup.json()
+    if not existing:
+        # Some WordPress installations do not return drafts by slug reliably.
+        # Fall back to an exact-title lookup so the dashboard remains one stable post.
+        fallback = requests.get(
+            base,
+            params={"search": TITLE, "status": "draft,publish,future,pending,private", "context": "edit", "per_page": 100},
+            auth=auth,
+            timeout=30,
+        )
+        fallback.raise_for_status()
+        existing = [post for post in fallback.json() if post.get("title", {}).get("raw") == TITLE]
     if existing:
-        post_id = existing[0]["id"]
+        post_id = min(post["id"] for post in existing)
         response = requests.post(f"{base}/{post_id}", auth=auth, json=payload, timeout=30)
         action = "updated"
     else:
