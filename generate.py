@@ -183,6 +183,16 @@ def _parse_json(text: str) -> dict[str, Any]:
     return result
 
 
+def _normalize_product_facts(article: dict[str, Any], product_brief: list[dict[str, Any]]) -> None:
+    allowed = {str(p.get("asin_or_id")): p for p in product_brief}
+    for selected in article.get("products", []):
+        asin = str(selected.get("asin_or_id", ""))
+        if asin in allowed:
+            source = allowed[asin]
+            for key in ("name", "price_range", "key_points"):
+                selected[key] = source.get(key)
+
+
 def _validate_editorial_quality(article: dict[str, Any], product_brief: list[dict[str, Any]], topic: dict[str, Any]) -> None:
     body=str(article.get("body_markdown", "")).strip(); plan=article.get("image_plan", [])
     if len(plan)<2 or len(plan)>4: raise ValueError("Editorial quality gate failed: image plan must contain 2-4 images")
@@ -281,6 +291,7 @@ Preserve substantive editorial analysis, but remove unsupported claims and inven
             article = _parse_json(generate_text(SYSTEM_PROMPT, repair_prompt))
         except ValueError as repair_error:
             raise ValueError(f"Editorial generation failed validation; edit error: {edit_error}; repair error: {repair_error}") from repair_error
+    _normalize_product_facts(article, product_brief)
     try:
         _validate_editorial_quality(article, product_brief, topic)
     except ValueError as quality_error:
@@ -297,6 +308,7 @@ Current article:
 {json.dumps(article, ensure_ascii=False, indent=2)}
 Rewrite for concrete product-specific reasoning, explicit trade-offs, buyer/skip guidance and a clear verdict. Remove generic boilerplate. Do not invent facts. Return only the required JSON object."""
         article=_parse_json(generate_text(SYSTEM_PROMPT, repair_prompt))
+        _normalize_product_facts(article, product_brief)
         _validate_editorial_quality(article, product_brief, topic)
     article["slug"] = _slug(str(article.get("slug") or article["title"]))
     article["editorial_engine"] = "v3-external-images"
