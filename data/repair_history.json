@@ -730,5 +730,89 @@
     "result": "escalated",
     "reason": "repair attempt limit reached",
     "timestamp": "2026-09-04T21:29:34.486854+00:00"
+  },
+  {
+    "run_id": 33925102570,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-04T23:13:35.449860+00:00"
+  },
+  {
+    "run_id": 33917702172,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-04T23:13:36.094033+00:00"
+  },
+  {
+    "run_id": 33908785737,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094068+00:00"
+  },
+  {
+    "run_id": 33901584030,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094077+00:00"
+  },
+  {
+    "run_id": 33886847721,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094085+00:00"
+  },
+  {
+    "run_id": 33878769384,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094093+00:00"
+  },
+  {
+    "run_id": 33867777819,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094101+00:00"
+  },
+  {
+    "run_id": 33862225840,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094110+00:00"
+  },
+  {
+    "run_id": 33861911969,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094117+00:00"
+  },
+  {
+    "run_id": 33861881486,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094125+00:00"
+  },
+  {
+    "run_id": 33861855720,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094133+00:00"
+  },
+  {
+    "run_id": 33860793779,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094141+00:00"
+  },
+  {
+    "run_id": 33851276205,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094150+00:00"
+  },
+  {
+    "run_id": 33837535426,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-04T23:13:36.094158+00:00"
   }
 ]
