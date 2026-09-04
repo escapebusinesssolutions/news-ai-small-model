@@ -93,3 +93,9 @@ def test_intent_guidance_changes_by_article_type():
     assert buyer != comparison and comparison != scenario
     assert "criteria" in comparison[1].lower()
     assert "scenario" in scenario[0].lower()
+
+def test_parse_json_accepts_unescaped_control_characters_from_model():
+    raw = '{"title":"Test","body_markdown":"line one\nline two","products":[{"name":"Test"}],"image_plan":[{"role":"hero"}]}'
+    result = generate._parse_json(raw)
+    assert result["title"] == "Test"
+    assert result["body_markdown"] == "line one\nline two"

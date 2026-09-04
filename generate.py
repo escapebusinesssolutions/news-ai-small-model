@@ -163,12 +163,12 @@ def _parse_json(text: str) -> dict[str, Any]:
     if cleaned.startswith("```"):
         cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", cleaned, flags=re.I | re.S).strip()
     try:
-        result = json.loads(cleaned)
+        result = json.loads(cleaned, strict=False)
     except json.JSONDecodeError:
         start, end = cleaned.find("{"), cleaned.rfind("}")
         if start < 0 or end <= start:
             raise ValueError("AI returned invalid JSON: no JSON object found")
-        result = json.loads(cleaned[start:end + 1])
+        result = json.loads(cleaned[start:end + 1], strict=False)
     if not isinstance(result, dict):
         raise ValueError("AI response must be a JSON object")
     required = ("title", "body_markdown", "products", "image_plan")
