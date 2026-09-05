@@ -38,6 +38,9 @@ Production run #103 completed successfully on the verified code baseline. The ru
 
 The preceding image-gate defect was resolved by preserving the authoritative topic category through the pipeline so category-aware licensed image acquisition could operate correctly. Deterministic licensed Commons fallbacks remain available if live search is empty or unreliable.
 
+### Deployment note
+The verified run #103 published to `techsignal.wasmer.app`, because the GitHub Actions production credentials currently resolve to that WordPress endpoint. The previously planned AwardSpace host `techsignal.mypressonline.com` has **not** been verified by this production run. Treat the AwardSpace migration as a separate deployment/configuration milestone; do not assume the current Actions secrets have been migrated to it.
+
 GitHub Issue #9 — `STEP 10 — Unattended production test` — is closed as completed.
 
 ## Feature-freeze rule
@@ -75,6 +78,7 @@ No revenue, conversion or traffic result is considered valid until it comes from
 - Bing Webmaster ownership verification and sitemap submission
 - Analytics account/property setup if selected
 - Amazon Associates reporting access/data for revenue proof
+- AwardSpace deployment/configuration verification if the site migration remains the intended production target
 - Additional Amazon tracking IDs only if later segmentation is justified
 
 These are account-level actions, not code defects.
