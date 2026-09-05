@@ -46,6 +46,23 @@
       "category": "audio",
       "intent": "buyer_guide",
       "topic": "best usb microphones under $100"
+    },
+    {
+      "keywords": [
+        "alternatives",
+        "audio",
+        "basic",
+        "best",
+        "calls",
+        "microphone",
+        "remote",
+        "usb"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-05T10:43:37.241959+00:00",
+      "category": "audio",
+      "intent": "alternatives",
+      "topic": "best alternatives to a basic usb microphone for remote calls"
     }
   ]
 }
