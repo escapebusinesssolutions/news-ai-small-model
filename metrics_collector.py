@@ -1,4 +1,3 @@
-"""Collect zero-cost publishing, indexing, and demand metrics for adaptive scaling."""
 from __future__ import annotations
 
 import json
@@ -82,7 +81,15 @@ def main() -> None:
     now = datetime.now(timezone.utc)
     posts = wp_posts()
     recent_cutoff = now - timedelta(days=30)
-    recent_posts = [p for p in posts if p.get("date") and datetime.fromisoformat(p["date"].replace("Z", "+00:00")) >= recent_cutoff]
+    recent_posts = []
+    for post in posts:
+        if not post.get("date"):
+            continue
+        parsed = datetime.fromisoformat(post["date"].replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        if parsed >= recent_cutoff:
+            recent_posts.append(post)
     quality, duplicate = run_quality_metrics()
     token = gsc_access_token()
     index_rate = 0.0
