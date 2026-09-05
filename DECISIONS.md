@@ -29,3 +29,6 @@ Publication must continue to require one compliant hero plus at least one compli
 
 ## 2026-09-05 — Audience and revenue are the next proof
 Pipeline completion is not treated as business success. The next decision gate is external evidence: search discovery, traffic, affiliate clicks, Amazon reporting, conversion, and revenue. No scaling decision is justified before those signals exist.
+
+## 2026-09-05 — Production endpoint boundary
+The verified unattended run currently targets the WordPress endpoint configured in GitHub Actions, which was verified as `techsignal.wasmer.app`. A separate AwardSpace deployment at `techsignal.mypressonline.com` must not be treated as production-ready until the Actions endpoint and a controlled publish are explicitly verified against it.
