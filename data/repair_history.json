@@ -1132,5 +1132,53 @@
     "result": "escalated",
     "reason": "repair attempt limit reached",
     "timestamp": "2026-09-05T11:54:40.854702+00:00"
+  },
+  {
+    "run_id": 33966937523,
+    "result": "repaired",
+    "classification": "transient",
+    "timestamp": "2026-09-05T13:27:23.420137+00:00"
+  },
+  {
+    "run_id": 33957802518,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-05T13:27:23.420177+00:00"
+  },
+  {
+    "run_id": 33954860276,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-05T13:27:23.420189+00:00"
+  },
+  {
+    "run_id": 33954735367,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-05T13:27:23.420200+00:00"
+  },
+  {
+    "run_id": 33954481487,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-05T13:27:23.420211+00:00"
+  },
+  {
+    "run_id": 33953220145,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-05T13:27:23.420221+00:00"
+  },
+  {
+    "run_id": 33944920155,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-05T13:27:23.420231+00:00"
+  },
+  {
+    "run_id": 33931895322,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-05T13:27:23.420241+00:00"
   }
 ]
