@@ -25,6 +25,27 @@
       "category": "audio",
       "intent": "buyer_guide",
       "topic": "best usb microphones for video calls"
+    },
+    {
+      "keywords": [
+        "100",
+        "audio",
+        "best",
+        "buyer",
+        "decision",
+        "guide",
+        "microphones",
+        "podcasters",
+        "under",
+        "usb",
+        "voice",
+        "workers"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-05T08:23:01.156846+00:00",
+      "category": "audio",
+      "intent": "buyer_guide",
+      "topic": "best usb microphones under $100"
     }
   ]
 }
