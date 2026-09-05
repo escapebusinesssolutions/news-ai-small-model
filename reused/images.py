@@ -95,7 +95,7 @@ def find_commons_image(search_query: str, timeout_seconds: int = 20, category: s
         return None
     params = {
         "action": "query", "generator": "search", "gsrsearch": query,
-        "gsrnamespace": 6, "gsrlimit": 10,
+        "gsrnamespace": 6, "gsrlimit": 50,
         "prop": "imageinfo", "iiprop": "url|mime|extmetadata",
         "iiurlwidth": 1400, "format": "json", "formatversion": 2,
     }
