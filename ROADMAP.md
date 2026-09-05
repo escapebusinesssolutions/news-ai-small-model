@@ -27,7 +27,12 @@ Build the smallest useful autonomous affiliate-content machine and test whether 
 - [x] STEP 8 — End-to-end pipeline: Generate → affiliate links → cross-link → validation → WordPress publisher
 - [x] STEP 9 — Automated test suite and WordPress integration path
 - [x] STEP 10 — GitHub Actions automation
-- [ ] STEP 11 — Unattended production test / controlled production operation
+- [x] STEP 11 — Unattended production test / controlled production operation
+
+## Verified production baseline — 2026-09-05
+The controlled unattended production path has been verified end-to-end. Tests run #95 passed 34/34. Production run #103 published WordPress post 55 with a verified HTTP 200 public URL, two exact Amazon UK catalogue links, one compliant hero image plus one compliant context image, and persisted run metrics/history. Issue #9 is closed.
+
+The implementation is now feature-frozen. The system should run under its existing schedule and validation gates while external business evidence is collected. Future engineering work is justified only by a concrete production defect, reliability problem, measurable commercial bottleneck, or evidence-backed improvement opportunity.
 
 ## Stage 5 scale gates
 - Audience signal exists.
