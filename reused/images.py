@@ -21,6 +21,44 @@ CATEGORY_FALLBACKS = {
     "workspace": ("computer desk workspace", "desktop productivity", "office desk"),
 }
 
+# Stable, independently verified Commons files used only when live Commons
+# search yields no compliant result. These are still remote images and retain
+# attribution/licensing metadata in the article.
+KNOWN_FALLBACK_IMAGES = {
+    "audio": (
+        {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/USB-Microphone.jpg?width=1400",
+            "source_page": "https://commons.wikimedia.org/wiki/File:USB-Microphone.jpg",
+            "source": "Wikimedia Commons",
+            "license": "Public domain",
+            "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "artist": "Evan-Amos",
+            "title": "USB-Microphone.jpg",
+            "mime": "image/jpeg",
+        },
+        {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yeti-USB-Microphone.jpg?width=1400",
+            "source_page": "https://commons.wikimedia.org/wiki/File:Yeti-USB-Microphone.jpg",
+            "source": "Wikimedia Commons",
+            "license": "Public domain",
+            "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "artist": "Evan-Amos",
+            "title": "Yeti-USB-Microphone.jpg",
+            "mime": "image/jpeg",
+        },
+        {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Microphone.jpg?width=1400",
+            "source_page": "https://commons.wikimedia.org/wiki/File:Microphone.jpg",
+            "source": "Wikimedia Commons",
+            "license": "CC BY 3.0",
+            "license_url": "https://creativecommons.org/licenses/by/3.0/",
+            "artist": "ChrisEngelsma",
+            "title": "Microphone.jpg",
+            "mime": "image/jpeg",
+        },
+    ),
+}
+
 CATEGORY_TERMS = {
     "audio": ("microphone", "mic", "podcast", "audio", "recording", "headphone", "headphones"),
     "webcams": ("webcam", "camera", "video", "conference", "zoom", "teams"),
@@ -163,22 +201,39 @@ def build_article_images(
         query_lower = query.lower()
         if terms and not any(term in query_lower for term in terms):
             query = f"{query} {terms[0]}"
-        image = find_commons_image(query, timeout_seconds=timeout_seconds, category=category)
+        try:
+            image = find_commons_image(query, timeout_seconds=timeout_seconds, category=category)
+        except requests.RequestException:
+            image = None
         if image:
             add_image(item, image)
 
-    # Category-specific fallbacks replace the old global microphone fallback.
+    # Category-specific dynamic fallbacks.
     fallback_queries = CATEGORY_FALLBACKS.get(str(category or "").strip().lower(), ())
     for query in fallback_queries:
         if len(resolved) >= 2:
             break
-        image = find_commons_image(query, timeout_seconds=timeout_seconds, category=category)
+        try:
+            image = find_commons_image(query, timeout_seconds=timeout_seconds, category=category)
+        except requests.RequestException:
+            image = None
         if image:
             add_image({
                 "role": "context",
                 "alt_text": query,
                 "caption": f"Context image related to {query.lower()}.",
             }, image, role="context")
+
+    # Deterministic, licence-verified fallbacks ensure production does not fail
+    # merely because Commons search is temporarily empty or ranked poorly.
+    for image in KNOWN_FALLBACK_IMAGES.get(str(category or "").strip().lower(), ()):
+        if len(resolved) >= 2:
+            break
+        add_image({
+            "role": "context",
+            "alt_text": image["title"],
+            "caption": "Context image from Wikimedia Commons.",
+        }, image, role="context")
 
     if resolved and not any(image.get("role") == "hero" for image in resolved):
         resolved[0]["role"] = "hero"
