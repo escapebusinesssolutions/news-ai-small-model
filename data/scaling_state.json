@@ -1,12 +1,12 @@
 {
-  "current_target": 5,
-  "recommended_target": 5,
-  "reason": "baseline: hold at 5 until real publishing, indexing, and affiliate evidence exists",
-  "metrics": {
-    "validation_pass_rate": 1.0,
-    "duplicate_rejection_rate": 0.0,
-    "index_rate": 0.0,
-    "affiliate_click_rate": 0.0,
-    "traffic_7d_change": 0.0
-  }
+    "current_target":  10,
+    "recommended_target":  10,
+    "reason":  "user-directed increase to 10 published articles/day",
+    "metrics":  {
+                    "validation_pass_rate":  1,
+                    "duplicate_rejection_rate":  0,
+                    "index_rate":  0,
+                    "affiliate_click_rate":  0,
+                    "traffic_7d_change":  0
+                }
 }
