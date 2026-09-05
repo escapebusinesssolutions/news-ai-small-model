@@ -19,6 +19,7 @@
 | Tests | DONE — run #95: 34/34 passed |
 | Unattended production test | DONE — run #103 succeeded and published post 55 |
 | Audience health | DONE — automated site/REST health check passing |
+| TechSignal branding | DONE — controlled WordPress logo deployment verified live |
 | Audience acquisition | IN PROGRESS — search-engine ownership steps remain external |
 | Monetization instrumentation | READY — affiliate metadata and validation already recorded |
 | Monetization measurement plan | DONE — see `MONETIZATION.md` |
