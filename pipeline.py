@@ -75,6 +75,10 @@ def write_validation_report(report: dict[str, Any], path: Path = VALIDATION_PATH
 def run_pipeline(topic: dict[str, Any], existing_articles: list[dict[str, Any]] | None = None, publish: bool = False, dedup: bool = False) -> dict[str, Any]:
     """Generate -> affiliate links -> cross-links -> pre-publish validation -> WordPress."""
     article = generate_article(topic)
+    # Preserve the authoritative topic category for downstream publisher gates.
+    # The generator prompt uses the category but does not require the model to
+    # echo it into the article object; image acquisition needs it explicitly.
+    article["category"] = str(topic.get("category", "")).strip()
     article = insert_affiliate_links(article)
     existing = existing_articles if existing_articles is not None else load_existing_articles()
     article = cross_link(article, existing)
