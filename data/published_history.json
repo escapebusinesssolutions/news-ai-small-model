@@ -63,6 +63,28 @@
       "category": "audio",
       "intent": "alternatives",
       "topic": "best alternatives to a basic usb microphone for remote calls"
+    },
+    {
+      "keywords": [
+        "audio",
+        "best",
+        "buyer",
+        "calls",
+        "fits",
+        "guide",
+        "microphones",
+        "model",
+        "needs",
+        "usb",
+        "video",
+        "which",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-05T12:07:36.055988+00:00",
+      "category": "audio",
+      "intent": "buyer_guide",
+      "topic": "best usb microphones for video calls"
     }
   ]
 }
