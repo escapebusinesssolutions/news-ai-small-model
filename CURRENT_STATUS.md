@@ -20,7 +20,7 @@
 | Unattended production test | DONE — run #103 succeeded and published post 55 |
 | Audience health | DONE — automated site/REST health check passing |
 | TechSignal branding | DONE — controlled WordPress logo deployment verified live |
-| Audience acquisition | IN PROGRESS — search-engine ownership steps remain external |
+| Audience acquisition | IN PROGRESS - Search Console/Bing setup complete; indexing and traffic evidence pending |
 | Monetization instrumentation | READY — affiliate metadata and validation already recorded |
 | Monetization measurement plan | DONE — see `MONETIZATION.md` |
 | Revenue proof | NOT YET PROVEN — requires real traffic and Amazon reporting data |
@@ -74,9 +74,9 @@ The key metrics are traffic, affiliate clicks, click-through rate, items ordered
 
 No revenue, conversion or traffic result is considered valid until it comes from external reporting data.
 
-## External actions still required
-- Google Search Console ownership verification and sitemap submission
-- Bing Webmaster ownership verification and sitemap submission
+## External actions / evidence pending
+- Google Search Console ownership verification and sitemap submission - COMPLETED (user-confirmed 2026-09-05)
+- Bing Webmaster ownership verification and sitemap submission - COMPLETED (user-confirmed 2026-09-05)
 - Analytics account/property setup if selected
 - Amazon Associates reporting access/data for revenue proof
 - AwardSpace deployment/configuration verification if the site migration remains the intended production target
@@ -85,4 +85,4 @@ No revenue, conversion or traffic result is considered valid until it comes from
 These are account-level actions, not code defects.
 
 ## Next business milestone
-Get search discovery operating, publish the controlled content set, collect real visitor and affiliate-click data, then use Amazon reporting to determine whether any topic cluster produces measurable revenue.
+Collect Search Console/Bing indexing and impression data, real visitor and affiliate-click data, then use Amazon reporting to determine whether any topic cluster produces measurable revenue.
