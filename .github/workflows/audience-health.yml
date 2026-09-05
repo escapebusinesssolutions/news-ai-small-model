@@ -17,11 +17,27 @@ jobs:
           set -euo pipefail
           base="${SITE_URL%/}"
           for path in / /robots.txt /wp-sitemap.xml /feed/; do
-            code=$(curl -L -sS -o /tmp/response -w '%{http_code}' --max-time 30 "$base$path")
+            code=$(curl -L -sS -o "/tmp/response-${path//\//_}" -w '%{http_code}' --max-time 30 "$base$path")
             echo "$path -> HTTP $code"
             test "$code" = "200"
           done
-          grep -qi 'Sitemap:' /tmp/response || true
+          grep -qi '^Sitemap:' /tmp/response-_robots.txt
+          grep -q 'wp-sitemap-posts-post-1.xml' /tmp/response-_wp-sitemap.xml
+          echo 'Robots sitemap declaration and WordPress post sitemap index verified'
+
+      - name: Check crawlability of latest published post
+        env:
+          SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+        run: |
+          set -euo pipefail
+          base="${SITE_URL%/}"
+          post_url=$(curl -fsSL --max-time 30 "$base/wp-json/wp/v2/posts?per_page=1&_fields=link,status" | python -c 'import json,sys; d=json.load(sys.stdin); assert d and d[0]["status"] == "publish"; print(d[0]["link"])')
+          code=$(curl -L -sS -o /tmp/latest-post.html -w '%{http_code}' --max-time 30 -A 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' "$post_url")
+          echo "Latest published post -> HTTP $code ($post_url)"
+          test "$code" = "200"
+          grep -qi 'rel="canonical"' /tmp/latest-post.html
+          ! grep -qi '<meta[^>]*name=[\"'\"']robots[\"'\"'][^>]*content=[\"'\"'][^\"'\"']*noindex' /tmp/latest-post.html
+          echo 'Latest published post is HTTP-200, canonicalized, and not noindex'
 
       - name: Check WordPress REST endpoint
         env:
