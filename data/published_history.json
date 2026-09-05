@@ -85,6 +85,31 @@
       "category": "audio",
       "intent": "buyer_guide",
       "topic": "best usb microphones for video calls"
+    },
+    {
+      "keywords": [
+        "best",
+        "disk",
+        "full",
+        "grab",
+        "laptop",
+        "limited",
+        "local",
+        "open",
+        "portable",
+        "scenario",
+        "space",
+        "ssd",
+        "startup",
+        "storage",
+        "upgrade",
+        "you"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-05T13:55:52.557227+00:00",
+      "category": "storage",
+      "intent": "scenario",
+      "topic": "best storage upgrade for a laptop with limited local space"
     }
   ]
 }
