@@ -194,5 +194,12 @@
     "validation_passed": false,
     "dedup_rejected": true,
     "success": true
+  },
+  {
+    "run_id": "34038431817",
+    "timestamp": "",
+    "validation_passed": false,
+    "dedup_rejected": true,
+    "success": true
   }
 ]
