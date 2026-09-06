@@ -153,6 +153,22 @@
       "category": "audio",
       "intent": "scenario",
       "topic": "best audio gear when home office"
+    },
+    {
+      "keywords": [
+        "audio",
+        "gear",
+        "home",
+        "office",
+        "upgrading",
+        "worth",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-06T11:04:36.724487+00:00",
+      "category": "audio",
+      "intent": "worth_it",
+      "topic": "is upgrading your audio gear worth it for home office"
     }
   ]
 }
