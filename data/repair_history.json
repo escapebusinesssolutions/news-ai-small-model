@@ -1354,5 +1354,17 @@
     "result": "escalated",
     "reason": "repair attempt limit reached",
     "timestamp": "2026-09-06T04:40:02.622132+00:00"
+  },
+  {
+    "run_id": 33979110397,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-06T08:56:46.815579+00:00"
+  },
+  {
+    "run_id": 33966937523,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-06T08:56:46.815603+00:00"
   }
 ]
