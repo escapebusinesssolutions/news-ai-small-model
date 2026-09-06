@@ -1,12 +1,15 @@
 {
-    "current_target":  10,
-    "recommended_target":  10,
-    "reason":  "user-directed increase to 10 published articles/day",
-    "metrics":  {
-                    "validation_pass_rate":  1,
-                    "duplicate_rejection_rate":  0,
-                    "index_rate":  0,
-                    "affiliate_click_rate":  0,
-                    "traffic_7d_change":  0
-                }
+  "current_target": 10,
+  "recommended_target": 7,
+  "reason": "quality, duplication, or indexing signal is below the scale gate",
+  "metrics": {
+    "current_target": 10,
+    "validation_pass_rate": 0.2692307692307692,
+    "duplicate_rejection_rate": 0.15384615384615385,
+    "index_rate": 0.0,
+    "affiliate_click_rate": 0.0,
+    "traffic_7d_change": 0.0,
+    "published_posts": 32,
+    "gsc_available": false
+  }
 }
