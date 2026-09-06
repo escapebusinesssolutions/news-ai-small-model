@@ -131,6 +131,28 @@
       "category": "audio",
       "intent": "buyer_guide",
       "topic": "best audio gear for home office"
+    },
+    {
+      "keywords": [
+        "audio",
+        "best",
+        "budget",
+        "desk",
+        "fit",
+        "gear",
+        "headphones",
+        "home",
+        "mic",
+        "office",
+        "scenario",
+        "when",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-06T07:58:22.390731+00:00",
+      "category": "audio",
+      "intent": "scenario",
+      "topic": "best audio gear when home office"
     }
   ]
 }
