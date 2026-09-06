@@ -110,6 +110,27 @@
       "category": "storage",
       "intent": "scenario",
       "topic": "best storage upgrade for a laptop with limited local space"
+    },
+    {
+      "keywords": [
+        "audio",
+        "best",
+        "buyer",
+        "gear",
+        "guide",
+        "home",
+        "match",
+        "microphones",
+        "monitoring",
+        "office",
+        "workflow",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-06T04:46:16.795336+00:00",
+      "category": "audio",
+      "intent": "buyer_guide",
+      "topic": "best audio gear for home office"
     }
   ]
 }
