@@ -22,6 +22,7 @@
 | TechSignal branding | DONE — controlled WordPress logo deployment verified live |
 | Audience acquisition | IN PROGRESS — Search Console/Bing setup complete; external indexing/traffic evidence pending |
 | Monetization instrumentation | READY — affiliate metadata and validation already recorded |
+| Search performance intelligence | READY — page-level Search Console collection implemented; external credentials/data still pending |
 | Monetization measurement plan | DONE — see `MONETIZATION.md` |
 | Revenue proof | NOT YET PROVEN — requires real traffic and Amazon reporting data |
 | Production target | HOLD — 5/day |
@@ -79,6 +80,11 @@ Search-based affiliate links are disabled. Catalogue mismatches block publicatio
 The key metrics are traffic, affiliate clicks, click-through rate, items ordered, items dispatched, conversion, dispatched-items revenue, earnings, revenue/article, and revenue/1,000 visitors.
 
 No revenue, conversion or traffic result is considered valid until it comes from external reporting data.
+
+## Search performance intelligence
+`metrics_collector.py` now supports page-level Google Search Console Search Analytics collection. When valid GSC credentials are available, the scheduled measurement job records a durable `data/search_performance.json` snapshot containing the measurement period, aggregate clicks/impressions/CTR, and per-page clicks/impressions/CTR/average position ranked by clicks. This creates the evidence layer needed to distinguish traffic winners and weak pages without changing publishing behavior.
+
+The implementation is instrumentation only: it does not infer traffic or revenue when GSC is unavailable and does not alter the production target based on unverified data.
 
 ## Current measured state
 The latest persisted scaling state records:
