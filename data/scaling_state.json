@@ -1,15 +1,15 @@
 {
-  "current_target": 10,
-  "recommended_target": 7,
+  "current_target": 7,
+  "recommended_target": 5,
   "reason": "quality, duplication, or indexing signal is below the scale gate",
   "metrics": {
-    "current_target": 10,
-    "validation_pass_rate": 0.2692307692307692,
-    "duplicate_rejection_rate": 0.15384615384615385,
+    "current_target": 7,
+    "validation_pass_rate": 0.30303030303030304,
+    "duplicate_rejection_rate": 0.24242424242424243,
     "index_rate": 0.0,
     "affiliate_click_rate": 0.0,
     "traffic_7d_change": 0.0,
-    "published_posts": 32,
+    "published_posts": 35,
     "gsc_available": false
   }
 }
