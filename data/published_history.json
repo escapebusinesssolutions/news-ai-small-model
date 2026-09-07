@@ -169,6 +169,30 @@
       "category": "audio",
       "intent": "worth_it",
       "topic": "is upgrading your audio gear worth it for home office"
+    },
+    {
+      "keywords": [
+        "alternatives",
+        "audio",
+        "basic",
+        "best",
+        "beyond",
+        "clarity",
+        "enough",
+        "gear",
+        "level",
+        "mic",
+        "needs",
+        "not",
+        "targeted",
+        "voice",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-07T04:49:07.616440+00:00",
+      "category": "audio",
+      "intent": "alternatives",
+      "topic": "best alternatives for voice clarity when a basic audio gear is not enough"
     }
   ]
 }
