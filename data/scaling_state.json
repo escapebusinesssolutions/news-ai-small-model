@@ -1,9 +1,8 @@
 {
-  "current_target": 7,
+  "current_target": 5,
   "recommended_target": 5,
-  "reason": "quality, duplication, or indexing signal is below the scale gate",
+  "reason": "scale gate: hold at 5 until quality, indexing, traffic, and affiliate evidence improves",
   "metrics": {
-    "current_target": 7,
     "validation_pass_rate": 0.30303030303030304,
     "duplicate_rejection_rate": 0.24242424242424243,
     "index_rate": 0.0,
