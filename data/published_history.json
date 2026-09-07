@@ -216,6 +216,26 @@
       "category": "audio",
       "intent": "buyer_guide",
       "topic": "best audio gear for long work sessions"
+    },
+    {
+      "keywords": [
+        "audio",
+        "best",
+        "decision",
+        "gear",
+        "long",
+        "marathon",
+        "scenario",
+        "sessions",
+        "techsignal",
+        "when",
+        "work"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-07T12:47:39.401858+00:00",
+      "category": "audio",
+      "intent": "scenario",
+      "topic": "best audio gear when long work sessions"
     }
   ]
 }
