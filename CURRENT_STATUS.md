@@ -106,6 +106,9 @@ These zeros are treated as **missing external evidence**, not as proof of zero c
 5. Improve only the largest measurable bottleneck.
 6. Increase volume only after a winning commercial signal is proven.
 
+## External discovery verification - 2026-09-07
+A public discovery spot-check was executed against the live TechSignal site. The live robots.txt returns HTTP 200 and explicitly references the WordPress sitemap; the sitemap returns HTTP 200 and currently contains 36 post URLs, including the three September 7 posts. Public search queries for the live TechSignal domain returned no indexed results in the checked window. This is **not** treated as proof of deindexing or zero traffic; it is evidence that external indexing remains unproven and should remain the primary acquisition bottleneck until Search Console/Bing reporting confirms otherwise.
+
 ## External actions / evidence pending
 - Google Search Console ownership verification and sitemap submission — COMPLETED (user-confirmed 2026-09-05)
 - Bing Webmaster ownership verification and sitemap submission — COMPLETED (user-confirmed 2026-09-05)
