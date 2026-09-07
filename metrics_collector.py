@@ -13,6 +13,7 @@ from scaling import load_state, evaluate_metrics, save_state
 SITE_URL = os.getenv("TECHSIGNAL_URL", os.getenv("WORDPRESS_SITE_URL", "https://techsignal.wasmer.app")).rstrip("/")
 WP_POSTS_URL = f"{SITE_URL}/wp-json/wp/v2/posts"
 RUN_METRICS = Path("data/run_metrics.json")
+SEARCH_PERFORMANCE = Path("data/search_performance.json")
 
 
 def wp_posts() -> list[dict]:
@@ -35,13 +36,42 @@ def gsc_access_token() -> str | None:
     return r.json().get("access_token")
 
 
-def gsc_query(token: str, start: str, end: str) -> dict:
+def gsc_query(token: str, start: str, end: str, dimensions: list[str] | None = None, row_limit: int = 250) -> list[dict]:
     site = os.getenv("GSC_SITE_URL", SITE_URL)
     url = f"https://www.googleapis.com/webmasters/v3/sites/{quote(site, safe='')}/searchAnalytics/query"
-    r = requests.post(url, headers={"Authorization": f"Bearer {token}"}, json={"startDate": start, "endDate": end, "dimensions": [], "rowLimit": 1}, timeout=30)
+    payload = {"startDate": start, "endDate": end, "dimensions": dimensions or [], "rowLimit": row_limit}
+    r = requests.post(url, headers={"Authorization": f"Bearer {token}"}, json=payload, timeout=30)
     r.raise_for_status()
-    rows = r.json().get("rows", [])
-    return rows[0] if rows else {"clicks": 0, "impressions": 0}
+    return r.json().get("rows", [])
+
+
+def collect_search_performance(token: str, start: str, end: str) -> dict:
+    rows = gsc_query(token, start, end, dimensions=["page"], row_limit=250)
+    pages = []
+    for row in rows:
+        keys = row.get("keys", [])
+        if not keys:
+            continue
+        pages.append({
+            "page": keys[0],
+            "clicks": float(row.get("clicks", 0)),
+            "impressions": float(row.get("impressions", 0)),
+            "ctr": float(row.get("ctr", 0)),
+            "position": float(row.get("position", 0)),
+        })
+    pages.sort(key=lambda x: (-x["clicks"], -x["impressions"]))
+    clicks = sum(x["clicks"] for x in pages)
+    impressions = sum(x["impressions"] for x in pages)
+    return {
+        "schema_version": "1.0",
+        "period": {"start": start, "end": end},
+        "totals": {
+            "clicks": clicks,
+            "impressions": impressions,
+            "ctr": clicks / impressions if impressions else 0.0,
+        },
+        "pages": pages,
+    }
 
 
 def inspect_indexing(token: str, posts: list[dict]) -> float:
@@ -99,10 +129,18 @@ def main() -> None:
         try:
             index_rate = inspect_indexing(token, recent_posts)
             end = now.date()
-            current = gsc_query(token, str(end - timedelta(days=6)), str(end - timedelta(days=1)))
-            previous = gsc_query(token, str(end - timedelta(days=13)), str(end - timedelta(days=7)))
-            prev_clicks = float(previous.get("clicks", 0))
-            traffic_change = ((float(current.get("clicks", 0)) - prev_clicks) / prev_clicks) if prev_clicks else (1.0 if current.get("clicks", 0) > 0 else 0.0)
+            current_start = str(end - timedelta(days=6))
+            current_end = str(end - timedelta(days=1))
+            previous_start = str(end - timedelta(days=13))
+            previous_end = str(end - timedelta(days=7))
+            current_rows = gsc_query(token, current_start, current_end)
+            previous_rows = gsc_query(token, previous_start, previous_end)
+            current_clicks = float(current_rows[0].get("clicks", 0)) if current_rows else 0.0
+            previous_clicks = float(previous_rows[0].get("clicks", 0)) if previous_rows else 0.0
+            traffic_change = ((current_clicks - previous_clicks) / previous_clicks) if previous_clicks else (1.0 if current_clicks > 0 else 0.0)
+            performance = collect_search_performance(token, current_start, current_end)
+            SEARCH_PERFORMANCE.parent.mkdir(parents=True, exist_ok=True)
+            SEARCH_PERFORMANCE.write_text(json.dumps(performance, indent=2) + "\n", encoding="utf-8")
         except requests.RequestException as exc:
             print(f"GSC unavailable: {exc}")
             gsc_available = False
