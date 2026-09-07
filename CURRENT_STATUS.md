@@ -1,29 +1,35 @@
 # Current Status
 
 **Project:** NEWS AI SMALL MODEL  
-**Date:** 2026-09-05  
-**Current phase:** Stage 3 — Build Audience / Stage 4 — Monetization preparation
+**Date:** 2026-09-07  
+**Current phase:** Stage 3 — Build Audience / Stage 4 — Monetization validation
 
 ## Dashboard
 | Area | Status |
 |---|---|
 | Scope frozen | DONE |
 | Repository structure | DONE |
-| Topic queue | DONE — 15 buyer-intent topics |
+| Topic queue | DONE — buyer-intent catalogue |
 | Generate | DONE — catalogue-informed, source-bound content |
 | Affiliate links | DONE — exact Amazon UK catalogue links |
 | WordPress publish | DONE — controlled unattended production path verified |
-| External image gate | DONE — 1 compliant hero + 1 compliant context image verified in production |
+| External image gate | DONE — compliant hero/context image path verified |
 | Cross-linking | DONE |
 | End-to-end pipeline | DONE |
 | Tests | DONE — run #95: 34/34 passed |
 | Unattended production test | DONE — run #103 succeeded and published post 55 |
-| Audience health | DONE — automated site/REST health check passing |
+| Audience health | DONE — 2026-09-07 scheduled health run passed all checks |
 | TechSignal branding | DONE — controlled WordPress logo deployment verified live |
-| Audience acquisition | IN PROGRESS - Search Console/Bing setup complete; indexing and traffic evidence pending |
+| Audience acquisition | IN PROGRESS — Search Console/Bing setup complete; external indexing/traffic evidence pending |
 | Monetization instrumentation | READY — affiliate metadata and validation already recorded |
 | Monetization measurement plan | DONE — see `MONETIZATION.md` |
 | Revenue proof | NOT YET PROVEN — requires real traffic and Amazon reporting data |
+| Production target | HOLD — 5/day |
+
+## Latest verified production evidence — 2026-09-07
+The Small Model Publish workflow completed successfully at run `34136401446` on `main`. The repository's adaptive publishing state remains `recommended_target=5` and `current_target=5`; the scale gate explicitly holds at 5/day until quality, indexing, traffic, and affiliate evidence improves.
+
+The 2026-09-07 Audience Health workflow also completed successfully. It verified HTTP 200 for the public site, `robots.txt`, the WordPress sitemap, and the feed; verified the latest published post is HTTP 200, has a canonical link, and is not `noindex`; and verified the public WordPress REST posts endpoint returns successfully. The latest verified post slug was `audio-gear-marathon-work-sessions`.
 
 ## Verified production baseline — 2026-09-05
 Production run #103 completed successfully on the verified code baseline. The run generated and published:
@@ -40,12 +46,12 @@ Production run #103 completed successfully on the verified code baseline. The ru
 The preceding image-gate defect was resolved by preserving the authoritative topic category through the pipeline so category-aware licensed image acquisition could operate correctly. Deterministic licensed Commons fallbacks remain available if live search is empty or unreliable.
 
 ### Deployment note
-The verified run #103 published to `techsignal.wasmer.app`, because the GitHub Actions production credentials currently resolve to that WordPress endpoint. The previously planned AwardSpace host `techsignal.mypressonline.com` has **not** been verified by this production run. Treat the AwardSpace migration as a separate deployment/configuration milestone; do not assume the current Actions secrets have been migrated to it.
+The verified production run published to `techsignal.wasmer.app`, because the GitHub Actions production credentials currently resolve to that WordPress endpoint. The previously planned AwardSpace host `techsignal.mypressonline.com` has **not** been verified by the current production run. Treat the AwardSpace migration as a separate deployment/configuration milestone; do not assume the current Actions secrets have been migrated to it.
 
 GitHub Issue #9 — `STEP 10 — Unattended production test` — is closed as completed.
 
 ## Feature-freeze rule
-The build is now frozen. Do not add features, expand scope, or tune editorial behavior without evidence. Future changes require one of:
+The build remains frozen. Do not add features, expand scope, or tune editorial behavior without evidence. Future changes require one of:
 1. a concrete production defect;
 2. a reliability or safety failure;
 3. a measurable commercial bottleneck; or
@@ -58,7 +64,7 @@ Operating sequence:
 ## Current business position
 **BUILD → PROVE CONTENT → BUILD AUDIENCE → MONETIZE → SCALE**
 
-Build is complete. Controlled unattended content production and affiliate validation are operational. The business question is now whether TechSignal can attract real buyer-intent visitors and convert that attention into affiliate revenue.
+Build is complete. Controlled unattended content production, affiliate validation, site health validation, and the 5/day operating target are operational. The business question is now whether TechSignal can attract real buyer-intent visitors and convert that attention into affiliate revenue.
 
 ## Affiliate controls
 `products.json` is the commercial source of truth. The current Amazon UK tracking ID is `echsignalnews-21`. Affiliate insertion accepts only exact catalogue products and Amazon UK URLs, and publication validation records the marketplace, tracking ID, selected products, exact matches, and validation result.
@@ -74,15 +80,40 @@ The key metrics are traffic, affiliate clicks, click-through rate, items ordered
 
 No revenue, conversion or traffic result is considered valid until it comes from external reporting data.
 
-## External actions / evidence pending
-- Google Search Console ownership verification and sitemap submission - COMPLETED (user-confirmed 2026-09-05)
-- Bing Webmaster ownership verification and sitemap submission - COMPLETED (user-confirmed 2026-09-05)
-- Analytics account/property setup if selected
-- Amazon Associates reporting access/data for revenue proof
-- AwardSpace deployment/configuration verification if the site migration remains the intended production target
-- Additional Amazon tracking IDs only if later segmentation is justified
+## Current measured state
+The latest persisted scaling state records:
+- `current_target=5`
+- `recommended_target=5`
+- `published_posts=35`
+- `gsc_available=false`
+- `index_rate=0.0`
+- `affiliate_click_rate=0.0`
+- `traffic_7d_change=0.0`
 
-These are account-level actions, not code defects.
+These zeros are treated as **missing external evidence**, not as proof of zero commercial performance. The next measurement cycle must obtain authoritative Search Console/analytics and Amazon reporting data before commercial conclusions are made.
+
+## Operating model
+1. Keep the verified production system running at the 5/day target.
+2. Collect external discovery/indexing and traffic evidence.
+3. Collect Amazon Associates click/order/dispatched-item/earnings evidence.
+4. Rank articles and topic clusters by commercial performance.
+5. Improve only the largest measurable bottleneck.
+6. Increase volume only after a winning commercial signal is proven.
+
+## External actions / evidence pending
+- Google Search Console ownership verification and sitemap submission — COMPLETED (user-confirmed 2026-09-05)
+- Bing Webmaster ownership verification and sitemap submission — COMPLETED (user-confirmed 2026-09-05)
+- Search Console/indexing performance evidence — PENDING
+- Analytics visitor data, if used — PENDING
+- Amazon Associates reporting access/data for revenue proof — PENDING
+- AwardSpace deployment/configuration verification if the migration remains the intended production target — PENDING
+- Additional Amazon tracking IDs — NOT NEEDED for the first validation period
+
+These are account-level evidence items, not code defects.
 
 ## Next business milestone
-Collect Search Console/Bing indexing and impression data, real visitor and affiliate-click data, then use Amazon reporting to determine whether any topic cluster produces measurable revenue.
+Prove the first measurable commercial chain:
+
+`real visitor → affiliate click → qualifying purchase → dispatched item → commission`
+
+Until that chain occurs, remain in monetization validation and keep the production target at 5/day.
