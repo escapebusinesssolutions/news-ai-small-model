@@ -106,6 +106,14 @@ These zeros are treated as **missing external evidence**, not as proof of zero c
 5. Improve only the largest measurable bottleneck.
 6. Increase volume only after a winning commercial signal is proven.
 
+## Live production endpoint verification - 2026-09-08
+
+Desktop Commander connection to `EBSHP2023` was verified online with a successful ping. The live production WordPress endpoint is confirmed as `https://techsignal.wasmer.app`: the public homepage returned successfully, identifies itself as TechSignal WordPress, exposes the WordPress REST API, and currently shows 37 published posts with the latest post dated 2026-09-08. The local metrics collector also queried that endpoint successfully.
+
+The planned AwardSpace endpoint `https://techsignal.mypressonline.com` was not accepted as production: its current TLS certificate is issued for `f30-preview.runhosting.com`, so it is not a verified production endpoint. No production routing was changed to AwardSpace.
+
+The measurement workflow is now wired to persist Search Console page/query evidence and article-level performance classifications alongside the adaptive scaling state. Commercial classifications remain explicitly unavailable until authoritative affiliate reporting data is supplied.
+
 ## External discovery verification - 2026-09-07
 A public discovery spot-check was executed against the live TechSignal site. The live robots.txt returns HTTP 200 and explicitly references the WordPress sitemap; the sitemap returns HTTP 200 and currently contains 36 post URLs, including the three September 7 posts. Public search queries for the live TechSignal domain returned no indexed results in the checked window. This is **not** treated as proof of deindexing or zero traffic; it is evidence that external indexing remains unproven and should remain the primary acquisition bottleneck until Search Console/Bing reporting confirms otherwise.
 

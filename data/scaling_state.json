@@ -1,14 +1,16 @@
 {
   "current_target": 5,
   "recommended_target": 5,
-  "reason": "scale gate: hold at 5 until quality, indexing, traffic, and affiliate evidence improves",
+  "reason": "quality, duplication, or indexing signal is below the scale gate",
   "metrics": {
-    "validation_pass_rate": 0.30303030303030304,
-    "duplicate_rejection_rate": 0.24242424242424243,
+    "current_target": 5,
+    "validation_pass_rate": 0.3055555555555556,
+    "duplicate_rejection_rate": 0.2777777777777778,
     "index_rate": 0.0,
     "affiliate_click_rate": 0.0,
     "traffic_7d_change": 0.0,
-    "published_posts": 35,
-    "gsc_available": false
+    "published_posts": 37,
+    "gsc_available": false,
+    "performance_counts": {}
   }
 }

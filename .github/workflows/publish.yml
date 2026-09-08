@@ -214,6 +214,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/scaling_state.json
+          [ -f data/search_performance.json ] && git add data/search_performance.json || true
+          [ -f data/performance_intelligence.json ] && git add data/performance_intelligence.json || true
           if ! git diff --cached --quiet; then
             git commit -m "chore: update adaptive publishing target"
             git push

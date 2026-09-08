@@ -9,7 +9,7 @@ def test_collect_search_performance_aggregates_and_ranks_pages(monkeypatch):
 
     result = metrics_collector.collect_search_performance("token", "2026-09-01", "2026-09-07")
 
-    assert result["schema_version"] == "1.0"
+    assert result["schema_version"] == "1.1"
     assert result["totals"] == {"clicks": 10.0, "impressions": 150.0, "ctr": 10 / 150}
     assert result["pages"][0]["page"].endswith("/b")
     assert result["pages"][0]["clicks"] == 7.0

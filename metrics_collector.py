@@ -9,15 +9,17 @@ from urllib.parse import quote
 import requests
 
 from scaling import load_state, evaluate_metrics, save_state
+from performance_intelligence import classify_pages
 
 SITE_URL = os.getenv("TECHSIGNAL_URL", os.getenv("WORDPRESS_SITE_URL", "https://techsignal.wasmer.app")).rstrip("/")
 WP_POSTS_URL = f"{SITE_URL}/wp-json/wp/v2/posts"
 RUN_METRICS = Path("data/run_metrics.json")
 SEARCH_PERFORMANCE = Path("data/search_performance.json")
+PERFORMANCE_INTELLIGENCE = Path("data/performance_intelligence.json")
 
 
 def wp_posts() -> list[dict]:
-    r = requests.get(WP_POSTS_URL, params={"per_page": 100, "orderby": "date", "order": "desc", "status": "publish", "_fields": "date,link"}, timeout=30)
+    r = requests.get(WP_POSTS_URL, params={"per_page": 100, "orderby": "date", "order": "desc", "status": "publish", "_fields": "id,date,link,title"}, timeout=30)
     r.raise_for_status()
     return r.json()
 
@@ -46,7 +48,8 @@ def gsc_query(token: str, start: str, end: str, dimensions: list[str] | None = N
 
 
 def collect_search_performance(token: str, start: str, end: str) -> dict:
-    rows = gsc_query(token, start, end, dimensions=["page"], row_limit=250)
+    rows = gsc_query(token, start, end, dimensions=["page"], row_limit=1000)
+    query_rows = gsc_query(token, start, end, dimensions=["page", "query"], row_limit=1000)
     pages = []
     for row in rows:
         keys = row.get("keys", [])
@@ -62,8 +65,15 @@ def collect_search_performance(token: str, start: str, end: str) -> dict:
     pages.sort(key=lambda x: (-x["clicks"], -x["impressions"]))
     clicks = sum(x["clicks"] for x in pages)
     impressions = sum(x["impressions"] for x in pages)
+    queries = []
+    for row in query_rows:
+        keys = row.get("keys", [])
+        if len(keys) < 2:
+            continue
+        queries.append({"page": keys[0], "query": keys[1], "clicks": float(row.get("clicks", 0)), "impressions": float(row.get("impressions", 0)), "ctr": float(row.get("ctr", 0)), "position": float(row.get("position", 0))})
+    queries.sort(key=lambda x: (-x["clicks"], -x["impressions"]))
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "period": {"start": start, "end": end},
         "totals": {
             "clicks": clicks,
@@ -71,6 +81,7 @@ def collect_search_performance(token: str, start: str, end: str) -> dict:
             "ctr": clicks / impressions if impressions else 0.0,
         },
         "pages": pages,
+        "query_page": queries,
     }
 
 
@@ -125,6 +136,7 @@ def main() -> None:
     index_rate = 0.0
     traffic_change = 0.0
     gsc_available = bool(token)
+    intelligence = {}
     if token:
         try:
             index_rate = inspect_indexing(token, recent_posts)
@@ -139,13 +151,16 @@ def main() -> None:
             previous_clicks = float(previous_rows[0].get("clicks", 0)) if previous_rows else 0.0
             traffic_change = ((current_clicks - previous_clicks) / previous_clicks) if previous_clicks else (1.0 if current_clicks > 0 else 0.0)
             performance = collect_search_performance(token, current_start, current_end)
+            intelligence = classify_pages(performance, posts)
             SEARCH_PERFORMANCE.parent.mkdir(parents=True, exist_ok=True)
             SEARCH_PERFORMANCE.write_text(json.dumps(performance, indent=2) + "\n", encoding="utf-8")
+            PERFORMANCE_INTELLIGENCE.write_text(json.dumps({"period": performance["period"], **intelligence}, indent=2) + "\n", encoding="utf-8")
         except requests.RequestException as exc:
             print(f"GSC unavailable: {exc}")
             gsc_available = False
     state = load_state()
-    metrics = {"current_target": state.get("recommended_target", state.get("current_target", 5)), "validation_pass_rate": quality, "duplicate_rejection_rate": duplicate, "index_rate": index_rate, "affiliate_click_rate": 0.0, "traffic_7d_change": traffic_change, "published_posts": len(posts), "gsc_available": gsc_available}
+    metrics = {"current_target": state.get("recommended_target", state.get("current_target", 5)), "validation_pass_rate": quality, "duplicate_rejection_rate": duplicate, "index_rate": index_rate, "affiliate_click_rate": 0.0, "traffic_7d_change": traffic_change, "published_posts": len(posts), "gsc_available": gsc_available,
+        "performance_counts": intelligence.get("counts", {}) if token and PERFORMANCE_INTELLIGENCE.exists() else {}}
     result = evaluate_metrics(metrics)
     save_state(result)
     print(json.dumps(result, indent=2))
