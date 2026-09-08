@@ -283,6 +283,32 @@
       "category": "audio",
       "intent": "scenario",
       "topic": "best audio gear when noise control"
+    },
+    {
+      "keywords": [
+        "alternative",
+        "alternatives",
+        "audio",
+        "basic",
+        "best",
+        "can",
+        "choosing",
+        "control",
+        "enough",
+        "gear",
+        "mic",
+        "noise",
+        "not",
+        "right",
+        "tame",
+        "usb",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-08T11:28:04.997114+00:00",
+      "category": "audio",
+      "intent": "alternatives",
+      "topic": "best alternatives for noise control when a basic audio gear is not enough"
     }
   ]
 }
