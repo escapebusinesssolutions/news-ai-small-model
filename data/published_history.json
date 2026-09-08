@@ -236,6 +236,28 @@
       "category": "audio",
       "intent": "scenario",
       "topic": "best audio gear when long work sessions"
+    },
+    {
+      "keywords": [
+        "audio",
+        "best",
+        "buyer",
+        "control",
+        "fit",
+        "gear",
+        "guide",
+        "headphones",
+        "mic",
+        "noise",
+        "setup",
+        "which",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-08T04:45:11.750805+00:00",
+      "category": "audio",
+      "intent": "buyer_guide",
+      "topic": "best audio gear for noise control"
     }
   ]
 }
