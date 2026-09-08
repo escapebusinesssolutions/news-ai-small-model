@@ -15,6 +15,11 @@ on:
         description: "Optional comma-separated WordPress post IDs to move to trash before publishing"
         required: false
         default: ""
+      measure:
+        description: "Run production performance/evidence measurement only"
+        required: false
+        default: "false"
+        type: boolean
   schedule:
     - cron: '47 5 * * *'
     - cron: '17 0 * * *'
@@ -186,7 +191,7 @@ jobs:
           if-no-files-found: error
 
   measure:
-    if: ${{ github.event_name == 'schedule' && github.event.schedule == '47 5 * * *' }}
+    if: ${{ (github.event_name == 'schedule' && github.event.schedule == '47 5 * * *') || (github.event_name == 'workflow_dispatch' && inputs.measure == true) }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
