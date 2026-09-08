@@ -309,6 +309,32 @@
       "category": "audio",
       "intent": "alternatives",
       "topic": "best alternatives for noise control when a basic audio gear is not enough"
+    },
+    {
+      "keywords": [
+        "24k",
+        "737",
+        "anker",
+        "bank",
+        "best",
+        "buyer",
+        "charging",
+        "gear",
+        "guide",
+        "its",
+        "justifies",
+        "laptop",
+        "power",
+        "powercore",
+        "travel",
+        "weight",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-08T15:11:50.887995+00:00",
+      "category": "power",
+      "intent": "buyer_guide",
+      "topic": "best charging and power gear for laptop travel"
     }
   ]
 }
