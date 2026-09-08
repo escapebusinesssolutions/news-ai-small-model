@@ -258,6 +258,31 @@
       "category": "audio",
       "intent": "buyer_guide",
       "topic": "best audio gear for noise control"
+    },
+    {
+      "keywords": [
+        "audio",
+        "back",
+        "best",
+        "closed",
+        "control",
+        "dynamic",
+        "fix",
+        "gear",
+        "headphones",
+        "mic",
+        "noise",
+        "noisy",
+        "real",
+        "room",
+        "scenario",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-08T08:09:56.292825+00:00",
+      "category": "audio",
+      "intent": "scenario",
+      "topic": "best audio gear when noise control"
     }
   ]
 }
