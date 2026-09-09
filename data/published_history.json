@@ -381,6 +381,34 @@
       "category": "power",
       "intent": "alternatives",
       "topic": "best alternatives for laptop travel when a basic charging and power gear is not enough"
+    },
+    {
+      "keywords": [
+        "140w",
+        "737",
+        "anker",
+        "bank",
+        "best",
+        "buy",
+        "buyer",
+        "ceiling",
+        "charging",
+        "fits",
+        "gear",
+        "guide",
+        "its",
+        "mobile",
+        "only",
+        "power",
+        "when",
+        "work",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-09T11:33:29.203110+00:00",
+      "category": "power",
+      "intent": "buyer_guide",
+      "topic": "best charging and power gear for mobile work"
     }
   ]
 }
