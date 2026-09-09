@@ -335,6 +335,26 @@
       "category": "power",
       "intent": "buyer_guide",
       "topic": "best charging and power gear for laptop travel"
+    },
+    {
+      "keywords": [
+        "737",
+        "anker",
+        "bank",
+        "charging",
+        "gear",
+        "laptop",
+        "power",
+        "travel",
+        "upgrading",
+        "worth",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-09T04:50:32.745375+00:00",
+      "category": "power",
+      "intent": "worth_it",
+      "topic": "is upgrading your charging and power gear worth it for laptop travel"
     }
   ]
 }
