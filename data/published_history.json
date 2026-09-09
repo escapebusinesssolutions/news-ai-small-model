@@ -355,6 +355,32 @@
       "category": "power",
       "intent": "worth_it",
       "topic": "is upgrading your charging and power gear worth it for laptop travel"
+    },
+    {
+      "keywords": [
+        "alternatives",
+        "bank",
+        "basic",
+        "best",
+        "charger",
+        "charging",
+        "choosing",
+        "enough",
+        "gear",
+        "high",
+        "isn",
+        "laptop",
+        "not",
+        "output",
+        "power",
+        "travel",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-09T08:18:11.035731+00:00",
+      "category": "power",
+      "intent": "alternatives",
+      "topic": "best alternatives for laptop travel when a basic charging and power gear is not enough"
     }
   ]
 }
