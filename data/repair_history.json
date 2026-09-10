@@ -1378,5 +1378,11 @@
     "result": "escalated",
     "reason": "repair attempt limit reached",
     "timestamp": "2026-09-06T16:00:27.691235+00:00"
+  },
+  {
+    "run_id": 34471299587,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-10T11:51:06.480798+00:00"
   }
 ]
