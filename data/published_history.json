@@ -409,6 +409,30 @@
       "category": "power",
       "intent": "buyer_guide",
       "topic": "best charging and power gear for mobile work"
+    },
+    {
+      "keywords": [
+        "alive",
+        "bank",
+        "best",
+        "buyer",
+        "charging",
+        "earbuds",
+        "gear",
+        "guide",
+        "keeps",
+        "laptop",
+        "long",
+        "one",
+        "phone",
+        "power",
+        "workdays"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-10T04:53:37.368365+00:00",
+      "category": "power",
+      "intent": "buyer_guide",
+      "topic": "best charging and power gear for long workdays"
     }
   ]
 }
