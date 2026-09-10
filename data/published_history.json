@@ -433,6 +433,29 @@
       "category": "power",
       "intent": "buyer_guide",
       "topic": "best charging and power gear for long workdays"
+    },
+    {
+      "keywords": [
+        "bank",
+        "best",
+        "charging",
+        "full",
+        "gear",
+        "laptop",
+        "long",
+        "outlets",
+        "power",
+        "scenario",
+        "wall",
+        "when",
+        "workday",
+        "workdays"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-10T08:14:12.669995+00:00",
+      "category": "power",
+      "intent": "scenario",
+      "topic": "best charging and power gear when long workdays"
     }
   ]
 }
