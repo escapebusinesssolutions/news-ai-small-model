@@ -4,12 +4,12 @@
   "reason": "quality, duplication, or indexing signal is below the scale gate",
   "metrics": {
     "current_target": 5,
-    "validation_pass_rate": 0.3953488372093023,
-    "duplicate_rejection_rate": 0.2558139534883721,
+    "validation_pass_rate": 0.4166666666666667,
+    "duplicate_rejection_rate": 0.2708333333333333,
     "index_rate": 0.0,
     "affiliate_click_rate": 0.0,
     "traffic_7d_change": 0.0,
-    "published_posts": 42,
+    "published_posts": 44,
     "gsc_available": false,
     "performance_counts": {}
   }
