@@ -482,6 +482,34 @@
       "category": "power",
       "intent": "alternatives",
       "topic": "best alternatives for long workdays when a basic charging and power gear is not enough"
+    },
+    {
+      "keywords": [
+        "alternative",
+        "alternatives",
+        "bank",
+        "basic",
+        "best",
+        "charging",
+        "choosing",
+        "compact",
+        "enough",
+        "fails",
+        "gear",
+        "kits",
+        "not",
+        "pocket",
+        "power",
+        "right",
+        "travel",
+        "when",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-11T08:07:54.858384+00:00",
+      "category": "power",
+      "intent": "alternatives",
+      "topic": "best alternatives for compact travel kits when a basic charging and power gear is not enough"
     }
   ]
 }
