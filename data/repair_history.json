@@ -1414,5 +1414,17 @@
     "result": "escalated",
     "reason": "repair attempt limit reached",
     "timestamp": "2026-09-11T01:21:39.857845+00:00"
+  },
+  {
+    "run_id": 34563368719,
+    "result": "repaired",
+    "classification": "transient",
+    "timestamp": "2026-09-11T06:27:30.398862+00:00"
+  },
+  {
+    "run_id": 34471299587,
+    "result": "escalated",
+    "reason": "repair attempt limit reached",
+    "timestamp": "2026-09-11T06:27:30.398894+00:00"
   }
 ]
