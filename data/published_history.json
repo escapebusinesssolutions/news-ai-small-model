@@ -532,6 +532,33 @@
       "category": "power",
       "intent": "buyer_guide",
       "topic": "best charging and power gear for backup power"
+    },
+    {
+      "keywords": [
+        "backup",
+        "bank",
+        "best",
+        "can",
+        "charging",
+        "devices",
+        "gear",
+        "grid",
+        "handle",
+        "off",
+        "one",
+        "outlet",
+        "power",
+        "scenario",
+        "single",
+        "three",
+        "week",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-11T13:42:24.076104+00:00",
+      "category": "power",
+      "intent": "scenario",
+      "topic": "best charging and power gear when backup power"
     }
   ]
 }
