@@ -510,6 +510,28 @@
       "category": "power",
       "intent": "alternatives",
       "topic": "best alternatives for compact travel kits when a basic charging and power gear is not enough"
+    },
+    {
+      "keywords": [
+        "737",
+        "anker",
+        "backup",
+        "bank",
+        "best",
+        "buyer",
+        "charging",
+        "choice",
+        "gear",
+        "guide",
+        "power",
+        "right",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-11T11:31:46.808958+00:00",
+      "category": "power",
+      "intent": "buyer_guide",
+      "topic": "best charging and power gear for backup power"
     }
   ]
 }
