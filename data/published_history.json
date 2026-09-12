@@ -559,6 +559,29 @@
       "category": "power",
       "intent": "scenario",
       "topic": "best charging and power gear when backup power"
+    },
+    {
+      "keywords": [
+        "2tb",
+        "backup",
+        "backups",
+        "best",
+        "buyer",
+        "drive",
+        "guide",
+        "laptop",
+        "portable",
+        "samsung",
+        "should",
+        "ssd",
+        "storage",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-12T04:46:33.855200+00:00",
+      "category": "storage",
+      "intent": "buyer_guide",
+      "topic": "best portable storage for laptop backups"
     }
   ]
 }
