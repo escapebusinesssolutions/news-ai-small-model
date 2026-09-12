@@ -18,7 +18,7 @@ COOLDOWN_MINUTES = 20
 
 SAFE_PATTERNS = (
     r"rate.?limit", r"429", r"timeout", r"timed out", r"connection reset", r"connection aborted",
-    r"502", r"503", r"504", r"temporarily unavailable", r"temporary failure", r"runner.*lost",
+    r"500", r"502", r"503", r"504", r"temporarily unavailable", r"temporary failure", r"runner.*lost",
     r"network", r"bad gateway", r"gateway timeout",
 )
 BLOCK_PATTERNS = (
