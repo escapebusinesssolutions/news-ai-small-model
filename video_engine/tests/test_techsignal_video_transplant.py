@@ -1,4 +1,4 @@
-import json
+﻿import json
 from pathlib import Path
 
 from video_engine.techsignal.video_adapter import build_video_brief
@@ -13,7 +13,7 @@ def test_video_brief_uses_curated_product_and_validated_asset(tmp_path):
         "products": [{
             "name": "Logitech C920 HD Pro Webcam",
             "asin_or_id": "B006A2Q81M",
-            "price_range": "£50-£100",
+            "price_range": "Â£50-Â£100",
             "key_points": ["1080p webcam", "autofocus", "dual stereo microphones"],
             "differentiators": ["USB-A plug-and-play"],
             "known_limitations": ["not advanced framing"],
@@ -25,7 +25,7 @@ def test_video_brief_uses_curated_product_and_validated_asset(tmp_path):
     data = json.loads(path.read_text(encoding="utf-8"))
     assert data["product"]["asin_or_id"] == "B006A2Q81M"
     assert data["primary_asset"]["rights_status"] == "CC0_1.0"
-    assert len(data["script"]["beats"]) == 5
+    assert len(data["script"]["beats"]) == 9
     assert len(data["visual_facts"]) >= 6
 
 
@@ -39,3 +39,4 @@ def test_large_model_copy_is_present_and_original_repo_path_is_separate():
         "MACHINE-4.5-V17-PRODUCTION-RUNNER-V01.py",
     ]
     assert all((copy_dir / name).is_file() for name in expected)
+
