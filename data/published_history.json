@@ -608,6 +608,24 @@
       "category": "storage",
       "intent": "scenario",
       "topic": "best portable storage when laptop backups"
+    },
+    {
+      "keywords": [
+        "2tb",
+        "backups",
+        "laptop",
+        "portable",
+        "samsung",
+        "storage",
+        "upgrading",
+        "worth",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-12T10:59:34.004604+00:00",
+      "category": "storage",
+      "intent": "worth_it",
+      "topic": "is upgrading your portable storage worth it for laptop backups"
     }
   ]
 }
