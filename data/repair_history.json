@@ -1480,5 +1480,23 @@
     "result": "escalated",
     "reason": "failure classified as blocked",
     "timestamp": "2026-09-12T06:48:43.122559+00:00"
+  },
+  {
+    "run_id": 34678621538,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-12T11:06:31.442624+00:00"
+  },
+  {
+    "run_id": 34678543690,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-12T11:06:32.563142+00:00"
+  },
+  {
+    "run_id": 34678407491,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-12T11:06:33.644196+00:00"
   }
 ]
