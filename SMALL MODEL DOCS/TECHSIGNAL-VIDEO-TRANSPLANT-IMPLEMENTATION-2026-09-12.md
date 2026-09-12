@@ -61,3 +61,21 @@ Verification performed:
 - Existing C920 production artifact remains technically valid: H.264 1080x1920, AAC 24 kHz mono, 43.2 seconds
 
 This phase fixes a real portability defect. It does not yet claim that the consumer video is sufficiently engaging for unattended publishing; that remains a separate content-quality phase requiring richer product-specific visual treatment and broader multi-product evidence.
+
+## Phase 2 distribution preparation — 2026-09-12
+
+Distribution preparation is complete up to the external-credential boundary.
+
+Implemented:
+- Added `video_engine/techsignal/youtube_publisher.py` as a TechSignal-only distribution adapter.
+- The adapter builds upload metadata from the validated TechSignal video brief and finished MP4.
+- Default privacy is `private`; the adapter identifies the destination as `TECHSIGNAL_ONLY`.
+- Dry-run verification completed successfully against the real C920 MP4 and video brief.
+- The adapter explicitly refuses live upload until dedicated TechSignal YouTube OAuth/channel credentials are configured.
+
+Safety boundary:
+- No Large Model YouTube token, client secret, channel ID, or credential file was copied or reused.
+- No external upload was attempted.
+- A live YouTube upload is therefore not yet claimed as complete.
+
+Phase 2 status: PREPARED / BLOCKED ONLY BY DEDICATED TECHSIGNAL YOUTUBE IDENTITY AND OAUTH CREDENTIALS.
