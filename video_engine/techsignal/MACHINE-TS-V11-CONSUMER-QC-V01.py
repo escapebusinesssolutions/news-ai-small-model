@@ -10,9 +10,15 @@ def run(cmd):
 def duration(p): return float(run(["ffprobe","-v","error","-show_entries","format=duration","-of","default=nw=1:nk=1",str(p)]))
 
 def narrative_arc_check(m):
-    required=["hook","context","what_happened","why_it_matters","whats_next"]
+    required=["hook","product","key_feature","real_world_use","spec_check","tradeoff","best_for","skip_if","verdict"]
     arcs=m.get("narrative_arc") or [b.get("arc") for b in m.get("story_beats",[])]
     return {"required":required,"present":arcs,"pass":all(x in arcs for x in required)}
+
+def product_identity_check(m):
+    products=m.get("products") or [m.get("product",{})]
+    ids=[str(p.get("asin_or_id","")) for p in products if p.get("asin_or_id")]
+    slot_ids=[str(x.get("product_id","")) for x in m.get("slots",[]) if x.get("product_id")]
+    return {"pass":bool(ids) and all(x in ids for x in slot_ids),"brief_product_ids":ids,"slot_product_ids":slot_ids}
 
 def segment_relevance_check(slots):
     failures=[]
@@ -50,10 +56,10 @@ def main():
         if key in visual_keys[:-1] and not s.get("repeat_reason"): repeats.append({"asset":key,"beat":s.get("beat")})
     black=run(["ffmpeg","-hide_banner","-i",str(v),"-vf","blackdetect=d=0.10:pix_th=0.02","-an","-f","null","NUL"]) if v.exists() else ""
     black_intervals=[x for x in black.splitlines() if "black_start:" in x]
-    narrative=narrative_arc_check(m); relevance=segment_relevance_check(slots); voice=voice_quality_check(v,m); motion=static_hold_check(v)
-    checks={"video_exists":v.is_file(),"source_count":len(set(visual_keys)),"source_density_pass":len(set(visual_keys))>=a.min_sources,"visual_change_count":len(slots),"density_pass":len(slots)>=a.min_changes,"rights_metadata_pass":not rights_missing,"repeat_pass":not repeats,"black_interval_pass":not black_intervals,"narrative_arc_pass":narrative["pass"],"segment_relevance_pass":relevance["pass"],"voice_quality_preflight_pass":voice["pass"],"static_hold_pass":motion["pass"],"duration_seconds":duration(v) if v.exists() else 0.0}
-    checks["overall_pass"]=all(checks[k] for k in ["video_exists","source_density_pass","density_pass","rights_metadata_pass","repeat_pass","black_interval_pass","narrative_arc_pass","segment_relevance_pass","voice_quality_preflight_pass","static_hold_pass"])
-    out={"status":"PASS" if checks["overall_pass"] else "REJECT","checks":checks,"new_m46_gates":{"narrative_arc":narrative,"segment_relevance":relevance,"voice_quality":voice,"static_hold":motion},"rights_missing":rights_missing,"repeats":repeats,"black_detect_output":black[:4000]}
+    narrative=narrative_arc_check(m); relevance=segment_relevance_check(slots); identity=product_identity_check(m); voice=voice_quality_check(v,m); motion=static_hold_check(v)
+    checks={"video_exists":v.is_file(),"source_count":len(set(visual_keys)),"source_density_pass":len(set(visual_keys))>=a.min_sources,"visual_change_count":len(slots),"density_pass":len(slots)>=a.min_changes,"rights_metadata_pass":not rights_missing,"repeat_pass":not repeats,"black_interval_pass":not black_intervals,"narrative_arc_pass":narrative["pass"],"segment_relevance_pass":relevance["pass"],"product_identity_pass":identity["pass"],"voice_quality_preflight_pass":voice["pass"],"static_hold_pass":motion["pass"],"duration_seconds":duration(v) if v.exists() else 0.0}
+    checks["overall_pass"]=all(checks[k] for k in ["video_exists","source_density_pass","density_pass","rights_metadata_pass","repeat_pass","black_interval_pass","narrative_arc_pass","segment_relevance_pass","product_identity_pass","voice_quality_preflight_pass","static_hold_pass"])
+    out={"status":"PASS" if checks["overall_pass"] else "REJECT","checks":checks,"new_m46_gates":{"narrative_arc":narrative,"segment_relevance":relevance,"product_identity":identity,"voice_quality":voice,"static_hold":motion},"rights_missing":rights_missing,"repeats":repeats,"black_detect_output":black[:4000]}
     p=Path(a.output); p.parent.mkdir(parents=True,exist_ok=True); p.write_text(json.dumps(out,indent=2,ensure_ascii=False),encoding="utf-8"); print(json.dumps(out,indent=2)); raise SystemExit(0 if checks["overall_pass"] else 2)
 if __name__=="__main__": main()
 

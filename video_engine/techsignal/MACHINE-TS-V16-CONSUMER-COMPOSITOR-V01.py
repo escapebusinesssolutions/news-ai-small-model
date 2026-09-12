@@ -52,7 +52,7 @@ def graphic(title,beat,kind,detail):
  'next_step':f"drawbox=x=140:y=480:w=800:h=900:color=0x10283a:t=fill,drawbox=x=210:y=600:w=160:h=160:color=0x55d8ff:t=fill,drawbox=x=460:y=800:w=160:h=160:color=0xffad55:t=fill,drawbox=x=710:y=1000:w=160:h=160:color=0x8aa8bd:t=fill,drawbox=x=370:y=675:w=100:h=8:color=white:t=fill,drawbox=x=620:y=875:w=100:h=8:color=white:t=fill,drawtext=fontfile={FONT}:text='1':fontcolor=0x081522:fontsize=70:x=265:y=625,drawtext=fontfile={FONT}:text='2':fontcolor=0x081522:fontsize=70:x=515:y=825,drawtext=fontfile={FONT}:text='3':fontcolor=0x081522:fontsize=70:x=765:y=1025,drawtext=fontfile={FONT2}:text='{d}':fontcolor=white:fontsize={d_fs}:x=170:y=1170:line_spacing={d_sp}",
  'source':f"drawbox=x=100:y=500:w=880:h=900:color=0x10283a:t=fill,drawtext=fontfile={FONT}:text='SOURCE':fontcolor=0x55d8ff:fontsize=50:x=150:y=590,drawtext=fontfile={FONT2}:text='{d}':fontcolor=white:fontsize={d_fs}:x=150:y=760:line_spacing={d_sp}"
  }
- return common+','+layouts[kind]
+ return common+','+layouts[layout_kind]
 
 def main():
  ap=argparse.ArgumentParser(); ap.add_argument('--manifest',required=True); ap.add_argument('--voice',required=True); ap.add_argument('--output',required=True); a=ap.parse_args(); m=json.loads(Path(a.manifest).read_text(encoding='utf-8')); voice=Path(a.voice); out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True); total=dur(voice); slots=m['slots']; sd=total/len(slots)

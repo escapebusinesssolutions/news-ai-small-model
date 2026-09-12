@@ -79,3 +79,33 @@ Safety boundary:
 - A live YouTube upload is therefore not yet claimed as complete.
 
 Phase 2 status: PREPARED / BLOCKED ONLY BY DEDICATED TECHSIGNAL YOUTUBE IDENTITY AND OAUTH CREDENTIALS.
+
+## Phase 3 — product-specific engagement and multi-product E2E proof — 2026-09-12
+
+The TechSignal video layer was upgraded from a generic fact-card sequence to a product-decision sequence. The objective is not to imitate the Large Model's news storytelling; it is to make each consumer video visibly about the exact product/article being evaluated and useful to a buyer.
+
+### Changes implemented
+
+- `video_adapter.py` now emits `techsignal-video-brief-v2` with the article topic, selected products, buyer-use cases, differentiators, specifications, limitations, best-for/skip-if guidance and the article verdict.
+- The scene contract is now: `Hook -> Product -> Key feature -> Real-world use -> Spec check -> Trade-off -> Best for -> Skip if -> Verdict`, with buyer-check and CTA frames added to complete the short-form sequence.
+- V15 now produces 12 deliberate consumer slots rather than cycling generic news graphics. Each slot carries the product ID and an exact product/article fact.
+- V16 maps those consumer scene types to distinct visual layouts and retains the copied FFmpeg compositor as the rendering foundation.
+- V11 now validates the consumer arc and product identity in addition to the existing technical, rights, relevance, audio and motion gates.
+- A manual GitHub Actions workflow `TechSignal Video E2E Proof` was added. It uses the existing Small Model OpenRouter secret, generates three article-to-video runs without publishing, validates the finished MP4/QC evidence, and uploads proof artifacts for seven days.
+
+### Distribution boundary
+
+The E2E proof workflow does **not** publish WordPress or YouTube content. The article-to-video path is intentionally proven before distribution is enabled.
+
+### Current acceptance target
+
+Three different buyer-intent topics must each produce:
+
+1. a generated article;
+2. a validated video brief derived from that article;
+3. a rendered MP4;
+4. a PASS consumer QC record;
+5. product-identity and narrative-arc evidence;
+6. no WordPress or YouTube distribution.
+
+Only after this proof is green should dedicated TechSignal distribution be considered for activation.

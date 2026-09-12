@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -9,10 +10,27 @@ BRIEF_DIR = ROOT / "video_runs"
 
 
 def _sentences(text: str) -> list[str]:
-    import re
     clean = re.sub(r"\s+", " ", text or "").strip()
     parts = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9])", clean)
     return [x.strip() for x in parts if x.strip()]
+
+
+def _first(values: Any, fallback: str) -> str:
+    if isinstance(values, list) and values:
+        return str(values[0])
+    return fallback
+
+
+def _product_facts(product: dict[str, Any]) -> list[dict[str, str]]:
+    specs = product.get("detailed_specs") or {}
+    facts: list[dict[str, str]] = []
+    for label, value in list(specs.items())[:3]:
+        facts.append({"kind": "spec", "label": str(label).replace("_", " "), "value": str(value)})
+    for value in list(product.get("differentiators", []))[:2]:
+        facts.append({"kind": "advantage", "label": "WHY IT STANDS OUT", "value": str(value)})
+    for value in list(product.get("known_limitations", []))[:2]:
+        facts.append({"kind": "limitation", "label": "LIMITATION", "value": str(value)})
+    return facts
 
 
 def build_video_brief(article: dict[str, Any], topic: dict[str, Any]) -> Path:
@@ -20,36 +38,56 @@ def build_video_brief(article: dict[str, Any], topic: dict[str, Any]) -> Path:
     selected = article.get("products") or []
     if not selected:
         raise ValueError("video adapter requires at least one selected product")
-    product = selected[0]
-    asin = str(product.get("asin_or_id", ""))
+    products = selected[:3]
+    primary = products[0]
+    asin = str(primary.get("asin_or_id", ""))
     asset = assets.get(asin)
-    if not asset:
-        raise ValueError(f"no validated product-video asset registered for {asin}")
-    facts = list(product.get("key_points", []))
-    facts += [f"Price band: {product.get('price_range', 'not specified')}"]
-    facts += list(product.get("differentiators", []))
-    facts += list(product.get("known_limitations", []))
-    facts += ["Best for: " + ", ".join(product.get("who_its_for", []))]
-    facts += ["Skip if: " + ", ".join(product.get("who_should_skip", []))]
     body_sentences = _sentences(str(article.get("body_markdown", "")))
+    title = str(article.get("title") or topic.get("topic") or primary.get("name"))
+    hook = body_sentences[0] if body_sentences else f"Is {primary.get('name')} actually the right choice for this buyer?"
+    differentiator = _first(primary.get("differentiators"), "Its strongest differentiator is defined by the product catalogue.")
+    use_case = _first(primary.get("use_cases"), "everyday tech use")
+    limitation = _first(primary.get("known_limitations"), "Check the product limitations before buying.")
+    best_for = ", ".join(primary.get("who_its_for", [])) or "buyers matching the intended use case"
+    skip_if = ", ".join(primary.get("who_should_skip", [])) or "buyers with different requirements"
+    verdict = _first(article.get("verdict"), body_sentences[-1] if body_sentences else f"{primary.get('name')} is worth considering when its strengths match your workflow.")
     beats = [
-        {"arc": "hook", "text": body_sentences[0] if body_sentences else f"{product.get('name')} is the product under review."},
-        {"arc": "context", "text": f"This guide evaluates {product.get('name')} for {topic.get('intent', 'buyer-intent')} use."},
-        {"arc": "what_happened", "text": "The relevant product facts are compared against the buyer decision."},
-        {"arc": "why_it_matters", "text": "The practical trade-offs determine whether the product fits the intended workflow."},
-        {"arc": "whats_next", "text": "TechSignal gives a buyer-specific verdict and identifies when to skip the product."},
+        {"arc": "hook", "text": hook},
+        {"arc": "product", "text": f"{primary.get('name')} is the product being evaluated, not a generic category example."},
+        {"arc": "key_feature", "text": differentiator},
+        {"arc": "real_world_use", "text": f"Best use: {use_case}."},
+        {"arc": "spec_check", "text": f"Key specification: {next(iter((primary.get('detailed_specs') or {}).values()), primary.get('price_range', 'see guide'))}."},
+        {"arc": "tradeoff", "text": limitation},
+        {"arc": "best_for", "text": f"Best for: {best_for}."},
+        {"arc": "skip_if", "text": f"Skip if: {skip_if}."},
+        {"arc": "verdict", "text": verdict},
     ]
+    visual_facts: list[dict[str, str]] = []
+    for p in products:
+        visual_facts.append({"kind": "product", "label": "PRODUCT", "value": str(p.get("name"))})
+        visual_facts.extend(_product_facts(p))
+    visual_facts.append({"kind": "price", "label": "PRICE BAND", "value": str(primary.get("price_range", "not specified"))})
+    visual_facts.append({"kind": "best_for", "label": "BEST FOR", "value": best_for})
+    visual_facts.append({"kind": "skip_if", "label": "SKIP IF", "value": skip_if})
+    visual_facts.append({"kind": "verdict", "label": "VERDICT", "value": verdict})
     brief = {
-        "schema_version": "techsignal-video-brief-v1",
+        "schema_version": "techsignal-video-brief-v2",
         "video_type": str(topic.get("intent", "buyer_guide")),
-        "title": str(article.get("title") or topic.get("topic") or product.get("name")),
-        "product": product,
+        "title": title,
+        "topic": topic,
+        "product": primary,
+        "products": products,
         "primary_asset": asset,
         "script": {"beats": beats},
-        "visual_facts": facts[:11],
+        "visual_facts": visual_facts[:24],
+        "commercial_consistency": {
+            "article_title": article.get("title"),
+            "article_verdict": verdict,
+            "selected_products": [p.get("asin_or_id") for p in products],
+            "affiliate_exact_matches": article.get("affiliate_exact_matches", 0),
+        },
     }
     BRIEF_DIR.mkdir(parents=True, exist_ok=True)
-    target = BRIEF_DIR / f"{product.get('asin_or_id', 'product')}-video-brief.json"
+    target = BRIEF_DIR / f"{primary.get('asin_or_id', 'product')}-video-brief.json"
     target.write_text(json.dumps(brief, indent=2, ensure_ascii=False), encoding="utf-8")
     return target
-
