@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import time
 from pathlib import Path
 from typing import Any
 
@@ -21,19 +22,33 @@ VALIDATION_PATH = Path("validation-report.json")
 
 
 def load_existing_articles(limit: int = 100) -> list[dict[str, Any]]:
-    """Read WordPress posts for lightweight internal-link discovery."""
-    response = requests.get(WP_POSTS_URL, params={"per_page": min(limit, 100), "_fields": "title,link,slug"}, timeout=30)
-    response.raise_for_status()
-    posts = response.json()
-    return [
-        {
-            "title": str(p.get("title", {}).get("rendered", "")),
-            "url": p.get("link", ""),
-            "slug": p.get("slug", ""),
-        }
-        for p in posts
-        if p.get("title", {}).get("rendered") and p.get("link")
-    ]
+    """Read WordPress posts for lightweight internal-link discovery with bounded 5xx retry."""
+    params = {"per_page": min(limit, 100), "_fields": "title,link,slug"}
+    last_response: requests.Response | None = None
+    for attempt in range(3):
+        try:
+            response = requests.get(WP_POSTS_URL, params=params, timeout=30)
+            last_response = response
+            if response.status_code not in {500, 502, 503, 504}:
+                response.raise_for_status()
+                posts = response.json()
+                return [
+                    {
+                        "title": str(p.get("title", {}).get("rendered", "")),
+                        "url": p.get("link", ""),
+                        "slug": p.get("slug", ""),
+                    }
+                    for p in posts
+                    if p.get("title", {}).get("rendered") and p.get("link")
+                ]
+        except requests.RequestException:
+            if attempt == 2:
+                raise
+        if attempt < 2:
+            time.sleep(2 * (attempt + 1))
+    assert last_response is not None
+    last_response.raise_for_status()
+    return []
 
 
 def build_validation_report(article: dict[str, Any], topic: dict[str, Any]) -> dict[str, Any]:
@@ -75,9 +90,6 @@ def write_validation_report(report: dict[str, Any], path: Path = VALIDATION_PATH
 def run_pipeline(topic: dict[str, Any], existing_articles: list[dict[str, Any]] | None = None, publish: bool = False, dedup: bool = False) -> dict[str, Any]:
     """Generate -> affiliate links -> cross-links -> pre-publish validation -> WordPress."""
     article = generate_article(topic)
-    # Preserve the authoritative topic category for downstream publisher gates.
-    # The generator prompt uses the category but does not require the model to
-    # echo it into the article object; image acquisition needs it explicitly.
     article["category"] = str(topic.get("category", "")).strip()
     article = insert_affiliate_links(article)
     existing = existing_articles if existing_articles is not None else load_existing_articles()
