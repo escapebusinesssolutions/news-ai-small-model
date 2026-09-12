@@ -32,3 +32,6 @@ Pipeline completion is not treated as business success. The next decision gate i
 
 ## 2026-09-05 — Production endpoint boundary
 The verified unattended run currently targets the WordPress endpoint configured in GitHub Actions, which was verified as `techsignal.wasmer.app`. A separate AwardSpace deployment at `techsignal.mypressonline.com` must not be treated as production-ready until the Actions endpoint and a controlled publish are explicitly verified against it.
+
+## 2026-09-12 — Production reliability: external provider and WordPress failures are transient
+A production investigation found two external transient failure modes: the OpenRouter free-model fallback list contained retired/unavailable model slugs, and the live Wasmer WordPress posts REST endpoint returned HTTP 500 during an otherwise valid production run. The AI provider fallback list was refreshed to current OpenRouter free models, the WordPress article-ingestion request now performs bounded retries for 5xx responses, and the operations repair controller now classifies HTTP 500 as transient. These changes preserve all quality/affiliate gates and do not weaken publication validation.
