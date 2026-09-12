@@ -5,6 +5,8 @@ import argparse
 import json
 import os
 import time
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +17,8 @@ from generate import generate_article, load_topics
 from same_day_dedup import TopicFingerprint, record_published_fingerprint, select_non_duplicate_topic
 from insert_links import insert_affiliate_links
 from publish import publish_article
+from video_engine.techsignal.video_adapter import build_video_brief
+from video_engine.techsignal.voice_generator import generate_voice
 
 SITE_URL = os.getenv("WORDPRESS_SITE_URL", "https://techsignal.wasmer.app").rstrip("/")
 WP_POSTS_URL = f"{SITE_URL}/wp-json/wp/v2/posts"
@@ -87,7 +91,7 @@ def write_validation_report(report: dict[str, Any], path: Path = VALIDATION_PATH
     path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def run_pipeline(topic: dict[str, Any], existing_articles: list[dict[str, Any]] | None = None, publish: bool = False, dedup: bool = False) -> dict[str, Any]:
+def run_pipeline(topic: dict[str, Any], existing_articles: list[dict[str, Any]] | None = None, publish: bool = False, dedup: bool = False, video: bool = False) -> dict[str, Any]:
     """Generate -> affiliate links -> cross-links -> pre-publish validation -> WordPress."""
     article = generate_article(topic)
     article["category"] = str(topic.get("category", "")).strip()
@@ -98,11 +102,24 @@ def run_pipeline(topic: dict[str, Any], existing_articles: list[dict[str, Any]] 
     write_validation_report(validation)
     if not validation["validation"]["passed"]:
         raise ValueError("Pre-publish validation failed: " + "; ".join(validation["validation"]["failures"]))
+    video_result = None
+    if video:
+        try:
+            brief = build_video_brief(article, topic)
+            runner = Path(__file__).resolve().parent / "video_engine" / "techsignal" / "MACHINE-TS-V17-PRODUCTION-RUNNER-V01.py"
+            output = (Path("video_runs") / f"{article.get('slug', 'video')}-techsignal.mp4").resolve()
+            run_dir = (Path("video_runs") / f"{article.get('slug', 'video')}-run").resolve()
+            voice = (Path("video_runs") / f"{article.get('slug', 'video')}-voice.mp3").resolve()
+            generate_voice(brief, voice)
+            proc = subprocess.run([sys.executable, str(runner), "--brief", str(brief), "--voice", str(voice), "--output", str(output), "--run-dir", str(run_dir)], capture_output=True, text=True)
+            video_result = {"success": proc.returncode == 0, "output": str(output), "run_dir": str(run_dir), "stdout": proc.stdout[-4000:], "stderr": proc.stderr[-2000:]}
+        except Exception as exc:
+            video_result = {"success": False, "output": None, "run_dir": None, "error": {"type": type(exc).__name__, "message": str(exc)}}
     if publish:
         article = publish_article(article)
         if dedup:
             record_published_fingerprint(TopicFingerprint.from_story_record({**topic, **article}))
-    return {**article, "validation_report": validation}
+    return {**article, "validation_report": validation, "video": video_result}
 
 
 def main() -> None:
@@ -111,6 +128,7 @@ def main() -> None:
     parser.add_argument("--publish", action="store_true")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--enable-dedup", action="store_true")
+    parser.add_argument("--video", action="store_true", help="run the optional TechSignal consumer video stage")
     args = parser.parse_args()
     topics = load_topics()
     if not topics:
@@ -128,7 +146,7 @@ def main() -> None:
             print(json.dumps(report, indent=2))
             return
     try:
-        result = run_pipeline(selected_topic, publish=args.publish, dedup=args.enable_dedup)
+        result = run_pipeline(selected_topic, publish=args.publish, dedup=args.enable_dedup, video=args.video)
     except Exception as exc:
         error_report = {"schema_version": "1.0", "stage": "pipeline_error", "topic": selected_topic, "success": False, "error": {"type": type(exc).__name__, "message": str(exc)}}
         target = args.output or VALIDATION_PATH

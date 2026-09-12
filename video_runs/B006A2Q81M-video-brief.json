@@ -1,0 +1,72 @@
+{
+  "schema_version": "techsignal-video-brief-v1",
+  "video_type": "single_product_review",
+  "title": "Logitech C920 HD Pro Webcam: Practical Home Office Choice?",
+  "product": {
+    "name": "Logitech C920 HD Pro Webcam",
+    "asin_or_id": "B006A2Q81M",
+    "price_range": "£50-£100",
+    "key_points": [
+      "1080p webcam",
+      "autofocus",
+      "dual stereo microphones"
+    ],
+    "differentiators": [
+      "USB-A plug-and-play"
+    ],
+    "known_limitations": [
+      "not advanced framing"
+    ],
+    "who_its_for": [
+      "home office"
+    ],
+    "who_should_skip": [
+      "buyers needing advanced framing"
+    ]
+  },
+  "primary_asset": {
+    "asset_id": "logitech-c920-cc0",
+    "local_path": "assets/logitech-c920-cc0.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Webcam_01.jpg",
+    "rights_status": "CC0_1.0",
+    "rights_checked": true,
+    "usage_basis": "CC0 1.0 public-domain dedication",
+    "attribution": "Pmwiki1 / Wikimedia Commons",
+    "commercial_reuse_checked": true,
+    "product_match": "Logitech C920 HD Pro Webcam"
+  },
+  "script": {
+    "beats": [
+      {
+        "arc": "hook",
+        "text": "The C920 is a practical choice for home office video calls."
+      },
+      {
+        "arc": "context",
+        "text": "This guide evaluates Logitech C920 HD Pro Webcam for single_product_review use."
+      },
+      {
+        "arc": "what_happened",
+        "text": "The relevant product facts are compared against the buyer decision."
+      },
+      {
+        "arc": "why_it_matters",
+        "text": "The practical trade-offs determine whether the product fits the intended workflow."
+      },
+      {
+        "arc": "whats_next",
+        "text": "TechSignal gives a buyer-specific verdict and identifies when to skip the product."
+      }
+    ]
+  },
+  "visual_facts": [
+    "1080p webcam",
+    "autofocus",
+    "dual stereo microphones",
+    "Price band: £50-£100",
+    "USB-A plug-and-play",
+    "not advanced framing",
+    "Best for: home office",
+    "Skip if: buyers needing advanced framing"
+  ]
+}

@@ -1,0 +1,411 @@
+{
+  "status": "SUCCESS",
+  "stage": "M4.5-V08-RIGHTS-AWARE-ASSET-ACQUISITION-V01",
+  "created_at_utc": "2026-09-12T10:18:11.149423+00:00",
+  "story": {
+    "title": "Logitech C920 HD Pro Webcam: Practical Home Office Choice?",
+    "script": "The Logitech C920 is a practical choice for home office video calls. This guide evaluates Logitech C920 HD Pro Webcam for single_product_review use. The relevant product facts are compared against the buyer decision. The practical trade-offs determine whether the product fits the intended workflow. TechSignal gives a buyer-specific verdict and identifies when to skip the product."
+  },
+  "slots": [
+    {
+      "beat": "product_hero",
+      "beat_id": "beat-01",
+      "arc": "hook",
+      "script_line": "The Logitech C920 is a practical choice for home office video calls.",
+      "asset_type": "library_asset",
+      "asset_id": "logitech-c920-cc0",
+      "local_path": "assets/logitech-c920-cc0.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Webcam_01.jpg",
+      "rights_status": "CC0_1.0",
+      "rights_checked": true,
+      "usage_basis": "CC0 1.0 public-domain dedication",
+      "attribution": "Pmwiki1 / Wikimedia Commons",
+      "attribution_required": false,
+      "subject_match": true,
+      "match_reason": "validated exact product visual",
+      "source_start": 0,
+      "source_window_quality": "EXACT_PRODUCT_VISUAL",
+      "source_window_quality_score": 100
+    },
+    {
+      "beat": "hook",
+      "beat_id": "beat-02",
+      "arc": "context",
+      "script_line": "This guide evaluates Logitech C920 HD Pro Webcam for single_product_review use.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "hook",
+      "graphic_text": "1080p webcam",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "headline",
+      "beat_id": "beat-03",
+      "arc": "what_happened",
+      "script_line": "The relevant product facts are compared against the buyer decision.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "headline",
+      "graphic_text": "autofocus",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "fact",
+      "beat_id": "beat-04",
+      "arc": "why_it_matters",
+      "script_line": "The practical trade-offs determine whether the product fits the intended workflow.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "fact",
+      "graphic_text": "dual stereo microphones",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "mechanism",
+      "beat_id": "beat-05",
+      "arc": "whats_next",
+      "script_line": "TechSignal gives a buyer-specific verdict and identifies when to skip the product.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "mechanism",
+      "graphic_text": "Price band: ?50-?100",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "component",
+      "beat_id": "beat-06",
+      "arc": "hook",
+      "script_line": "The Logitech C920 is a practical choice for home office video calls.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "component",
+      "graphic_text": "USB-A plug-and-play",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "evidence",
+      "beat_id": "beat-07",
+      "arc": "context",
+      "script_line": "This guide evaluates Logitech C920 HD Pro Webcam for single_product_review use.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "evidence",
+      "graphic_text": "not advanced framing",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "metric",
+      "beat_id": "beat-08",
+      "arc": "what_happened",
+      "script_line": "The relevant product facts are compared against the buyer decision.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "metric",
+      "graphic_text": "Best for: home office",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "impact",
+      "beat_id": "beat-09",
+      "arc": "why_it_matters",
+      "script_line": "The practical trade-offs determine whether the product fits the intended workflow.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "impact",
+      "graphic_text": "Skip if: buyers needing advanced framing",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "context",
+      "beat_id": "beat-10",
+      "arc": "whats_next",
+      "script_line": "TechSignal gives a buyer-specific verdict and identifies when to skip the product.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "context",
+      "graphic_text": "1080p webcam",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "comparison",
+      "beat_id": "beat-11",
+      "arc": "hook",
+      "script_line": "The Logitech C920 is a practical choice for home office video calls.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "comparison",
+      "graphic_text": "autofocus",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "next_step",
+      "beat_id": "beat-12",
+      "arc": "context",
+      "script_line": "This guide evaluates Logitech C920 HD Pro Webcam for single_product_review use.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "next_step",
+      "graphic_text": "dual stereo microphones",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    }
+  ],
+  "library_selected": 1,
+  "original_graphics": 11,
+  "coverage_count": 12,
+  "required_count": 12,
+  "rights_review_required": false,
+  "story_specific_graphics": true,
+  "narrative_arc": [
+    "hook",
+    "context",
+    "what_happened",
+    "why_it_matters",
+    "whats_next"
+  ],
+  "story_beats": [
+    {
+      "arc": "hook",
+      "text": "The Logitech C920 is a practical choice for home office video calls."
+    },
+    {
+      "arc": "context",
+      "text": "This guide evaluates Logitech C920 HD Pro Webcam for single_product_review use."
+    },
+    {
+      "arc": "what_happened",
+      "text": "The relevant product facts are compared against the buyer decision."
+    },
+    {
+      "arc": "why_it_matters",
+      "text": "The practical trade-offs determine whether the product fits the intended workflow."
+    },
+    {
+      "arc": "whats_next",
+      "text": "TechSignal gives a buyer-specific verdict and identifies when to skip the product."
+    }
+  ],
+  "consumer_video": true,
+  "product": {
+    "name": "Logitech C920 HD Pro Webcam",
+    "asin_or_id": "B006A2Q81M",
+    "price_range": "?50-?100",
+    "key_points": [
+      "1080p webcam",
+      "autofocus",
+      "dual stereo microphones"
+    ],
+    "differentiators": [
+      "USB-A plug-and-play"
+    ],
+    "known_limitations": [
+      "not advanced framing"
+    ],
+    "who_its_for": [
+      "home office"
+    ],
+    "who_should_skip": [
+      "buyers needing advanced framing"
+    ]
+  },
+  "acquired_slots": [
+    {
+      "beat": "product_hero",
+      "beat_id": "beat-01",
+      "arc": "hook",
+      "script_line": "The Logitech C920 is a practical choice for home office video calls.",
+      "asset_type": "library_asset",
+      "asset_id": "logitech-c920-cc0",
+      "local_path": "video_runs\\logitech-c920-hd-pro-webcam-practical-home-office-choice-run\\acquired\\slot-00-product_hero.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Webcam_01.jpg",
+      "rights_status": "CC0_1.0",
+      "rights_checked": true,
+      "usage_basis": "CC0 1.0 public-domain dedication",
+      "attribution": "Pmwiki1 / Wikimedia Commons",
+      "attribution_required": false,
+      "subject_match": true,
+      "match_reason": "validated exact product visual",
+      "source_start": 0,
+      "source_window_quality": "EXACT_PRODUCT_VISUAL",
+      "source_window_quality_score": 100,
+      "sha256": "711dae5bec30b8eeafb61d9f23013659350bf0bf2b34d72950ba3464c8e203ab",
+      "bytes": 1565918,
+      "acquired_at_utc": "2026-09-12T10:18:11.374252+00:00"
+    },
+    {
+      "beat": "hook",
+      "beat_id": "beat-02",
+      "arc": "context",
+      "script_line": "This guide evaluates Logitech C920 HD Pro Webcam for single_product_review use.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "hook",
+      "graphic_text": "1080p webcam",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "headline",
+      "beat_id": "beat-03",
+      "arc": "what_happened",
+      "script_line": "The relevant product facts are compared against the buyer decision.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "headline",
+      "graphic_text": "autofocus",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "fact",
+      "beat_id": "beat-04",
+      "arc": "why_it_matters",
+      "script_line": "The practical trade-offs determine whether the product fits the intended workflow.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "fact",
+      "graphic_text": "dual stereo microphones",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "mechanism",
+      "beat_id": "beat-05",
+      "arc": "whats_next",
+      "script_line": "TechSignal gives a buyer-specific verdict and identifies when to skip the product.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "mechanism",
+      "graphic_text": "Price band: ?50-?100",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "component",
+      "beat_id": "beat-06",
+      "arc": "hook",
+      "script_line": "The Logitech C920 is a practical choice for home office video calls.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "component",
+      "graphic_text": "USB-A plug-and-play",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "evidence",
+      "beat_id": "beat-07",
+      "arc": "context",
+      "script_line": "This guide evaluates Logitech C920 HD Pro Webcam for single_product_review use.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "evidence",
+      "graphic_text": "not advanced framing",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "metric",
+      "beat_id": "beat-08",
+      "arc": "what_happened",
+      "script_line": "The relevant product facts are compared against the buyer decision.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "metric",
+      "graphic_text": "Best for: home office",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "impact",
+      "beat_id": "beat-09",
+      "arc": "why_it_matters",
+      "script_line": "The practical trade-offs determine whether the product fits the intended workflow.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "impact",
+      "graphic_text": "Skip if: buyers needing advanced framing",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "context",
+      "beat_id": "beat-10",
+      "arc": "whats_next",
+      "script_line": "TechSignal gives a buyer-specific verdict and identifies when to skip the product.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "context",
+      "graphic_text": "1080p webcam",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "comparison",
+      "beat_id": "beat-11",
+      "arc": "hook",
+      "script_line": "The Logitech C920 is a practical choice for home office video calls.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "comparison",
+      "graphic_text": "autofocus",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    },
+    {
+      "beat": "next_step",
+      "beat_id": "beat-12",
+      "arc": "context",
+      "script_line": "This guide evaluates Logitech C920 HD Pro Webcam for single_product_review use.",
+      "asset_type": "original_graphic",
+      "graphic_kind": "next_step",
+      "graphic_text": "dual stereo microphones",
+      "asset_id": null,
+      "rights_status": "N/A",
+      "subject_match": true,
+      "match_reason": "consumer product fact visualization"
+    }
+  ],
+  "acquisition_count": 12,
+  "acquisition_policy": {
+    "blocked_statuses": [
+      "",
+      "DENIED",
+      "REVIEW_REQUIRED",
+      "UNKNOWN"
+    ],
+    "production_requires_rights_metadata": true,
+    "max_asset_bytes": 52428800
+  }
+}
