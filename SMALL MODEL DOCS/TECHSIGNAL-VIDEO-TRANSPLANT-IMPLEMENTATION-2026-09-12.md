@@ -47,3 +47,17 @@ The Large Model video capability was copied into TechSignal as an independent im
 ## Remaining gate
 
 Before automatic distribution, establish a dedicated TechSignal YouTube destination and credentials, then add and test the upload adapter without reusing Large Model credentials. This is intentionally separated from the successful renderer proof.
+
+## Phase 1 quality-foundation completion â€” 2026-09-12
+
+The first post-proof quality pass is complete. The TechSignal V17 runner now resolves brief, voice, output, and run-directory paths to absolute paths before invoking the four production stages. This removes the relative-path failure observed when the runner was launched from `video_engine/techsignal`.
+
+Verification performed:
+- Python compilation: PASS
+- Existing TechSignal transplant tests: PASS (2/2)
+- Real runner launched from its own module directory using relative input paths: PASS
+- All four stages completed with exit code 0: V15 selector, V08 acquisition, V16 compositor, V11 consumer QC
+- Resulting run record: PASS
+- Existing C920 production artifact remains technically valid: H.264 1080x1920, AAC 24 kHz mono, 43.2 seconds
+
+This phase fixes a real portability defect. It does not yet claim that the consumer video is sufficiently engaging for unattended publishing; that remains a separate content-quality phase requiring richer product-specific visual treatment and broader multi-product evidence.

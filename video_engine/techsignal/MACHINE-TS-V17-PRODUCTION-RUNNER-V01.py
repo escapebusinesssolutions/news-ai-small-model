@@ -27,28 +27,31 @@ def main():
     ap.add_argument("--output", required=True)
     ap.add_argument("--run-dir", required=True)
     args = ap.parse_args()
-    rd = Path(args.run_dir)
+    brief = Path(args.brief).resolve()
+    voice = Path(args.voice).resolve()
+    output = Path(args.output).resolve()
+    rd = Path(args.run_dir).resolve()
     rd.mkdir(parents=True, exist_ok=True)
     stages = []
     try:
         selected = rd / "selector.json"
         stage("TS-V15-CONSUMER-SELECTOR", [sys.executable, SELECTOR,
-              "--brief", args.brief, "--output", selected], stages)
+              "--brief", brief, "--output", selected], stages)
         acquired_dir = rd / "acquired"
         acquired = rd / "acquired-manifest.json"
         stage("TS-V08-RIGHTS-AWARE-ASSET-ACQUISITION", [sys.executable, ACQUIRE,
               "--manifest", selected, "--output-dir", acquired_dir,
               "--output-manifest", acquired], stages)
         stage("TS-V16-CONSUMER-COMPOSITOR", [sys.executable, COMPOSITOR,
-              "--manifest", acquired, "--voice", args.voice, "--output", args.output], stages)
+              "--manifest", acquired, "--voice", voice, "--output", output], stages)
         qc = rd / "visual-qc.json"
         stage("TS-V11-CONSUMER-VISUAL-QC", [sys.executable, QC,
-              "--manifest", acquired, "--video", args.output, "--output", qc], stages)
+              "--manifest", acquired, "--video", output, "--output", qc], stages)
         q = json.loads(qc.read_text(encoding="utf-8-sig"))
         if q.get("status") != "PASS":
             raise RuntimeError("TS-V11-CONSUMER-VISUAL-QC:REJECT")
         result = {"status": "PASS", "failure_code": None, "stages": stages,
-                  "output": str(Path(args.output).resolve()), "visual_qc": q,
+                  "output": str(output), "visual_qc": q,
                   "portable_media": True, "source": "copied-from-large-model-m46"}
     except Exception as exc:
         result = {"status": "FAIL", "failure_code": str(exc), "stages": stages}
