@@ -3,7 +3,7 @@ from pathlib import Path
 W,H=1080,1920; FONT='/Windows/Fonts/AGENCYB.TTF'; FONT2='/Windows/Fonts/AGENCYR.TTF'
 
 def run(c): subprocess.run([str(x) for x in c],check=True)
-def dur(p): return float(subprocess.check_output([str(Path('ffprobe.exe')),'-v','error','-show_entries','format=duration','-of','default=nw=1:nk=1',str(p)],text=True))
+def dur(p): return float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=nw=1:nk=1',str(p)],text=True))
 def esc(s):
  s=unicodedata.normalize('NFKD',str(s or '')).encode('ascii','ignore').decode('ascii')
  s=s.replace('\\','/').replace("'",'').replace(':',' - ').replace(',',' - ').replace('%','%%')
@@ -69,5 +69,6 @@ def main():
   concat=td/'concat.txt'; concat.write_text('\n'.join("file '%s'"%p.as_posix() for p in segs)); silent=td/'silent.mp4'; run(['ffmpeg','-y','-f','concat','-safe','0','-i',concat,'-c','copy',silent]); run(['ffmpeg','-y','-i',silent,'-i',voice,'-t',f'{total:.3f}','-map','0:v:0','-map','1:a:0','-c:v','copy','-c:a','aac','-b:a','96k','-movflags','+faststart',out])
  print(json.dumps({'status':'SUCCESS','stage':'M4.5-V16-STORY-SPECIFIC-COMPOSITOR','duration_seconds':round(total,3),'segments':len(slots),'output':str(out)},indent=2))
 if __name__=='__main__': main()
+
 
 
