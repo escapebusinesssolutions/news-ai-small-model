@@ -1,0 +1,68 @@
+﻿name: TechSignal Video E2E Proof
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic_indices:
+        description: 'Comma-separated topic indices to generate without publishing'
+        required: false
+        default: '0,7,12'
+
+permissions:
+  contents: read
+
+jobs:
+  video-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      AI_PROVIDER: openrouter
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      OPENROUTER_MODEL: openrouter/free
+      WORDPRESS_SITE_URL: ${{ secrets.TECHSIGNAL_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Generate three article-to-video proofs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p video_runs/e2e-proof
+          IFS=',' read -ra INDICES <<< "${{ inputs.topic_indices }}"
+          for index in "${INDICES[@]}"; do
+            echo "=== TechSignal article -> video topic index ${index} ==="
+            python pipeline.py --topic-index "$index" --video --output "video_runs/e2e-proof/topic-${index}.json"
+          done
+      - name: Validate proof artifacts
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+          files=sorted(Path('video_runs/e2e-proof').glob('topic-*.json'))
+          assert len(files) == 3, f'expected 3 proof records, got {len(files)}'
+          for path in files:
+              data=json.loads(path.read_text(encoding='utf-8'))
+              assert data.get('video', {}).get('success') is True, path
+              assert Path(data['video']['output']).is_file(), path
+              qc=Path(data['video']['run_dir']) / 'visual-qc.json'
+              assert qc.is_file(), qc
+              q=json.loads(qc.read_text(encoding='utf-8'))
+              assert q.get('status') == 'PASS', qc
+              assert q.get('checks', {}).get('product_identity_pass') is True, qc
+              assert q.get('checks', {}).get('narrative_arc_pass') is True, qc
+              assert q.get('checks', {}).get('segment_relevance_pass') is True, qc
+              assert q.get('checks', {}).get('source_density_pass') is True, qc
+          print(f'PASS: {len(files)} complete article -> video paths')
+      - name: Upload proof artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: techsignal-video-e2e-proof
+          path: video_runs/e2e-proof/
+          if-no-files-found: error
+          retention-days: 7

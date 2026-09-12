@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 validation-report.json
 operations-dashboard.html
+# Generated local video production artifacts
+video_runs/*.mp4
+video_runs/*.mp3
+video_runs/*.py
+video_runs/*/acquired/

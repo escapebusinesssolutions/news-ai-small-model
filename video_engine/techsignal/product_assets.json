@@ -1,0 +1,16 @@
+{
+  "schema_version": "techsignal-product-video-assets-v1",
+  "assets": {
+    "B006A2Q81M": {
+      "asset_id": "logitech-c920-cc0",
+      "local_path": "assets/logitech-c920-cc0.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Webcam_01.jpg",
+      "rights_status": "CC0_1.0",
+      "rights_checked": true,
+      "usage_basis": "CC0 1.0 public-domain dedication",
+      "attribution": "Pmwiki1 / Wikimedia Commons",
+      "commercial_reuse_checked": true,
+      "product_match": "Logitech C920 HD Pro Webcam"
+    }
+  }
+}
