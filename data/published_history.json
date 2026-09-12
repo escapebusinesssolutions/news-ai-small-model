@@ -582,6 +582,32 @@
       "category": "storage",
       "intent": "buyer_guide",
       "topic": "best portable storage for laptop backups"
+    },
+    {
+      "keywords": [
+        "2tb",
+        "backups",
+        "best",
+        "buy",
+        "can",
+        "host",
+        "its",
+        "laptop",
+        "only",
+        "portable",
+        "samsung",
+        "scenario",
+        "speed",
+        "storage",
+        "use",
+        "when",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-12T07:59:52.701451+00:00",
+      "category": "storage",
+      "intent": "scenario",
+      "topic": "best portable storage when laptop backups"
     }
   ]
 }
