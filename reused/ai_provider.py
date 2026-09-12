@@ -13,11 +13,13 @@ HF_URL = "https://router.huggingface.co/v1/chat/completions"
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 DEFAULT_MODEL = "openai/gpt-oss-20b"
 DEFAULT_OPENROUTER_MODEL = "openrouter/free"
+# Keep a bounded explicit fallback list because the free-model roster changes.
+# These are current OpenRouter free models with structured-output support.
 OPENROUTER_FREE_FALLBACK_MODELS = (
-    "minimax/minimax-m2.7:free",
-    "google/gemma-4-31b-it:free",
-    "nvidia/nemotron-3-ultra-550b-a55b:free",
-    "inclusionai/ling-3.0-flash-fin:free",
+    "openai/gpt-oss-120b:free",
+    "nvidia/nemotron-3-super-120b-a12b:free",
+    "meta-llama/llama-3.3-70b-instruct:free",
+    "qwen/qwen3-coder:free",
 )
 
 class ProviderError(RuntimeError):
@@ -80,8 +82,6 @@ def _openrouter_call(system: str, prompt: str, model: str, key: str,
                 content = choices[0].get("message", {}).get("content") if choices and isinstance(choices[0], dict) else None
                 if isinstance(content, str) and content.strip():
                     cleaned = content.strip()
-                    # Some free routed models occasionally ignore JSON mode and return prose.
-                    # Do not accept that response as successful generation; try the next fallback.
                     if "{" in cleaned and "}" in cleaned:
                         return cleaned
                     failures.append(f"{candidate}: non-JSON response")
