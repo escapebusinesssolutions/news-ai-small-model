@@ -5,11 +5,11 @@
   "metrics": {
     "current_target": 5,
     "validation_pass_rate": 0.5,
-    "duplicate_rejection_rate": 0.3,
+    "duplicate_rejection_rate": 0.34,
     "index_rate": 0.0,
     "affiliate_click_rate": 0.0,
     "traffic_7d_change": 0.0,
-    "published_posts": 51,
+    "published_posts": 54,
     "gsc_available": false,
     "performance_counts": {}
   }
