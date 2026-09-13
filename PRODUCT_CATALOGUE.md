@@ -46,4 +46,4 @@ Do not add a product merely because it is a high-volume Amazon seller. Add it wh
 
 The catalogue is intentionally separate from the affiliate implementation. `insert_links.py` adds the `echsignalnews-21` tracking tag. This keeps the Amazon-specific layer replaceable when Creators API is introduced.
 
-The current implementation can fall back to a tagged Amazon UK search link when a generated recommendation has no exact catalogue match. Exact catalogue matches are preferred.
+Only exact catalogue matches are approved for publication. Search-based affiliate-link fallback is disabled. A generated recommendation that cannot be matched to an approved catalogue product must not be silently converted into an affiliate search link; it must be corrected, replaced by a catalogue-supported recommendation, or block publication.
