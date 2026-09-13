@@ -626,6 +626,29 @@
       "category": "storage",
       "intent": "worth_it",
       "topic": "is upgrading your portable storage worth it for laptop backups"
+    },
+    {
+      "keywords": [
+        "2tb",
+        "alternatives",
+        "basic",
+        "best",
+        "enough",
+        "isn",
+        "not",
+        "portable",
+        "samsung",
+        "ssd",
+        "storage",
+        "travel",
+        "when",
+        "work"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-13T08:22:23.433810+00:00",
+      "category": "storage",
+      "intent": "alternatives",
+      "topic": "best alternatives for travel work when a basic portable storage is not enough"
     }
   ]
 }
