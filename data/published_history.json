@@ -649,6 +649,26 @@
       "category": "storage",
       "intent": "alternatives",
       "topic": "best alternatives for travel work when a basic portable storage is not enough"
+    },
+    {
+      "keywords": [
+        "best",
+        "buyer",
+        "guide",
+        "laptop",
+        "limited",
+        "makes",
+        "portable",
+        "sense",
+        "ssd",
+        "storage",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-13T12:00:02.920204+00:00",
+      "category": "storage",
+      "intent": "buyer_guide",
+      "topic": "best portable storage for limited laptop storage"
     }
   ]
 }
