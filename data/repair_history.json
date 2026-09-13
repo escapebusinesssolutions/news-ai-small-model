@@ -1588,5 +1588,11 @@
     "result": "repaired",
     "classification": "transient",
     "timestamp": "2026-09-13T06:35:21.981459+00:00"
+  },
+  {
+    "run_id": 34738933273,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-13T12:18:26.216180+00:00"
   }
 ]
