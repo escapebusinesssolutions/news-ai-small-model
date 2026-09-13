@@ -19,9 +19,9 @@ The repository uses GitHub-hosted runners only.
 No credentials belong in source files.
 
 ## Publishing workflow
-`.github/workflows/publish.yml` runs once per day at 06:17 UTC and selects one of the 15 curated topics. It produces `validation-report.json` as a workflow artifact.
+`.github/workflows/publish.yml` contains multiple scheduled publication slots each day. The workflow currently exposes 10 active publication slots plus a separate measurement slot; the adaptive scale gate reads `data/scaling_state.json` and permits only the number of slots represented by `recommended_target` (currently 5/day). Each executed run produces `validation-report.json` as a workflow artifact.
 
-The scheduled path is intentionally gated by `WORDPRESS_DEFAULT_STATUS`. With `draft`, the system can exercise the full publishing path without making articles public. Set the secret to `publish` only after the first batch is accepted.
+The scheduled path is intentionally gated by the adaptive production target. A slot outside the current target is recorded as skipped rather than publishing additional content. The current production target remains 5/day until external quality, indexing, traffic and affiliate evidence justify a change.
 
 ## First-batch procedure
 
@@ -32,7 +32,7 @@ The scheduled path is intentionally gated by `WORDPRESS_DEFAULT_STATUS`. With `d
 5. Repeat for 10–15 articles.
 6. Human spot-check the articles, product facts, affiliate links, formatting, and disclosures.
 7. Set `WORDPRESS_DEFAULT_STATUS=publish` only after acceptance.
-8. Allow the daily schedule to run unattended.
+8. Allow the bounded schedule to run unattended.
 
 ## Commercial measurement
 Track four sources:
