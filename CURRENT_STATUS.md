@@ -1,7 +1,7 @@
 # Current Status
 
 **Project:** NEWS AI SMALL MODEL  
-**Date:** 2026-09-07  
+**Date:** 2026-09-13  
 **Current phase:** Stage 3 — Build Audience / Stage 4 — Monetization validation
 
 ## Dashboard
@@ -25,6 +25,8 @@
 | Search performance intelligence | READY — page-level Search Console collection implemented; external credentials/data still pending |
 | Monetization measurement plan | DONE — see `MONETIZATION.md` |
 | Revenue proof | NOT YET PROVEN — requires real traffic and Amazon reporting data |
+| Consumer video architecture | IMPLEMENTED — product-decision scene layer, dedicated TechSignal runner/compositor/QC |
+| Consumer video production quality | **OPEN** — new visual-quality gate requires richer exact-product media before unattended approval |
 | Production target | HOLD — 5/day |
 
 ## Latest verified production evidence — 2026-09-07
@@ -117,16 +119,38 @@ The measurement workflow is now wired to persist Search Console page/query evide
 ## External discovery verification - 2026-09-07
 A public discovery spot-check was executed against the live TechSignal site. The live robots.txt returns HTTP 200 and explicitly references the WordPress sitemap; the sitemap returns HTTP 200 and currently contains 36 post URLs, including the three September 7 posts. Public search queries for the live TechSignal domain returned no indexed results in the checked window. This is **not** treated as proof of deindexing or zero traffic; it is evidence that external indexing remains unproven and should remain the primary acquisition bottleneck until Search Console/Bing reporting confirms otherwise.
 
+## TechSignal consumer video quality — 2026-09-13
+
+The video implementation has been upgraded to a product-decision architecture, but the rendered visual output is not yet approved for unattended consumer publishing.
+
+The new active standard is `docs/TECHSIGNAL_VIDEO_PRODUCTION_STANDARD.md`.
+
+The consumer QC gate now requires:
+- at least 60% of video visual slots to use real product/product-in-use media or product-specific image/video assets;
+- at least 3 distinct product-specific visual assets;
+- every selected product in a multi-product video to receive identifiable visual treatment;
+- valid rights metadata for external media;
+- the existing narrative, relevance, identity, audio, motion, black-frame and repeat gates to remain passing.
+
+The current repository asset manifest contains only one exact product visual (Logitech C920). The existing selector therefore still produces mostly original explanatory graphics. This is insufficient for the new standard and is intentionally treated as an open quality gate rather than being hidden behind technical QC.
+
+Asset research found usable Wikimedia Commons candidates for several catalogue products, including the exact Logitech C920 CC0 asset already in the repository, Røde NT-USB Mini imagery under CC BY-SA 4.0, and a Shure MV7 image under CC BY 2.0. These are candidate sources only until downloaded, rights-recorded and integrated into the repository asset layer. citeturn1view2turn1view1turn2search0
+
+No video publishing or YouTube distribution is enabled by this change.
+
 ## External actions / evidence pending
 - Google Search Console ownership verification and sitemap submission — COMPLETED (user-confirmed 2026-09-05)
 - Bing Webmaster ownership verification and sitemap submission — COMPLETED (user-confirmed 2026-09-05)
 - Search Console/indexing performance evidence — PENDING
 - Analytics visitor data, if used — PENDING
 - Amazon Associates reporting access/data for revenue proof — PENDING
+- TechSignal product-video asset library enrichment — **PENDING / OPEN**
+- Local Windows render and three-product visual E2E verification — **PENDING — Windows connection unavailable**
+- Final manual visual review of rendered videos — **PENDING — requires actual MP4 inspection**
 - AwardSpace deployment/configuration verification if the migration remains the intended production target — PENDING
 - Additional Amazon tracking IDs — NOT NEEDED for the first validation period
 
-These are account-level evidence items, not code defects.
+These are account-level evidence items or bounded production-quality work; they are not a reason to weaken the article production baseline.
 
 ## Next business milestone
 Prove the first measurable commercial chain:
