@@ -741,6 +741,33 @@
       "category": "storage",
       "intent": "scenario",
       "topic": "best portable storage when fast file transfers"
+    },
+    {
+      "keywords": [
+        "2tb",
+        "alternatives",
+        "basic",
+        "best",
+        "clear",
+        "drive",
+        "enough",
+        "fast",
+        "file",
+        "limits",
+        "not",
+        "portable",
+        "samsung",
+        "ssd",
+        "storage",
+        "strong",
+        "transfers",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-14T16:10:46.645844+00:00",
+      "category": "storage",
+      "intent": "alternatives",
+      "topic": "best alternatives for fast file transfers when a basic portable storage is not enough"
     }
   ]
 }
