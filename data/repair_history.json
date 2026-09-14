@@ -1630,5 +1630,11 @@
     "result": "escalated",
     "reason": "failure classified as blocked",
     "timestamp": "2026-09-14T13:42:37.845087+00:00"
+  },
+  {
+    "run_id": 34846180492,
+    "result": "escalated",
+    "reason": "failure classified as blocked",
+    "timestamp": "2026-09-14T18:53:45.183655+00:00"
   }
 ]
