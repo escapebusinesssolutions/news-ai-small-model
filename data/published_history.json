@@ -715,6 +715,32 @@
       "category": "storage",
       "intent": "buyer_guide",
       "topic": "best portable storage for fast file transfers"
+    },
+    {
+      "keywords": [
+        "2tb",
+        "best",
+        "can",
+        "fast",
+        "file",
+        "fit",
+        "host",
+        "keep",
+        "only",
+        "portable",
+        "samsung",
+        "scenario",
+        "storage",
+        "transfer",
+        "transfers",
+        "when",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-14T09:09:02.321686+00:00",
+      "category": "storage",
+      "intent": "scenario",
+      "topic": "best portable storage when fast file transfers"
     }
   ]
 }
