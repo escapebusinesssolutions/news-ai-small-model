@@ -694,6 +694,27 @@
       "category": "storage",
       "intent": "scenario",
       "topic": "best portable storage when limited laptop storage"
+    },
+    {
+      "keywords": [
+        "2tb",
+        "best",
+        "buyer",
+        "conditional",
+        "fast",
+        "file",
+        "guide",
+        "portable",
+        "samsung",
+        "storage",
+        "transfers",
+        "verdict"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-14T05:12:30.612729+00:00",
+      "category": "storage",
+      "intent": "buyer_guide",
+      "topic": "best portable storage for fast file transfers"
     }
   ]
 }
