@@ -768,6 +768,25 @@
       "category": "storage",
       "intent": "alternatives",
       "topic": "best alternatives for fast file transfers when a basic portable storage is not enough"
+    },
+    {
+      "keywords": [
+        "2tb",
+        "backup",
+        "portable",
+        "samsung",
+        "ssd",
+        "storage",
+        "strategy",
+        "upgrading",
+        "worth",
+        "your"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-15T05:01:38.696200+00:00",
+      "category": "storage",
+      "intent": "worth_it",
+      "topic": "is upgrading your portable storage worth it for backup strategy"
     }
   ]
 }
