@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-09-15T12:51:32.149612+00:00",
+  "generated_at": "2026-09-15T17:44:44.990520+00:00",
   "site_url": "https://techsignal.wasmer.app",
   "policy": {
     "wordpress_is_content_source": true,
@@ -9,6 +9,35 @@
     "no_unconfigured_channel_publish": true
   },
   "items": [
+    {
+      "post_id": 117,
+      "title": "Logitech C920 HD Pro: The Webcam That Meets Zoom and Teams Requirements in a Typical Home‑Office",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/15/logitech-c920-zoom-teams/",
+      "slug": "logitech-c920-zoom-teams",
+      "published_at": "2026-09-15T14:23:07",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
     {
       "post_id": 116,
       "title": "When the Samsung T7 2TB Is Not Enough, Choose by Constraint",
