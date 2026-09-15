@@ -787,6 +787,29 @@
       "category": "storage",
       "intent": "worth_it",
       "topic": "is upgrading your portable storage worth it for backup strategy"
+    },
+    {
+      "keywords": [
+        "2tb",
+        "alternatives",
+        "backup",
+        "basic",
+        "best",
+        "choose",
+        "constraint",
+        "enough",
+        "not",
+        "portable",
+        "samsung",
+        "storage",
+        "strategy",
+        "when"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-15T08:48:31.339361+00:00",
+      "category": "storage",
+      "intent": "alternatives",
+      "topic": "best alternatives for backup strategy when a basic portable storage is not enough"
     }
   ]
 }
