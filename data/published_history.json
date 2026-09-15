@@ -810,6 +810,30 @@
       "category": "storage",
       "intent": "alternatives",
       "topic": "best alternatives for backup strategy when a basic portable storage is not enough"
+    },
+    {
+      "keywords": [
+        "best",
+        "c920",
+        "home",
+        "logitech",
+        "meets",
+        "office",
+        "pro",
+        "requirements",
+        "scenario",
+        "teams",
+        "typical",
+        "webcam",
+        "webcams",
+        "when",
+        "zoom"
+      ],
+      "entities": [],
+      "recorded_at": "2026-09-15T14:23:11.959016+00:00",
+      "category": "webcams",
+      "intent": "scenario",
+      "topic": "best webcams when zoom and teams"
     }
   ]
 }
