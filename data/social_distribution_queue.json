@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-09-15T06:37:12.546921+00:00",
+  "generated_at": "2026-09-15T12:51:32.149612+00:00",
   "site_url": "https://techsignal.wasmer.app",
   "policy": {
     "wordpress_is_content_source": true,
@@ -9,6 +9,35 @@
     "no_unconfigured_channel_publish": true
   },
   "items": [
+    {
+      "post_id": 116,
+      "title": "When the Samsung T7 2TB Is Not Enough, Choose by Constraint",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/15/samsung-t7-backup-alternatives-by-constraint/",
+      "slug": "samsung-t7-backup-alternatives-by-constraint",
+      "published_at": "2026-09-15T08:48:27",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
     {
       "post_id": 115,
       "title": "Is the Samsung T7 Portable SSD 2TB Worth It for Backup?",
