@@ -1,0 +1,2014 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-09-15T00:44:11.453989+00:00",
+  "site_url": "https://techsignal.wasmer.app",
+  "policy": {
+    "wordpress_is_content_source": true,
+    "social_publish_requires_explicit_channel_authorization": true,
+    "channel_specific_copy_required": true,
+    "no_unconfigured_channel_publish": true
+  },
+  "items": [
+    {
+      "post_id": 112,
+      "title": "Samsung T7 Portable SSD 2TB: A Strong Portable Drive With Clear Limits",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/samsung-t7-portable-ssd-2tb-clear-limits/",
+      "slug": "samsung-t7-portable-ssd-2tb-clear-limits",
+      "published_at": "2026-09-14T16:10:42",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 111,
+      "title": "AirPods Pro 1: Who Are They Still For?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/airpods-pro-1-who-is-it-for/",
+      "slug": "airpods-pro-1-who-is-it-for",
+      "published_at": "2026-09-14T13:31:10",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 110,
+      "title": "AirPods Pro 1: The Compact ANC Proposition",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/airpods-pro-1-compact-anc/",
+      "slug": "airpods-pro-1-compact-anc",
+      "published_at": "2026-09-14T13:31:04",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 109,
+      "title": "AirPods Pro 1: Is the Original ANC Still Interesting?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/airpods-pro-1-anc/",
+      "slug": "airpods-pro-1-anc",
+      "published_at": "2026-09-14T13:30:57",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 108,
+      "title": "Raspberry Pi 5: Can It Be a Small Everyday Computer?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/raspberry-pi-5-everyday-computer/",
+      "slug": "raspberry-pi-5-everyday-computer",
+      "published_at": "2026-09-14T13:30:51",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 107,
+      "title": "Raspberry Pi 5: Why Makers Should Care",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/raspberry-pi-5-makers/",
+      "slug": "raspberry-pi-5-makers",
+      "published_at": "2026-09-14T13:30:33",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 106,
+      "title": "Raspberry Pi 5: What Do You Actually Get?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/raspberry-pi-5-what-you-get/",
+      "slug": "raspberry-pi-5-what-you-get",
+      "published_at": "2026-09-14T13:30:26",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 105,
+      "title": "RØDE NT-USB Mini: Simplicity vs a More Complex Mic Setup",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/rode-nt-usb-mini-simple-setup/",
+      "slug": "rode-nt-usb-mini-simple-setup",
+      "published_at": "2026-09-14T13:30:18",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 104,
+      "title": "RØDE NT-USB Mini: Does It Make Sense for Streaming?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/rode-nt-usb-mini-streaming/",
+      "slug": "rode-nt-usb-mini-streaming",
+      "published_at": "2026-09-14T13:30:09",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 103,
+      "title": "RØDE NT-USB Mini: A Practical Podcasting Choice",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/rode-nt-usb-mini-podcasting/",
+      "slug": "rode-nt-usb-mini-podcasting",
+      "published_at": "2026-09-14T13:30:02",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 102,
+      "title": "RØDE NT-USB Mini: Is It a Good Desktop Mic?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/rode-nt-usb-mini-desktop-mic/",
+      "slug": "rode-nt-usb-mini-desktop-mic",
+      "published_at": "2026-09-14T13:29:53",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 101,
+      "title": "The Samsung T7 2TB is a fast-transfer fit only when your host can keep up",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/samsung-t7-2tb-fast-transfer-scenario/",
+      "slug": "samsung-t7-2tb-fast-transfer-scenario",
+      "published_at": "2026-09-14T09:08:58",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 100,
+      "title": "Best portable storage for fast file transfers: Samsung T7 2TB conditional verdict",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/14/best-portable-storage-fast-file-transfers/",
+      "slug": "best-portable-storage-fast-file-transfers",
+      "published_at": "2026-09-14T05:12:25",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 99,
+      "title": "When Your Laptop’s Internal Storage Runs Out: Is the Samsung T7 2TB Portable SSD the Right Fix?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/13/samsung-t7-2tb-limited-laptop-storage/",
+      "slug": "samsung-t7-2tb-limited-laptop-storage",
+      "published_at": "2026-09-13T13:50:53",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 98,
+      "title": "When a Portable SSD Makes Sense for a Laptop with Limited Storage",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/13/portable-ssd-limited-laptop-storage/",
+      "slug": "portable-ssd-limited-laptop-storage",
+      "published_at": "2026-09-13T11:59:58",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 97,
+      "title": "When the Samsung T7 Portable SSD 2TB Isn’t Enough for Travel Work",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/13/samsung-t7-alternatives-travel-work/",
+      "slug": "samsung-t7-alternatives-travel-work",
+      "published_at": "2026-09-13T08:22:18",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 96,
+      "title": "Is a Samsung T7 2TB Portable SSD Worth It for Travel Work?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/13/is-samsung-t7-2tb-portable-ssd-worth-it-for-travel-work/",
+      "slug": "is-samsung-t7-2tb-portable-ssd-worth-it-for-travel-work",
+      "published_at": "2026-09-13T06:36:48",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 95,
+      "title": "Is the Samsung T7 2TB Worth Upgrading to for Laptop Backups?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/12/samsung-t7-2tb-worth-it-laptop-backups/",
+      "slug": "samsung-t7-2tb-worth-it-laptop-backups",
+      "published_at": "2026-09-12T10:59:30",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 94,
+      "title": "Samsung T7 2TB for laptop backups: buy only when your host can use its speed",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/12/samsung-t7-2tb-laptop-backup-buying-guide/",
+      "slug": "samsung-t7-2tb-laptop-backup-buying-guide",
+      "published_at": "2026-09-12T07:59:47",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 93,
+      "title": "Samsung T7 Portable SSD 2TB: should it be your laptop backup drive?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/12/samsung-t7-portable-ssd-2tb-laptop-backup-guide/",
+      "slug": "samsung-t7-portable-ssd-2tb-laptop-backup-guide",
+      "published_at": "2026-09-12T04:46:29",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 92,
+      "title": "One Outlet, Three Devices, a Week Off-Grid: Can a Single Power Bank Handle It?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/11/anker-737-powerbank-remote-work-trip/",
+      "slug": "anker-737-powerbank-remote-work-trip",
+      "published_at": "2026-09-11T13:42:20",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 91,
+      "title": "Anker 737 Power Bank: When It’s the Right Backup Power Choice",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/11/anker-737-power-bank-backup-power-guide/",
+      "slug": "anker-737-power-bank-backup-power-guide",
+      "published_at": "2026-09-11T11:31:42",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 89,
+      "title": "When Your Pocket Power Bank Fails: Choosing the Right Travel Charging Alternative",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/11/best-alternatives-compact-travel-kits-power/",
+      "slug": "best-alternatives-compact-travel-kits-power",
+      "published_at": "2026-09-11T08:07:50",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 88,
+      "title": "Is upgrading to the Anker 737 worth it for a compact travel kit?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/11/is-upgrading-to-anker-737-worth-it-compact-travel/",
+      "slug": "is-upgrading-to-anker-737-worth-it-compact-travel",
+      "published_at": "2026-09-11T06:40:36",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 86,
+      "title": "When the Anker 737 Is Overkill: Choosing a Power-Bank Alternative for Long Workdays",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/10/anker-737-power-bank-alternatives-long-workdays/",
+      "slug": "anker-737-power-bank-alternatives-long-workdays",
+      "published_at": "2026-09-10T13:41:00",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 85,
+      "title": "The Power Bank for a Full Laptop Workday With No Wall Outlets",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/10/best-charging-power-gear-long-workdays/",
+      "slug": "best-charging-power-gear-long-workdays",
+      "published_at": "2026-09-10T04:53:32",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 84,
+      "title": "Anker 737 Power Bank: Buy Only When Its 140W Ceiling Fits Your Work",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/09/anker-737-power-bank-mobile-work-buying-guide/",
+      "slug": "anker-737-power-bank-mobile-work-buying-guide",
+      "published_at": "2026-09-09T11:33:26",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 83,
+      "title": "When a Basic Charger Isn’t Enough: Choosing a High‑Output Power Bank for Laptop Travel",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/09/high-output-power-bank-laptop-travel-alternatives/",
+      "slug": "high-output-power-bank-laptop-travel-alternatives",
+      "published_at": "2026-09-09T08:18:07",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 82,
+      "title": "Is the Anker 737 Power Bank Worth It for Laptop Travel?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/09/anker-737-power-bank-worth-it-laptop-travel/",
+      "slug": "anker-737-power-bank-worth-it-laptop-travel",
+      "published_at": "2026-09-09T04:50:28",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 81,
+      "title": "Best Power Bank for Laptop Travel: When the Anker 737 PowerCore 24K Justifies Its Weight",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/08/anker-737-powercore-24k-laptop-travel-buyer-guide/",
+      "slug": "anker-737-powercore-24k-laptop-travel-buyer-guide",
+      "published_at": "2026-09-08T15:11:46",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 80,
+      "title": "When a Basic USB Mic Can’t Tame Noise: Choosing the Right Alternative",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/08/when-basic-usb-mic-cant-tame-noise-choosing-the-right-alternative/",
+      "slug": "when-basic-usb-mic-cant-tame-noise-choosing-the-right-alternative",
+      "published_at": "2026-09-08T11:28:01",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 75,
+      "title": "When the Room Is Noisy: A Dynamic Mic and Closed-Back Headphones Are the Real Fix",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/08/audio-gear-noise-control/",
+      "slug": "audio-gear-noise-control",
+      "published_at": "2026-09-08T08:09:53",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 69,
+      "title": "Noise‑Control Audio Gear: Which Mic or Headphones Fit Your Setup?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/08/noise-control-audio-gear/",
+      "slug": "noise-control-audio-gear",
+      "published_at": "2026-09-08T04:45:10",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 68,
+      "title": "Audio Gear for Marathon Work Sessions: A TechSignal Decision",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/07/audio-gear-marathon-work-sessions/",
+      "slug": "audio-gear-marathon-work-sessions",
+      "published_at": "2026-09-07T12:47:36",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 67,
+      "title": "Best Audio Gear for Long Work Sessions: Which Mic and Headphone Setup Actually Works",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/07/best-audio-gear-long-work-sessions/",
+      "slug": "best-audio-gear-long-work-sessions",
+      "published_at": "2026-09-07T08:22:58",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 66,
+      "title": "Beyond the Basic Mic: Targeted Alternatives When Voice Clarity Needs to Level Up",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/07/beyond-basic-mic-alternatives-voice-clarity/",
+      "slug": "beyond-basic-mic-alternatives-voice-clarity",
+      "published_at": "2026-09-07T04:49:04",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 65,
+      "title": "Is Upgrading Your Home‑Office Audio Gear Worth It?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/06/upgrading-home-office-audio-gear-worth-it/",
+      "slug": "upgrading-home-office-audio-gear-worth-it",
+      "published_at": "2026-09-06T11:04:35",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 64,
+      "title": "Home‑Office Audio: Mic and Headphones That Fit Your Desk and Budget",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/06/home-office-audio-mic-headphones/",
+      "slug": "home-office-audio-mic-headphones",
+      "published_at": "2026-09-06T07:58:21",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 63,
+      "title": "Best Audio Gear for a Home Office: Microphones and Monitoring That Match Your Workflow",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/06/best-audio-gear-home-office/",
+      "slug": "best-audio-gear-home-office",
+      "published_at": "2026-09-06T04:46:15",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 62,
+      "title": "The Startup Disk Is Full. Do You Open the Laptop or Grab a Portable SSD?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/05/samsung-t7-2tb-portable-ssd-laptop-storage-upgrade-decision/",
+      "slug": "samsung-t7-2tb-portable-ssd-laptop-storage-upgrade-decision",
+      "published_at": "2026-09-05T13:55:51",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 61,
+      "title": "Beyond the C920: Choosing a Webcam That Actually Fits Your Workflow",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/05/beyond-the-c920-webcam-alternatives/",
+      "slug": "beyond-the-c920-webcam-alternatives",
+      "published_at": "2026-09-05T13:35:33",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 60,
+      "title": "USB Microphones for Video Calls: Which Model Fits Your Needs?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/05/usb-microphone-video-calls-buyer-guide/",
+      "slug": "usb-microphone-video-calls-buyer-guide",
+      "published_at": "2026-09-05T12:07:34",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 56,
+      "title": "Best Alternatives to a Basic USB Microphone for Remote Calls",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/05/best-alternatives-to-basic-usb-mic-remote-calls/",
+      "slug": "best-alternatives-to-basic-usb-mic-remote-calls",
+      "published_at": "2026-09-05T10:43:34",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 55,
+      "title": "Best USB Microphones Under $100: The Decision Guide for Podcasters and Voice Workers",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/05/best-usb-microphones-under-100-5/",
+      "slug": "best-usb-microphones-under-100-5",
+      "published_at": "2026-09-05T08:22:58",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 46,
+      "title": "USB Microphones for Video Calls: Which One Actually Earns a Place on Your Desk?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/04/usb-microphones-for-video-calls/",
+      "slug": "usb-microphones-for-video-calls",
+      "published_at": "2026-09-04T10:23:07",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 37,
+      "title": "Best High-Capacity Power Bank for Laptop Work: The Anker 737 Verdict",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/03/best-high-capacity-power-bank-laptop-work-technsignal/",
+      "slug": "best-high-capacity-power-bank-laptop-work-technsignal",
+      "published_at": "2026-09-03T09:37:54",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 36,
+      "title": "Can One Charger Replace Your Wall Outlet? The Anker 737 PowerCore 24K, Examined",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/03/anker-737-powercore-24k-laptop-power-bank/",
+      "slug": "anker-737-powercore-24k-laptop-power-bank",
+      "published_at": "2026-09-03T07:23:49",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 35,
+      "title": "£30 vs. £100: Which USB Microphone Fits Your Podcasting Budget?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/03/best-usb-microphones-under-100-4/",
+      "slug": "best-usb-microphones-under-100-4",
+      "published_at": "2026-09-03T07:09:32",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 34,
+      "title": "Samson Q2U vs RØDE NT‑USB Mini: Choosing a USB microphone under $100",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/samson-q2u-versus-rode-nt-usb-mini-under-100/",
+      "slug": "samson-q2u-versus-rode-nt-usb-mini-under-100",
+      "published_at": "2026-09-02T21:32:15",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 30,
+      "title": "Logitech C920 HD Pro Webcam for a practical home office setup",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/logitech-c920-hd-pro-webcam-for-a-practical-home-office-setup/",
+      "slug": "logitech-c920-hd-pro-webcam-for-a-practical-home-office-setup",
+      "published_at": "2026-09-02T20:11:04",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 29,
+      "title": "Samsung T7 Portable SSD 2TB for portable work files",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/samsung-t7-portable-ssd-2tb-for-portable-work-files/",
+      "slug": "samsung-t7-portable-ssd-2tb-for-portable-work-files",
+      "published_at": "2026-09-02T20:10:49",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 28,
+      "title": "Shure MV7 Review: Upgrading Your Home Podcast Microphone",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/shure-mv7-for-upgrading-a-home-podcast-microphone/",
+      "slug": "shure-mv7-for-upgrading-a-home-podcast-microphone",
+      "published_at": "2026-09-02T20:10:32",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 27,
+      "title": "Is the RØDE NT-USB Mini the Right Compact Mic for Your Home Studio?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/r-de-nt-usb-mini-for-a-compact-home-recording-setup/",
+      "slug": "r-de-nt-usb-mini-for-a-compact-home-recording-setup",
+      "published_at": "2026-09-02T20:08:59",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 26,
+      "title": "Samson Q2U Review: Practical Choice for Remote Work Voice Calls",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/samson-q2u-for-remote-work-voice-calls/",
+      "slug": "samson-q2u-for-remote-work-voice-calls",
+      "published_at": "2026-09-02T20:08:16",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 25,
+      "title": "Anker 737 Power Bank for laptop travel and mobile work",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/anker-737-power-bank-for-laptop-travel-and-mobile-work/",
+      "slug": "anker-737-power-bank-for-laptop-travel-and-mobile-work",
+      "published_at": "2026-09-02T20:05:59",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 24,
+      "title": "best high-capacity power bank for laptop work",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/best-high-capacity-power-bank-for-laptop-work/",
+      "slug": "best-high-capacity-power-bank-for-laptop-work",
+      "published_at": "2026-09-02T20:05:38",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 23,
+      "title": "Samsung T7 vs buying a larger external SSD for work",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/samsung-t7-vs-buying-a-larger-external-ssd-for-work/",
+      "slug": "samsung-t7-vs-buying-a-larger-external-ssd-for-work",
+      "published_at": "2026-09-02T20:05:24",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 22,
+      "title": "best 2TB portable SSD for working from home",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/best-2tb-portable-ssd-for-working-from-home/",
+      "slug": "best-2tb-portable-ssd-for-working-from-home",
+      "published_at": "2026-09-02T20:05:10",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 21,
+      "title": "best portable SSD for laptop backups",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/best-portable-ssd-for-laptop-backups/",
+      "slug": "best-portable-ssd-for-laptop-backups",
+      "published_at": "2026-09-02T20:04:53",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 20,
+      "title": "Logitech C920 HD Pro vs premium webcam for home office",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/logitech-c920-hd-pro-vs-premium-webcam-for-home-office/",
+      "slug": "logitech-c920-hd-pro-vs-premium-webcam-for-home-office",
+      "published_at": "2026-09-02T20:04:40",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 19,
+      "title": "best webcam for Zoom and Teams under $100",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/best-webcam-for-zoom-and-teams-under-100/",
+      "slug": "best-webcam-for-zoom-and-teams-under-100",
+      "published_at": "2026-09-02T20:04:21",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 18,
+      "title": "Beyerdynamic DT 770 PRO for Desk Work: A Focused Look",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/beyerdynamic-dt-770-pro-vs-usb-headphones-for-desk-work/",
+      "slug": "beyerdynamic-dt-770-pro-vs-usb-headphones-for-desk-work",
+      "published_at": "2026-09-02T20:04:05",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 17,
+      "title": "Microphones for working from home: a practical guide",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/best-microphones-for-working-from-home-under-200/",
+      "slug": "best-microphones-for-working-from-home-under-200",
+      "published_at": "2026-09-02T20:02:24",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 16,
+      "title": "RØDE NT-USB Mini vs Shure MV7: Choosing the Right Microphone for Your Podcast",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/r-de-nt-usb-mini-vs-shure-mv7-for-podcasting/",
+      "slug": "r-de-nt-usb-mini-vs-shure-mv7-for-podcasting",
+      "published_at": "2026-09-02T19:58:30",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 15,
+      "title": "Samson Q2U vs RØDE NT-USB Mini: Which Should You Pick for Home Office Calls?",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/samson-q2u-vs-r-de-nt-usb-mini-for-home-office-calls/",
+      "slug": "samson-q2u-vs-r-de-nt-usb-mini-for-home-office-calls",
+      "published_at": "2026-09-02T19:57:51",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 14,
+      "title": "Best USB Microphones for Video Calls: A Practical Buying Guide",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/best-usb-microphones-for-video-calls/",
+      "slug": "best-usb-microphones-for-video-calls",
+      "published_at": "2026-09-02T19:57:29",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 13,
+      "title": "Best USB Microphones Under $100: A Practical Guide",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/best-usb-microphones-under-100-3/",
+      "slug": "best-usb-microphones-under-100-3",
+      "published_at": "2026-09-02T19:56:47",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 12,
+      "title": "Best Closed-Back Headphones for Desk Work",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/02/best-closed-back-headphones-for-desk-work/",
+      "slug": "best-closed-back-headphones-for-desk-work",
+      "published_at": "2026-09-02T11:22:25",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    },
+    {
+      "post_id": 11,
+      "title": "Elgato Stream Deck MK.2 for productivity workflows",
+      "wordpress_url": "https://techsignal.wasmer.app/2026/09/01/elgato-stream-deck-mk-2-for-productivity-workflows/",
+      "slug": "elgato-stream-deck-mk-2-for-productivity-workflows",
+      "published_at": "2026-09-01T20:54:07",
+      "channels": {
+        "youtube": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "tiktok": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "facebook": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "instagram": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        },
+        "linkedin": {
+          "status": "awaiting_channel_authorization",
+          "published_url": null
+        }
+      }
+    }
+  ]
+}
